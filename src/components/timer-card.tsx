@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import { Card } from "primereact/card";
 import { Button } from "primereact/button";
 import { InputNumber } from "primereact/inputnumber";
@@ -34,32 +34,7 @@ export const TimerCard: React.FC<TimerCardProps> = ({ className }) => {
     (s) => s.type === "work" && s.completed
   ).length;
 
-  // Timer logic
-  useEffect(() => {
-    if (isRunning && !isPaused) {
-      intervalRef.current = setInterval(() => {
-        setTimeLeft((prev) => {
-          if (prev <= 1) {
-            handleSessionComplete();
-            return 0;
-          }
-          return prev - 1;
-        });
-      }, 1000);
-    } else {
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current);
-      }
-    }
-
-    return () => {
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current);
-      }
-    };
-  }, [isRunning, isPaused]);
-
-  const handleSessionComplete = () => {
+  const handleSessionComplete = useCallback(() => {
     setIsRunning(false);
     setIsPaused(false);
 
@@ -94,7 +69,38 @@ export const TimerCard: React.FC<TimerCardProps> = ({ className }) => {
       setSessionType("work");
       setTimeLeft(workDuration * 60);
     }
-  };
+  }, [
+    sessionType,
+    currentSessionId,
+    endFocusSession,
+    breakDuration,
+    workDuration,
+  ]);
+
+  // Timer logic
+  useEffect(() => {
+    if (isRunning && !isPaused) {
+      intervalRef.current = setInterval(() => {
+        setTimeLeft((prev) => {
+          if (prev <= 1) {
+            handleSessionComplete();
+            return 0;
+          }
+          return prev - 1;
+        });
+      }, 1000);
+    } else {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+      }
+    }
+
+    return () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+      }
+    };
+  }, [isRunning, isPaused, handleSessionComplete]);
 
   const handleStart = () => {
     if (!isRunning) {

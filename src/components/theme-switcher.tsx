@@ -6,7 +6,7 @@ import { Button } from "primereact/button";
 import { Card } from "primereact/card";
 import { Badge } from "primereact/badge";
 import { ToggleButton } from "primereact/togglebutton";
-import { useTheme } from "@/lib/providers/theme-provider";
+import { useTheme, Theme } from "@/lib/providers/theme-provider";
 
 interface ThemeSwitcherProps {
   className?: string;
@@ -26,7 +26,7 @@ export const ThemeSwitcher: React.FC<ThemeSwitcherProps> = ({ className }) => {
 
   const activeThemes = isDarkMode ? darkThemes : lightThemes;
 
-  const handleThemeSelect = (theme: any) => {
+  const handleThemeSelect = (theme: Theme) => {
     setTheme(theme);
     setSidebarVisible(false);
   };
