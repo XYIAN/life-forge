@@ -1,18 +1,18 @@
-"use client";
+'use client';
 
-import React, { useState, useEffect, useRef } from "react";
-import { Card } from "primereact/card";
-import { Button } from "primereact/button";
-import { Badge } from "primereact/badge";
-import { Toast } from "primereact/toast";
-import { getRandomQuote } from "@/constants/QUOTES";
+import React, { useState, useEffect, useRef } from 'react';
+import { Card } from 'primereact/card';
+import { Button } from 'primereact/button';
+import { Badge } from 'primereact/badge';
+import { Toast } from 'primereact/toast';
+import { getRandomQuote, type Quote } from '@/constants/QUOTES';
 
 interface QuoteOrbProps {
   className?: string;
 }
 
 export const QuoteOrb: React.FC<QuoteOrbProps> = ({ className }) => {
-  const [currentQuote, setCurrentQuote] = useState(getRandomQuote());
+  const [currentQuote, setCurrentQuote] = useState<Quote | null>(null);
   const [isAnimating, setIsAnimating] = useState(false);
   const [clickCount, setClickCount] = useState(0);
   const [showEasterEgg, setShowEasterEgg] = useState(false);
@@ -21,6 +21,11 @@ export const QuoteOrb: React.FC<QuoteOrbProps> = ({ className }) => {
   const toast = useRef<Toast>(null);
   const clickTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const rotationIntervalRef = useRef<NodeJS.Timeout | null>(null);
+
+  // Initialize quote after component mounts to prevent hydration mismatch
+  useEffect(() => {
+    setCurrentQuote(getRandomQuote());
+  }, []);
 
   // Auto-rotate quotes every 30 seconds
   useEffect(() => {
@@ -35,7 +40,7 @@ export const QuoteOrb: React.FC<QuoteOrbProps> = ({ className }) => {
   // Continuous rotation animation
   useEffect(() => {
     rotationIntervalRef.current = setInterval(() => {
-      setRotationAngle((prev) => (prev + 1) % 360);
+      setRotationAngle(prev => (prev + 1) % 360);
     }, 100);
     return () => {
       if (rotationIntervalRef.current) {
@@ -63,7 +68,7 @@ export const QuoteOrb: React.FC<QuoteOrbProps> = ({ className }) => {
 
   const handleOrbClick = () => {
     // Handle easter egg clicking
-    setClickCount((prev) => prev + 1);
+    setClickCount(prev => prev + 1);
 
     if (clickTimeoutRef.current) {
       clearTimeout(clickTimeoutRef.current);
@@ -79,12 +84,12 @@ export const QuoteOrb: React.FC<QuoteOrbProps> = ({ className }) => {
       setClickCount(0);
       if (toast.current) {
         toast.current.show({
-          severity: "info",
-          summary: "✨ Easter Egg Activated! ✨",
+          severity: 'info',
+          summary: '✨ Easter Egg Activated! ✨',
           detail:
-            "You have discovered the secret of the Life Forge! May your journey be filled with magic and wonder. 🌟",
+            'You have discovered the secret of the Life Forge! May your journey be filled with magic and wonder. 🌟',
           life: 5000,
-          className: "easter-egg-toast",
+          className: 'easter-egg-toast',
         });
       }
 
@@ -98,13 +103,13 @@ export const QuoteOrb: React.FC<QuoteOrbProps> = ({ className }) => {
 
   const getCategoryColor = (category: string) => {
     const colors = {
-      growth: "text-green-600",
-      mindset: "text-blue-600",
-      resilience: "text-purple-600",
-      wisdom: "text-amber-600",
-      gratitude: "text-pink-600",
-      success: "text-indigo-600",
-      default: "text-gray-600",
+      growth: 'text-green-600',
+      mindset: 'text-blue-600',
+      resilience: 'text-purple-600',
+      wisdom: 'text-amber-600',
+      gratitude: 'text-pink-600',
+      success: 'text-indigo-600',
+      default: 'text-gray-600',
     };
     return colors[category as keyof typeof colors] || colors.default;
   };
@@ -115,12 +120,10 @@ export const QuoteOrb: React.FC<QuoteOrbProps> = ({ className }) => {
       rgba(147, 51, 234, 0.3) 120deg, 
       rgba(236, 72, 153, 0.3) 240deg, 
       rgba(59, 130, 246, 0.3) 360deg)`,
-    borderRadius: "50%",
-    padding: "2px",
-    filter: isGlowing
-      ? "drop-shadow(0 0 20px rgba(59, 130, 246, 0.6))"
-      : "none",
-    transition: "filter 0.3s ease",
+    borderRadius: '50%',
+    padding: '2px',
+    filter: isGlowing ? 'drop-shadow(0 0 20px rgba(59, 130, 246, 0.6))' : 'none',
+    transition: 'filter 0.3s ease',
   };
 
   const header = (
@@ -129,10 +132,9 @@ export const QuoteOrb: React.FC<QuoteOrbProps> = ({ className }) => {
         <i className="pi pi-star text-2xl text-yellow-500"></i>
         <h3 className="text-lg font-semibold m-0">Wisdom Orb</h3>
       </div>
-      <Badge
-        value={currentQuote.category}
-        className={getCategoryColor(currentQuote.category)}
-      />
+      {currentQuote && (
+        <Badge value={currentQuote.category} className={getCategoryColor(currentQuote.category)} />
+      )}
     </div>
   );
 
@@ -141,28 +143,34 @@ export const QuoteOrb: React.FC<QuoteOrbProps> = ({ className }) => {
       <Toast ref={toast} />
       <Card
         header={header}
-        className={`quote-orb glass-card ${className || ""} ${
-          showEasterEgg ? "sparkle-animation" : ""
+        className={`quote-orb glass-card ${className || ''} ${
+          showEasterEgg ? 'sparkle-animation' : ''
         }`}
       >
         <div className="flex flex-column gap-4 align-items-center">
           {/* The Orb */}
           <div
-            className={`orb-container cursor-pointer ${
-              isAnimating ? "animate-spin" : ""
-            } ${clickCount > 5 ? "animate-pulse" : ""}`}
+            className={`orb-container cursor-pointer ${isAnimating ? 'animate-spin' : ''} ${
+              clickCount > 5 ? 'animate-pulse' : ''
+            }`}
             onClick={handleOrbClick}
             style={orbStyle}
           >
             <div className="orb-inner bg-white dark:bg-gray-800 border-round-xl p-4 text-center min-h-8rem flex align-items-center justify-content-center">
               <div
                 className={`quote-text ${
-                  isAnimating ? "opacity-0" : "opacity-100"
+                  isAnimating ? 'opacity-0' : 'opacity-100'
                 } transition-opacity duration-300`}
               >
-                <p className="text-sm md:text-base font-medium line-height-3 m-0 text-gray-700 dark:text-gray-200">
-                  &quot;{currentQuote.text}&quot;
-                </p>
+                {currentQuote ? (
+                  <p className="text-sm md:text-base font-medium line-height-3 m-0 text-gray-700 dark:text-gray-200">
+                    &quot;{currentQuote.text}&quot;
+                  </p>
+                ) : (
+                  <p className="text-sm md:text-base font-medium line-height-3 m-0 text-gray-400">
+                    Loading wisdom...
+                  </p>
+                )}
               </div>
             </div>
           </div>
@@ -183,9 +191,9 @@ export const QuoteOrb: React.FC<QuoteOrbProps> = ({ className }) => {
               onClick={() => {
                 if (toast.current) {
                   toast.current.show({
-                    severity: "success",
-                    summary: "❤️ Quote Favorited",
-                    detail: "This wisdom has been added to your heart!",
+                    severity: 'success',
+                    summary: '❤️ Quote Favorited',
+                    detail: 'This wisdom has been added to your heart!',
                     life: 3000,
                   });
                 }
@@ -198,16 +206,18 @@ export const QuoteOrb: React.FC<QuoteOrbProps> = ({ className }) => {
           </div>
 
           {/* Category Info */}
-          <div className="flex align-items-center gap-2 w-full justify-content-center">
-            <i className="pi pi-tag text-xs text-gray-400"></i>
-            <span
-              className={`text-xs font-medium capitalize ${getCategoryColor(
-                currentQuote.category
-              )}`}
-            >
-              {currentQuote.category.replace("-", " ")}
-            </span>
-          </div>
+          {currentQuote && (
+            <div className="flex align-items-center gap-2 w-full justify-content-center">
+              <i className="pi pi-tag text-xs text-gray-400"></i>
+              <span
+                className={`text-xs font-medium capitalize ${getCategoryColor(
+                  currentQuote.category
+                )}`}
+              >
+                {currentQuote.category.replace('-', ' ')}
+              </span>
+            </div>
+          )}
 
           {/* Easter Egg Hint */}
           {clickCount > 5 && clickCount < 10 && (

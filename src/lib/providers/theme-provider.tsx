@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import React, { createContext, useContext, useEffect, useState } from "react";
-import { PrimeReactProvider } from "primereact/api";
+import React, { createContext, useContext, useEffect, useState } from 'react';
+import { PrimeReactProvider } from 'primereact/api';
 
 // Theme definitions
 export interface Theme {
@@ -9,106 +9,106 @@ export interface Theme {
   displayName: string;
   cssFile: string;
   isDark: boolean;
-  category: "light" | "dark";
+  category: 'light' | 'dark';
   description: string;
 }
 
 export const THEMES: Theme[] = [
   {
-    name: "saga-blue",
-    displayName: "Saga Blue",
-    cssFile: "saga-blue",
+    name: 'saga-blue',
+    displayName: 'Saga Blue',
+    cssFile: 'saga-blue',
     isDark: false,
-    category: "light",
-    description: "Classic blue theme with clean design",
+    category: 'light',
+    description: 'Classic blue theme with clean design',
   },
   {
-    name: "saga-green",
-    displayName: "Saga Green",
-    cssFile: "saga-green",
+    name: 'saga-green',
+    displayName: 'Saga Green',
+    cssFile: 'saga-green',
     isDark: false,
-    category: "light",
-    description: "Fresh green theme for nature lovers",
+    category: 'light',
+    description: 'Fresh green theme for nature lovers',
   },
   {
-    name: "saga-orange",
-    displayName: "Saga Orange",
-    cssFile: "saga-orange",
+    name: 'saga-orange',
+    displayName: 'Saga Orange',
+    cssFile: 'saga-orange',
     isDark: false,
-    category: "light",
-    description: "Warm orange theme with energy",
+    category: 'light',
+    description: 'Warm orange theme with energy',
   },
   {
-    name: "saga-purple",
-    displayName: "Saga Purple",
-    cssFile: "saga-purple",
+    name: 'saga-purple',
+    displayName: 'Saga Purple',
+    cssFile: 'saga-purple',
     isDark: false,
-    category: "light",
-    description: "Royal purple theme with elegance",
+    category: 'light',
+    description: 'Royal purple theme with elegance',
   },
   {
-    name: "arya-blue",
-    displayName: "Arya Blue",
-    cssFile: "arya-blue",
+    name: 'arya-blue',
+    displayName: 'Arya Blue',
+    cssFile: 'arya-blue',
     isDark: true,
-    category: "dark",
-    description: "Dark blue theme with mystical vibes",
+    category: 'dark',
+    description: 'Dark blue theme with mystical vibes',
   },
   {
-    name: "arya-green",
-    displayName: "Arya Green",
-    cssFile: "arya-green",
+    name: 'arya-green',
+    displayName: 'Arya Green',
+    cssFile: 'arya-green',
     isDark: true,
-    category: "dark",
-    description: "Dark green theme with forest energy",
+    category: 'dark',
+    description: 'Dark green theme with forest energy',
   },
   {
-    name: "arya-orange",
-    displayName: "Arya Orange",
-    cssFile: "arya-orange",
+    name: 'arya-orange',
+    displayName: 'Arya Orange',
+    cssFile: 'arya-orange',
     isDark: true,
-    category: "dark",
-    description: "Dark orange theme with warmth",
+    category: 'dark',
+    description: 'Dark orange theme with warmth',
   },
   {
-    name: "arya-purple",
-    displayName: "Arya Purple",
-    cssFile: "arya-purple",
+    name: 'arya-purple',
+    displayName: 'Arya Purple',
+    cssFile: 'arya-purple',
     isDark: true,
-    category: "dark",
-    description: "Dark purple theme for the arcane",
+    category: 'dark',
+    description: 'Dark purple theme for the arcane',
   },
   {
-    name: "viva-light",
-    displayName: "Viva Light",
-    cssFile: "viva-light",
+    name: 'viva-light',
+    displayName: 'Viva Light',
+    cssFile: 'viva-light',
     isDark: false,
-    category: "light",
-    description: "Modern light theme with vibrancy",
+    category: 'light',
+    description: 'Modern light theme with vibrancy',
   },
   {
-    name: "viva-dark",
-    displayName: "Viva Dark",
-    cssFile: "viva-dark",
+    name: 'viva-dark',
+    displayName: 'Viva Dark',
+    cssFile: 'viva-dark',
     isDark: true,
-    category: "dark",
-    description: "Modern dark theme with depth",
+    category: 'dark',
+    description: 'Modern dark theme with depth',
   },
   {
-    name: "mira",
-    displayName: "Mira",
-    cssFile: "mira",
+    name: 'mira',
+    displayName: 'Mira',
+    cssFile: 'mira',
     isDark: false,
-    category: "light",
-    description: "Minimalist theme with clean aesthetics",
+    category: 'light',
+    description: 'Minimalist theme with clean aesthetics',
   },
   {
-    name: "nano",
-    displayName: "Nano",
-    cssFile: "nano",
+    name: 'nano',
+    displayName: 'Nano',
+    cssFile: 'nano',
     isDark: false,
-    category: "light",
-    description: "Compact theme with efficiency",
+    category: 'light',
+    description: 'Compact theme with efficiency',
   },
 ];
 
@@ -127,7 +127,7 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 export const useTheme = () => {
   const context = useContext(ThemeContext);
   if (!context) {
-    throw new Error("useTheme must be used within a ThemeProvider");
+    throw new Error('useTheme must be used within a ThemeProvider');
   }
   return context;
 };
@@ -142,44 +142,34 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
 
   // Load theme from localStorage on component mount
   useEffect(() => {
-    const savedTheme = localStorage.getItem("life-forge-theme");
-    const savedDarkMode = localStorage.getItem("life-forge-dark-mode");
+    const savedTheme = localStorage.getItem('life-forge-theme');
+    const savedDarkMode = localStorage.getItem('life-forge-dark-mode');
 
     if (savedTheme) {
-      const theme = THEMES.find((t) => t.name === savedTheme) || THEMES[0];
+      const theme = THEMES.find(t => t.name === savedTheme) || THEMES[0];
       setCurrentTheme(theme);
     }
 
     if (savedDarkMode) {
-      setIsDarkMode(savedDarkMode === "true");
+      setIsDarkMode(savedDarkMode === 'true');
     }
   }, []);
 
   // Apply theme to document
   useEffect(() => {
-    const linkElement = document.getElementById(
-      "theme-link"
-    ) as HTMLLinkElement;
-    if (linkElement) {
-      linkElement.href = `/themes/${currentTheme.cssFile}/theme.css`;
-    } else {
-      const link = document.createElement("link");
-      link.id = "theme-link";
-      link.rel = "stylesheet";
-      link.href = `/themes/${currentTheme.cssFile}/theme.css`;
-      document.head.appendChild(link);
-    }
+    // For now, we'll use the basic theme CSS imported in layout
+    // TODO: Implement dynamic theme loading later
 
     // Apply dark mode class to body
     if (isDarkMode) {
-      document.body.classList.add("dark-mode");
+      document.body.classList.add('dark-mode');
     } else {
-      document.body.classList.remove("dark-mode");
+      document.body.classList.remove('dark-mode');
     }
 
     // Save to localStorage
-    localStorage.setItem("life-forge-theme", currentTheme.name);
-    localStorage.setItem("life-forge-dark-mode", isDarkMode.toString());
+    localStorage.setItem('life-forge-theme', currentTheme.name);
+    localStorage.setItem('life-forge-dark-mode', isDarkMode.toString());
   }, [currentTheme, isDarkMode]);
 
   const setTheme = (theme: Theme) => {
@@ -195,9 +185,9 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
     const targetThemes = newDarkMode ? darkThemes : lightThemes;
     const correspondingTheme =
       targetThemes.find(
-        (t) =>
-          t.name.includes(currentTheme.name.split("-")[1]) ||
-          t.name.includes(currentTheme.name.split("-")[0])
+        t =>
+          t.name.includes(currentTheme.name.split('-')[1]) ||
+          t.name.includes(currentTheme.name.split('-')[0])
       ) || targetThemes[0];
 
     setCurrentTheme(correspondingTheme);
@@ -205,13 +195,12 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
 
   const getRandomTheme = () => {
     const availableThemes = isDarkMode ? darkThemes : lightThemes;
-    const randomTheme =
-      availableThemes[Math.floor(Math.random() * availableThemes.length)];
+    const randomTheme = availableThemes[Math.floor(Math.random() * availableThemes.length)];
     setCurrentTheme(randomTheme);
   };
 
-  const lightThemes = THEMES.filter((theme) => theme.category === "light");
-  const darkThemes = THEMES.filter((theme) => theme.category === "dark");
+  const lightThemes = THEMES.filter(theme => theme.category === 'light');
+  const darkThemes = THEMES.filter(theme => theme.category === 'dark');
 
   const value: ThemeContextType = {
     currentTheme,
