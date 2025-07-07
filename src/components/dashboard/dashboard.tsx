@@ -143,7 +143,7 @@ export default function Dashboard() {
     return 'Good evening';
   };
 
-  if (!userInfo) {
+  if (!userInfo && !showUserDialog) {
     return (
       <div className="flex justify-center items-center h-screen">
         <div className="text-center">
@@ -181,7 +181,7 @@ export default function Dashboard() {
               }}
             >
               <h1 className="text-3xl font-bold mb-2" style={{ color: 'var(--foreground)' }}>
-                {getGreeting()}, {userInfo.name}!
+                {getGreeting()}, {userInfo?.name}!
               </h1>
               <p style={{ color: 'var(--foreground)', opacity: 0.9 }}>
                 Ready to make today amazing? Let&apos;s check in on your wellness journey.
