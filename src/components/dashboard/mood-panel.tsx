@@ -1,12 +1,13 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Card } from 'primereact/card';
 import { Button } from 'primereact/button';
 import { Slider } from 'primereact/slider';
 import { InputTextarea } from 'primereact/inputtextarea';
 import { Dialog } from 'primereact/dialog';
-import { useData } from '@/lib/providers/data-provider';
+import { useData } from '@providers';
+import { useFloatAnimation, useCelebrationAnimation } from '@hooks';
 
 interface MoodPanelProps {
   className?: string;
@@ -31,6 +32,21 @@ export const MoodPanel: React.FC<MoodPanelProps> = ({ className }) => {
   const [selectedMood, setSelectedMood] = useState(5);
   const [notes, setNotes] = useState('');
   const [isAnimating, setIsAnimating] = useState(false);
+  const moodIconRef = useRef<HTMLElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  // Float animation for the mood icon
+  useFloatAnimation({
+    elementRef: moodIconRef as React.RefObject<HTMLElement>,
+    duration: 2800,
+    amplitude: 7,
+    easing: 'easeInOutSine',
+  });
+
+  // Celebration animations
+  const { triggerElasticScale } = useCelebrationAnimation({
+    containerRef: containerRef as React.RefObject<HTMLElement>,
+  });
 
   const today = new Date();
   const todayMoods = getMoodEntriesForDate(today);
@@ -45,6 +61,12 @@ export const MoodPanel: React.FC<MoodPanelProps> = ({ className }) => {
     if (selectedMoodData) {
       setIsAnimating(true);
       addMoodEntry(selectedMood, selectedMoodData.icon, notes);
+
+      // Trigger elastic scale animation on the container
+      if (containerRef.current) {
+        triggerElasticScale(containerRef.current);
+      }
+
       setShowDialog(false);
       setNotes('');
       setTimeout(() => setIsAnimating(false), 600);
@@ -66,6 +88,7 @@ export const MoodPanel: React.FC<MoodPanelProps> = ({ className }) => {
     <div className="flex align-items-center justify-content-between">
       <div className="flex align-items-center gap-4">
         <i
+          ref={moodIconRef}
           className="pi pi-heart text-2xl"
           style={{
             background: 'linear-gradient(135deg, #ec4899, #be185d)',
@@ -106,10 +129,11 @@ export const MoodPanel: React.FC<MoodPanelProps> = ({ className }) => {
 
   return (
     <>
-      <Card
-        header={header}
-        className={`mood-panel glass-card ${className || ''} ${isAnimating ? 'animate-pulse' : ''}`}
-      >
+      <div ref={containerRef} className="relative">
+        <Card
+          header={header}
+          className={`mood-panel glass-card ${className || ''} ${isAnimating ? 'animate-pulse' : ''}`}
+        >
         <div className="flex flex-column gap-4">
           {/* Today's Stats */}
           <div className="flex justify-content-between align-items-center">
@@ -193,6 +217,7 @@ export const MoodPanel: React.FC<MoodPanelProps> = ({ className }) => {
           )}
         </div>
       </Card>
+      </div>
 
       {/* Mood Entry Dialog */}
       <Dialog

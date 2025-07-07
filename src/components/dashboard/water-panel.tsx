@@ -1,11 +1,12 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Card } from 'primereact/card';
 import { Button } from 'primereact/button';
 import { ProgressBar } from 'primereact/progressbar';
 import { Badge } from 'primereact/badge';
-import { useData } from '@/lib/providers/data-provider';
+import { useData } from '@providers';
+import { useFloatAnimation, useCelebrationAnimation } from '@hooks';
 
 interface WaterPanelProps {
   className?: string;
@@ -14,6 +15,21 @@ interface WaterPanelProps {
 export const WaterPanel: React.FC<WaterPanelProps> = ({ className }) => {
   const { addWaterEntry, getTotalWaterForDate, getCurrentWaterSession } = useData();
   const [isAnimating, setIsAnimating] = useState(false);
+  const waterIconRef = useRef<HTMLElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  // Float animation for the water icon
+  useFloatAnimation({
+    elementRef: waterIconRef as React.RefObject<HTMLElement>,
+    duration: 2500,
+    amplitude: 6,
+    easing: 'easeInOutSine',
+  });
+
+  // Celebration animations
+  const { triggerElasticScale } = useCelebrationAnimation({
+    containerRef: containerRef as React.RefObject<HTMLElement>,
+  });
 
   const today = new Date();
   const totalWater = getTotalWaterForDate(today);
@@ -24,6 +40,12 @@ export const WaterPanel: React.FC<WaterPanelProps> = ({ className }) => {
   const handleAddWater = (amount: number) => {
     setIsAnimating(true);
     addWaterEntry(amount);
+
+    // Trigger elastic scale animation on the container
+    if (containerRef.current) {
+      triggerElasticScale(containerRef.current);
+    }
+
     setTimeout(() => setIsAnimating(false), 600);
   };
 
@@ -45,6 +67,7 @@ export const WaterPanel: React.FC<WaterPanelProps> = ({ className }) => {
     <div className="flex align-items-center justify-content-between">
       <div className="flex align-items-center gap-4">
         <i
+          ref={waterIconRef}
           className="pi pi-tint text-2xl"
           style={{
             background: 'linear-gradient(135deg, #06b6d4, #3b82f6)',
@@ -77,86 +100,90 @@ export const WaterPanel: React.FC<WaterPanelProps> = ({ className }) => {
   );
 
   return (
-    <Card
-      header={header}
-      className={`water-panel glass-card ${className || ''} ${isAnimating ? 'animate-pulse' : ''}`}
-    >
-      <div className="flex flex-column gap-4">
-        {/* Progress Section */}
-        <div className="flex flex-column gap-2">
-          <div className="flex justify-content-between align-items-center">
-            <span className="text-sm font-medium" style={{ color: 'var(--foreground)' }}>
-              Today&apos;s Progress
-            </span>
-            <span className="text-sm font-bold" style={{ color: 'var(--foreground)' }}>
-              {formatWaterAmount(totalWater)} / {formatWaterAmount(dailyGoal)}
-            </span>
-          </div>
-          <ProgressBar
-            value={progress}
-            style={{ height: '8px' }}
-            color={getProgressColor(progress)}
-            className="w-full"
-          />
-        </div>
-
-        {/* Quick Add Buttons */}
-        <div className="flex flex-column gap-2">
-          <span className="text-sm font-medium" style={{ color: 'var(--foreground)' }}>
-            Quick Add
-          </span>
-          <div className="flex gap-2 flex-wrap">
-            <Button
-              label="250ml"
-              icon="pi pi-plus"
-              size="small"
-              onClick={() => handleAddWater(250)}
-              className="flex-1 min-w-0"
-              severity="info"
-            />
-            <Button
-              label="500ml"
-              icon="pi pi-plus"
-              size="small"
-              onClick={() => handleAddWater(500)}
-              className="flex-1 min-w-0"
-              severity="info"
-            />
-            <Button
-              label="1L"
-              icon="pi pi-plus"
-              size="small"
-              onClick={() => handleAddWater(1000)}
-              className="flex-1 min-w-0"
-              severity="info"
-            />
-          </div>
-        </div>
-
-        {/* Current Session */}
-        {currentSession.length > 0 && (
+    <div ref={containerRef} className="relative">
+      <Card
+        header={header}
+        className={`water-panel glass-card ${className || ''} ${
+          isAnimating ? 'animate-pulse' : ''
+        }`}
+      >
+        <div className="flex flex-column gap-4">
+          {/* Progress Section */}
           <div className="flex flex-column gap-2">
-            <span className="text-sm font-medium" style={{ color: 'var(--foreground)' }}>
-              Current Session
-            </span>
-            <div className="flex align-items-center gap-2">
-              <i className="pi pi-clock text-blue-500"></i>
-              <span className="text-sm" style={{ color: 'var(--foreground)' }}>
-                {formatWaterAmount(currentSession.reduce((sum, entry) => sum + entry.amount, 0))}
-                in last 2 hours
+            <div className="flex justify-content-between align-items-center">
+              <span className="text-sm font-medium" style={{ color: 'var(--foreground)' }}>
+                Today&apos;s Progress
+              </span>
+              <span className="text-sm font-bold" style={{ color: 'var(--foreground)' }}>
+                {formatWaterAmount(totalWater)} / {formatWaterAmount(dailyGoal)}
               </span>
             </div>
+            <ProgressBar
+              value={progress}
+              style={{ height: '8px' }}
+              color={getProgressColor(progress)}
+              className="w-full"
+            />
           </div>
-        )}
 
-        {/* Achievement Message */}
-        {progress >= 100 && (
-          <div className="flex align-items-center gap-2 p-2 bg-green-50 border-round">
-            <i className="pi pi-check-circle text-green-600"></i>
-            <span className="text-sm text-green-700 font-medium">Daily goal achieved! 🎉</span>
+          {/* Quick Add Buttons */}
+          <div className="flex flex-column gap-2">
+            <span className="text-sm font-medium" style={{ color: 'var(--foreground)' }}>
+              Quick Add
+            </span>
+            <div className="flex gap-2 flex-wrap">
+              <Button
+                label="250ml"
+                icon="pi pi-plus"
+                size="small"
+                onClick={() => handleAddWater(250)}
+                className="flex-1 min-w-0"
+                severity="info"
+              />
+              <Button
+                label="500ml"
+                icon="pi pi-plus"
+                size="small"
+                onClick={() => handleAddWater(500)}
+                className="flex-1 min-w-0"
+                severity="info"
+              />
+              <Button
+                label="1L"
+                icon="pi pi-plus"
+                size="small"
+                onClick={() => handleAddWater(1000)}
+                className="flex-1 min-w-0"
+                severity="info"
+              />
+            </div>
           </div>
-        )}
-      </div>
-    </Card>
+
+          {/* Current Session */}
+          {currentSession.length > 0 && (
+            <div className="flex flex-column gap-2">
+              <span className="text-sm font-medium" style={{ color: 'var(--foreground)' }}>
+                Current Session
+              </span>
+              <div className="flex align-items-center gap-2">
+                <i className="pi pi-clock text-blue-500"></i>
+                <span className="text-sm" style={{ color: 'var(--foreground)' }}>
+                  {formatWaterAmount(currentSession.reduce((sum, entry) => sum + entry.amount, 0))}
+                  in last 2 hours
+                </span>
+              </div>
+            </div>
+          )}
+
+          {/* Achievement Message */}
+          {progress >= 100 && (
+            <div className="flex align-items-center gap-2 p-2 bg-green-50 border-round">
+              <i className="pi pi-check-circle text-green-600"></i>
+              <span className="text-sm text-green-700 font-medium">Daily goal achieved! 🎉</span>
+            </div>
+          )}
+        </div>
+      </Card>
+    </div>
   );
 };

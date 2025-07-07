@@ -22,6 +22,21 @@ export const QuoteOrb: React.FC<QuoteOrbProps> = ({ className }) => {
   const toast = useRef<Toast>(null);
   const clickTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const rotationIntervalRef = useRef<NodeJS.Timeout | null>(null);
+  const orbRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  // Float animation for the orb
+  useFloatAnimation({
+    elementRef: orbRef as React.RefObject<HTMLElement>,
+    duration: 3000,
+    amplitude: 8,
+    easing: 'easeInOutSine',
+  });
+
+  // Celebration animations
+  const { triggerSparkles } = useCelebrationAnimation({
+    containerRef: containerRef as React.RefObject<HTMLElement>,
+  });
 
   // Initialize quote after component mounts to prevent hydration mismatch
   useEffect(() => {
@@ -67,7 +82,7 @@ export const QuoteOrb: React.FC<QuoteOrbProps> = ({ className }) => {
     }, 300);
   };
 
-  const handleOrbClick = () => {
+  const handleOrbClick = (event: React.MouseEvent) => {
     // Handle easter egg clicking
     setClickCount(prev => prev + 1);
 
@@ -83,6 +98,13 @@ export const QuoteOrb: React.FC<QuoteOrbProps> = ({ className }) => {
     if (clickCount >= 9) {
       setShowEasterEgg(true);
       setClickCount(0);
+
+      // Trigger sparkles at click position
+      const rect = event.currentTarget.getBoundingClientRect();
+      const x = rect.left + rect.width / 2;
+      const y = rect.top + rect.height / 2;
+      triggerSparkles(x, y, 20);
+
       if (toast.current) {
         toast.current.show({
           severity: 'info',
@@ -170,103 +192,106 @@ export const QuoteOrb: React.FC<QuoteOrbProps> = ({ className }) => {
   return (
     <>
       <Toast ref={toast} />
-      <Card
-        header={header}
-        className={`quote-orb glass-card ${className || ''} ${
-          showEasterEgg ? 'sparkle-animation' : ''
-        }`}
-      >
-        <div className="flex flex-column gap-4 align-items-center">
-          {/* The Orb */}
-          <div
-            className={`orb-container cursor-pointer ${isAnimating ? 'animate-spin' : ''} ${
-              clickCount > 5 ? 'animate-pulse' : ''
-            }`}
-            onClick={handleOrbClick}
-            style={orbStyle}
-          >
-            <div className="orb-inner bg-white dark:bg-gray-800 border-round-xl p-4 text-center min-h-8rem flex align-items-center justify-content-center">
-              <div
-                className={`quote-text ${
-                  isAnimating ? 'opacity-0' : 'opacity-100'
-                } transition-opacity duration-300`}
-              >
-                {currentQuote ? (
-                  <p className="text-sm md:text-base font-medium line-height-3 m-0 text-gray-700 dark:text-gray-200">
-                    &quot;{currentQuote.text}&quot;
-                  </p>
-                ) : (
-                  <p className="text-sm md:text-base font-medium line-height-3 m-0 text-gray-400">
-                    Loading wisdom...
-                  </p>
-                )}
+      <div ref={containerRef} className="relative">
+        <Card
+          header={header}
+          className={`quote-orb glass-card ${className || ''} ${
+            showEasterEgg ? 'sparkle-animation' : ''
+          }`}
+        >
+          <div className="flex flex-column gap-4 align-items-center">
+            {/* The Orb */}
+            <div
+              ref={orbRef}
+              className={`orb-container cursor-pointer ${isAnimating ? 'animate-spin' : ''} ${
+                clickCount > 5 ? 'animate-pulse' : ''
+              }`}
+              onClick={handleOrbClick}
+              style={orbStyle}
+            >
+              <div className="orb-inner bg-white dark:bg-gray-800 border-round-xl p-4 text-center min-h-8rem flex align-items-center justify-content-center">
+                <div
+                  className={`quote-text ${
+                    isAnimating ? 'opacity-0' : 'opacity-100'
+                  } transition-opacity duration-300`}
+                >
+                  {currentQuote ? (
+                    <p className="text-sm md:text-base font-medium line-height-3 m-0 text-gray-700 dark:text-gray-200">
+                      &quot;{currentQuote.text}&quot;
+                    </p>
+                  ) : (
+                    <p className="text-sm md:text-base font-medium line-height-3 m-0 text-gray-400">
+                      Loading wisdom...
+                    </p>
+                  )}
+                </div>
               </div>
             </div>
+
+            {/* Quote Actions */}
+            <div className="flex gap-2 w-full">
+              <Button
+                label="New Quote"
+                icon="pi pi-refresh"
+                onClick={handleNewQuote}
+                className="flex-1"
+                size="small"
+                severity="info"
+                disabled={isAnimating}
+              />
+              <Button
+                icon="pi pi-heart"
+                onClick={() => {
+                  if (toast.current) {
+                    toast.current.show({
+                      severity: 'success',
+                      summary: '❤️ Quote Favorited',
+                      detail: 'This wisdom has been added to your heart!',
+                      life: 3000,
+                    });
+                  }
+                }}
+                className="flex-none"
+                size="small"
+                severity="secondary"
+                outlined
+              />
+            </div>
+
+            {/* Category Info */}
+            {currentQuote && (
+              <div className="flex align-items-center gap-2 w-full justify-content-center">
+                <i className="pi pi-tag text-xs text-gray-400"></i>
+                <span
+                  className={`text-xs font-medium capitalize ${getCategoryColor(
+                    currentQuote.category
+                  )}`}
+                >
+                  {currentQuote.category.replace('-', ' ')}
+                </span>
+              </div>
+            )}
+
+            {/* Easter Egg Hint */}
+            {clickCount > 5 && clickCount < 10 && (
+              <div className="flex align-items-center gap-2 text-xs text-gray-500 animate-pulse">
+                <i className="pi pi-sparkles"></i>
+                <span>Something magical is happening... ({clickCount}/10)</span>
+              </div>
+            )}
+
+            {/* Floating Particles */}
+            {showEasterEgg && (
+              <div className="floating-particles">
+                <div className="particle particle-1">✨</div>
+                <div className="particle particle-2">🌟</div>
+                <div className="particle particle-3">💫</div>
+                <div className="particle particle-4">⭐</div>
+              </div>
+            )}
           </div>
-
-          {/* Quote Actions */}
-          <div className="flex gap-2 w-full">
-            <Button
-              label="New Quote"
-              icon="pi pi-refresh"
-              onClick={handleNewQuote}
-              className="flex-1"
-              size="small"
-              severity="info"
-              disabled={isAnimating}
-            />
-            <Button
-              icon="pi pi-heart"
-              onClick={() => {
-                if (toast.current) {
-                  toast.current.show({
-                    severity: 'success',
-                    summary: '❤️ Quote Favorited',
-                    detail: 'This wisdom has been added to your heart!',
-                    life: 3000,
-                  });
-                }
-              }}
-              className="flex-none"
-              size="small"
-              severity="secondary"
-              outlined
-            />
-          </div>
-
-          {/* Category Info */}
-          {currentQuote && (
-            <div className="flex align-items-center gap-2 w-full justify-content-center">
-              <i className="pi pi-tag text-xs text-gray-400"></i>
-              <span
-                className={`text-xs font-medium capitalize ${getCategoryColor(
-                  currentQuote.category
-                )}`}
-              >
-                {currentQuote.category.replace('-', ' ')}
-              </span>
-            </div>
-          )}
-
-          {/* Easter Egg Hint */}
-          {clickCount > 5 && clickCount < 10 && (
-            <div className="flex align-items-center gap-2 text-xs text-gray-500 animate-pulse">
-              <i className="pi pi-sparkles"></i>
-              <span>Something magical is happening... ({clickCount}/10)</span>
-            </div>
-          )}
-
-          {/* Floating Particles */}
-          {showEasterEgg && (
-            <div className="floating-particles">
-              <div className="particle particle-1">✨</div>
-              <div className="particle particle-2">🌟</div>
-              <div className="particle particle-3">💫</div>
-              <div className="particle particle-4">⭐</div>
-            </div>
-          )}
-        </div>
-      </Card>
+        </Card>
+      </div>
     </>
   );
 };
