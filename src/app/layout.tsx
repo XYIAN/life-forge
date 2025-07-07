@@ -8,6 +8,7 @@ import { Providers } from '@/lib/providers/providers';
 import { ParallaxBackground } from '@/components/parallax-background';
 import { GlobalHeader } from '@/components/global-header';
 import { GlobalFooter } from '@/components/global-footer';
+import { ThemeLoadingWrapper } from '@/components/theme-loading-wrapper';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -94,6 +95,9 @@ export default function RootLayout({
             <GlobalHeader />
             <main>{children}</main>
             <GlobalFooter />
+            <ThemeLoadingWrapper>
+              <></>
+            </ThemeLoadingWrapper>
           </Providers>
         </div>
       </body>

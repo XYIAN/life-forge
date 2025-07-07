@@ -120,6 +120,8 @@ interface ThemeContextType {
   getRandomTheme: () => void;
   lightThemes: Theme[];
   darkThemes: Theme[];
+  isThemeLoading: boolean;
+  setIsThemeLoading: (loading: boolean) => void;
 }
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
@@ -139,6 +141,7 @@ interface ThemeProviderProps {
 export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
   const [currentTheme, setCurrentTheme] = useState<Theme>(THEMES[0]);
   const [isDarkMode, setIsDarkMode] = useState(false);
+  const [isThemeLoading, setIsThemeLoading] = useState(false);
 
   // Load theme from localStorage on component mount
   useEffect(() => {
@@ -185,6 +188,7 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
   }, [currentTheme, isDarkMode]);
 
   const setTheme = (theme: Theme) => {
+    setIsThemeLoading(true);
     setCurrentTheme(theme);
     setIsDarkMode(theme.isDark);
   };
@@ -206,6 +210,7 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
   };
 
   const getRandomTheme = () => {
+    setIsThemeLoading(true);
     const availableThemes = isDarkMode ? darkThemes : lightThemes;
     const randomTheme = availableThemes[Math.floor(Math.random() * availableThemes.length)];
     setCurrentTheme(randomTheme);
@@ -222,6 +227,8 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
     getRandomTheme,
     lightThemes,
     darkThemes,
+    isThemeLoading,
+    setIsThemeLoading,
   };
 
   return (

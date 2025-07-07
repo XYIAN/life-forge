@@ -28,9 +28,7 @@ export const GlobalHeader: React.FC<GlobalHeaderProps> = ({ currentPage = 'home'
                 <h1 className="text-2xl font-bold m-0 bg-gradient-to-r from-amber-600 to-purple-600 bg-clip-text text-transparent">
                   Life Forge
                 </h1>
-                <p className="text-sm text-amber-700 dark:text-amber-300 m-0">
-                  Your Personal Daily Dashboard
-                </p>
+                <p className="text-sm text-white/90 m-0">Your Personal Daily Dashboard</p>
               </div>
             </div>
           </Link>
@@ -39,17 +37,32 @@ export const GlobalHeader: React.FC<GlobalHeaderProps> = ({ currentPage = 'home'
           <div className="flex align-items-center gap-2">
             {currentPage !== 'home' && (
               <Link href="/">
-                <Button label="Home" icon="pi pi-home" severity="secondary" text />
+                <Button
+                  label="Home"
+                  icon="pi pi-home"
+                  text
+                  className="text-white hover:text-amber-400 transition-colors"
+                />
               </Link>
             )}
             {currentPage !== 'dashboard' && (
               <Link href="/dashboard">
-                <Button label="Dashboard" icon="pi pi-th-large" severity="secondary" text />
+                <Button
+                  label="Dashboard"
+                  icon="pi pi-th-large"
+                  text
+                  className="text-white hover:text-amber-400 transition-colors"
+                />
               </Link>
             )}
             {currentPage !== 'about' && (
               <Link href="/about">
-                <Button label="About" icon="pi pi-info-circle" severity="secondary" text />
+                <Button
+                  label="About"
+                  icon="pi pi-info-circle"
+                  text
+                  className="text-white hover:text-amber-400 transition-colors"
+                />
               </Link>
             )}
             <ThemeSwitcher />

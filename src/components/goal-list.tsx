@@ -74,11 +74,13 @@ export const GoalList: React.FC<GoalListProps> = ({ className }) => {
   const header = (
     <div className="flex align-items-center justify-content-between">
       <div className="flex align-items-center gap-4">
-        <i className="pi pi-check-circle text-2xl text-green-500"></i>
-        <h3 className="text-lg font-semibold m-0">Daily Goals</h3>
+        <i className="pi pi-check-circle text-2xl" style={{ color: 'var(--warm-gold)' }}></i>
+        <h3 className="text-lg font-semibold m-0" style={{ color: 'var(--foreground)' }}>
+          Daily Goals
+        </h3>
       </div>
       <div className="flex align-items-center gap-2">
-        <span className="text-sm font-medium">
+        <span className="text-sm font-medium" style={{ color: 'var(--foreground)' }}>
           {completedGoals.length}/{todaysGoals.length}
         </span>
         <div className="w-3rem">
@@ -89,6 +91,18 @@ export const GoalList: React.FC<GoalListProps> = ({ className }) => {
             showValue={false}
           />
         </div>
+        <Button
+          icon="pi pi-info-circle"
+          rounded
+          text
+          size="small"
+          className="p-1"
+          style={{ color: 'var(--warm-gold)' }}
+          onClick={() => {
+            window.location.href = '/dashboard/daily-goals';
+          }}
+          aria-label="Goals info"
+        />
       </div>
     </div>
   );

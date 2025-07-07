@@ -148,18 +148,35 @@ export const TimerCard: React.FC<TimerCardProps> = ({ className }) => {
   const header = (
     <div className="flex align-items-center justify-content-between">
       <div className="flex align-items-center gap-4">
-        <i className="pi pi-clock text-2xl text-blue-500"></i>
-        <h3 className="text-lg font-semibold m-0">Focus Timer</h3>
+        <i className="pi pi-clock text-2xl" style={{ color: 'var(--deep-purple)' }}></i>
+        <h3 className="text-lg font-semibold m-0" style={{ color: 'var(--foreground)' }}>
+          Focus Timer
+        </h3>
       </div>
       <div className="flex align-items-center gap-2">
+        <span className="text-sm font-medium" style={{ color: 'var(--foreground)' }}>
+          {completedWorkSessions} sessions
+        </span>
         <Button
           icon="pi pi-cog"
           onClick={() => setShowSettings(true)}
           className="p-1"
           text
-          severity="secondary"
+          style={{ color: 'var(--warm-gold)' }}
         />
-        <span className="text-sm font-medium">{completedWorkSessions} sessions</span>
+        <Button
+          icon="pi pi-info-circle"
+          rounded
+          text
+          size="small"
+          className="p-1"
+          style={{ color: 'var(--warm-gold)' }}
+          onClick={() => {
+            // Navigate to detailed timer page
+            console.log('Navigate to timer details');
+          }}
+          aria-label="Timer info"
+        />
       </div>
     </div>
   );

@@ -28,7 +28,7 @@ export default function Dashboard() {
       default:
         return (
           <Card className="h-full flex align-items-center justify-content-center">
-            <div className="text-center text-gray-500">
+            <div className="text-center" style={{ color: 'var(--foreground)', opacity: 0.7 }}>
               <i className="pi pi-cog text-3xl mb-2"></i>
               <p>Panel coming soon...</p>
             </div>
@@ -44,10 +44,8 @@ export default function Dashboard() {
         {/* Welcome Section */}
         <div className="mb-6">
           <div className="text-center mb-4">
-            <h2 className="text-3xl font-bold text-gray-800 dark:text-gray-200 mb-2">
-              Your Life Dashboard
-            </h2>
-            <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+            <h2 className="text-3xl font-bold text-white mb-2">Your Life Dashboard</h2>
+            <p className="text-white/90 max-w-2xl mx-auto">
               Track your progress, manage your goals, and stay motivated with your personalized
               dashboard.
             </p>
@@ -56,7 +54,7 @@ export default function Dashboard() {
 
         {/* Dashboard Panels */}
         {enabledPanels.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="flex flex-column gap-8">
             {enabledPanels.map(panel => (
               <div key={panel.id} className="dashboard-panel">
                 {renderPanel(panel.id)}
@@ -72,8 +70,10 @@ export default function Dashboard() {
                   <i className="pi pi-plus text-3xl text-blue-500"></i>
                 </div>
                 <div>
-                  <h3 className="text-xl font-semibold mb-2">Customize Your Dashboard</h3>
-                  <p className="text-gray-600 dark:text-gray-400 mb-4">
+                  <h3 className="text-xl font-semibold mb-2" style={{ color: 'var(--foreground)' }}>
+                    Customize Your Dashboard
+                  </h3>
+                  <p className="mb-4" style={{ color: 'var(--foreground)', opacity: 0.8 }}>
                     Your dashboard is empty. Add some panels to get started!
                   </p>
                   <Button
@@ -96,8 +96,13 @@ export default function Dashboard() {
           <Card className="glass-card">
             <div className="flex justify-content-between align-items-center">
               <div>
-                <h4 className="text-lg font-semibold m-0 mb-1">Daily Overview</h4>
-                <p className="text-sm text-gray-600 dark:text-gray-400 m-0">
+                <h4
+                  className="text-lg font-semibold m-0 mb-1"
+                  style={{ color: 'var(--foreground)' }}
+                >
+                  Daily Overview
+                </h4>
+                <p className="text-sm m-0" style={{ color: 'var(--foreground)', opacity: 0.8 }}>
                   {new Date().toLocaleDateString('en-US', {
                     weekday: 'long',
                     year: 'numeric',
@@ -108,16 +113,28 @@ export default function Dashboard() {
               </div>
               <div className="flex align-items-center gap-4">
                 <div className="text-center">
-                  <div className="text-2xl font-bold text-blue-600">{enabledPanels.length}</div>
-                  <div className="text-xs text-gray-500">Active Panels</div>
+                  <div className="text-2xl font-bold" style={{ color: 'var(--warm-gold)' }}>
+                    {enabledPanels.length}
+                  </div>
+                  <div className="text-xs" style={{ color: 'var(--foreground)', opacity: 0.7 }}>
+                    Active Panels
+                  </div>
                 </div>
                 <div className="text-center">
-                  <div className="text-2xl font-bold text-green-600">🎯</div>
-                  <div className="text-xs text-gray-500">Goals</div>
+                  <div className="text-2xl font-bold" style={{ color: 'var(--warm-gold)' }}>
+                    🎯
+                  </div>
+                  <div className="text-xs" style={{ color: 'var(--foreground)', opacity: 0.7 }}>
+                    Goals
+                  </div>
                 </div>
                 <div className="text-center">
-                  <div className="text-2xl font-bold text-purple-600">✨</div>
-                  <div className="text-xs text-gray-500">Magic</div>
+                  <div className="text-2xl font-bold" style={{ color: 'var(--deep-purple)' }}>
+                    ✨
+                  </div>
+                  <div className="text-xs" style={{ color: 'var(--foreground)', opacity: 0.7 }}>
+                    Magic
+                  </div>
                 </div>
               </div>
             </div>
@@ -125,13 +142,19 @@ export default function Dashboard() {
         </div>
 
         {/* Floating Action Buttons */}
-        <div className="fixed bottom-4 right-4 z-4 flex flex-column gap-2">
+        <div className="fixed bottom-6 right-6 z-4 flex flex-column gap-3">
           <Button
             icon="pi pi-plus"
             rounded
-            severity="info"
             size="large"
-            className="shadow-lg"
+            className="glass-card shadow-lg border-1 border-amber-500/30 hover:border-amber-500/50 transition-all duration-300"
+            style={{
+              background: 'var(--glass-bg)',
+              backdropFilter: 'blur(25px) saturate(180%)',
+              color: 'var(--warm-gold)',
+              width: '3.5rem',
+              height: '3.5rem',
+            }}
             onClick={() => {
               // Open quick add dialog
               console.log('Quick add');
@@ -141,8 +164,14 @@ export default function Dashboard() {
           <Button
             icon="pi pi-cog"
             rounded
-            severity="secondary"
-            className="shadow-lg"
+            className="glass-card shadow-lg border-1 border-amber-500/30 hover:border-amber-500/50 transition-all duration-300"
+            style={{
+              background: 'var(--glass-bg)',
+              backdropFilter: 'blur(25px) saturate(180%)',
+              color: 'var(--warm-gold)',
+              width: '3rem',
+              height: '3rem',
+            }}
             onClick={() => {
               // Open dashboard settings
               console.log('Dashboard settings');

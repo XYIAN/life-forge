@@ -65,15 +65,34 @@ export const MoodPanel: React.FC<MoodPanelProps> = ({ className }) => {
   const header = (
     <div className="flex align-items-center justify-content-between">
       <div className="flex align-items-center gap-4">
-        <i className="pi pi-heart text-2xl text-pink-500"></i>
-        <h3 className="text-lg font-semibold m-0">Mood Tracker</h3>
+        <i className="pi pi-heart text-2xl" style={{ color: 'var(--deep-purple)' }}></i>
+        <h3 className="text-lg font-semibold m-0" style={{ color: 'var(--foreground)' }}>
+          Mood Tracker
+        </h3>
       </div>
-      {latestMood && (
-        <div className="flex align-items-center gap-2">
-          <span className="text-2xl">{latestMood.emoji}</span>
-          <span className="text-sm font-medium">{latestMood.mood}/10</span>
-        </div>
-      )}
+      <div className="flex align-items-center gap-2">
+        {latestMood && (
+          <div className="flex align-items-center gap-2">
+            <span className="text-2xl">{latestMood.emoji}</span>
+            <span className="text-sm font-medium" style={{ color: 'var(--foreground)' }}>
+              {latestMood.mood}/10
+            </span>
+          </div>
+        )}
+        <Button
+          icon="pi pi-info-circle"
+          rounded
+          text
+          size="small"
+          className="p-1"
+          style={{ color: 'var(--warm-gold)' }}
+          onClick={() => {
+            // Navigate to detailed mood tracking page
+            console.log('Navigate to mood details');
+          }}
+          aria-label="Mood tracker info"
+        />
+      </div>
     </div>
   );
 
@@ -87,20 +106,28 @@ export const MoodPanel: React.FC<MoodPanelProps> = ({ className }) => {
           {/* Today's Stats */}
           <div className="flex justify-content-between align-items-center">
             <div className="flex flex-column">
-              <span className="text-sm font-medium">Today&apos;s Average</span>
+              <span className="text-sm font-medium" style={{ color: 'var(--foreground)' }}>
+                Today&apos;s Average
+              </span>
               <span className={`text-lg font-bold ${getMoodColor(averageMood)}`}>
                 {averageMood > 0 ? `${averageMood.toFixed(1)}/10` : 'No entries'}
               </span>
             </div>
             <div className="flex flex-column align-items-end">
-              <span className="text-sm font-medium">Entries</span>
-              <span className="text-lg font-bold">{todayMoods.length}</span>
+              <span className="text-sm font-medium" style={{ color: 'var(--foreground)' }}>
+                Entries
+              </span>
+              <span className="text-lg font-bold" style={{ color: 'var(--foreground)' }}>
+                {todayMoods.length}
+              </span>
             </div>
           </div>
 
           {/* Quick Mood Selection */}
           <div className="flex flex-column gap-2">
-            <span className="text-sm font-medium">How are you feeling?</span>
+            <span className="text-sm font-medium" style={{ color: 'var(--foreground)' }}>
+              How are you feeling?
+            </span>
             <div className="flex gap-1 flex-wrap justify-content-center">
               {MOOD_EMOJIS.filter(mood => [3, 5, 7, 9].includes(mood.value)).map(mood => (
                 <Button
@@ -130,7 +157,9 @@ export const MoodPanel: React.FC<MoodPanelProps> = ({ className }) => {
           {/* Recent Entries */}
           {todayMoods.length > 0 && (
             <div className="flex flex-column gap-2">
-              <span className="text-sm font-medium">Recent Entries</span>
+              <span className="text-sm font-medium" style={{ color: 'var(--foreground)' }}>
+                Recent Entries
+              </span>
               <div className="flex gap-2 flex-wrap">
                 {todayMoods.slice(-3).map(entry => (
                   <div
@@ -170,7 +199,10 @@ export const MoodPanel: React.FC<MoodPanelProps> = ({ className }) => {
               max={10}
               className="w-full"
             />
-            <div className="flex justify-content-between text-xs text-gray-500">
+            <div
+              className="flex justify-content-between text-xs"
+              style={{ color: 'var(--foreground)', opacity: 0.7 }}
+            >
               <span>Terrible</span>
               <span>Fantastic</span>
             </div>
@@ -178,7 +210,9 @@ export const MoodPanel: React.FC<MoodPanelProps> = ({ className }) => {
 
           {/* Notes */}
           <div className="flex flex-column gap-2">
-            <label className="text-sm font-medium">Notes (optional)</label>
+            <label className="text-sm font-medium" style={{ color: 'var(--foreground)' }}>
+              Notes (optional)
+            </label>
             <InputTextarea
               value={notes}
               onChange={e => setNotes(e.target.value)}

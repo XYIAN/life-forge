@@ -65,7 +65,7 @@ export default function Home() {
             <h1 className="text-5xl lg:text-7xl font-bold mb-6 bg-gradient-to-r from-amber-400 via-orange-500 to-purple-600 bg-clip-text text-transparent leading-tight">
               Life Forge
             </h1>
-            <p className="text-xl lg:text-2xl text-gray-300 mb-8 leading-relaxed">
+            <p className="text-xl lg:text-2xl text-white/90 mb-8 leading-relaxed">
               Transform your daily routine into an{' '}
               <span className="text-amber-400 font-semibold">adventure</span>.
               <br />
@@ -104,7 +104,7 @@ export default function Home() {
             <h2 className="text-4xl lg:text-5xl font-bold mb-6 text-white">
               Everything You Need to <span className="text-amber-400">Thrive</span>
             </h2>
-            <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+            <p className="text-xl text-white/90 max-w-3xl mx-auto">
               Life Forge combines powerful tracking tools with beautiful design to help you build
               better habits and achieve your goals.
             </p>
@@ -121,7 +121,7 @@ export default function Home() {
                     <i className={`${feature.icon} text-3xl ${feature.color}`}></i>
                   </div>
                   <h3 className="text-xl font-bold text-white m-0">{feature.title}</h3>
-                  <p className="text-gray-300 m-0 line-height-3">{feature.description}</p>
+                  <p className="text-white/80 m-0 line-height-3">{feature.description}</p>
                 </div>
               </Card>
             ))}
@@ -135,15 +135,15 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="text-center">
               <div className="text-5xl font-bold text-amber-400 mb-2">5,000+</div>
-              <div className="text-gray-300">Inspirational Quotes</div>
+              <div className="text-white/90">Inspirational Quotes</div>
             </div>
             <div className="text-center">
               <div className="text-5xl font-bold text-orange-500 mb-2">∞</div>
-              <div className="text-gray-300">Customization Options</div>
+              <div className="text-white/90">Customization Options</div>
             </div>
             <div className="text-center">
               <div className="text-5xl font-bold text-purple-500 mb-2">24/7</div>
-              <div className="text-gray-300">Progress Tracking</div>
+              <div className="text-white/90">Progress Tracking</div>
             </div>
           </div>
         </div>
@@ -160,7 +160,7 @@ export default function Home() {
               <h2 className="text-3xl lg:text-4xl font-bold text-white m-0">
                 Ready to Transform Your Life?
               </h2>
-              <p className="text-xl text-gray-300 max-w-2xl mx-auto">
+              <p className="text-xl text-white/90 max-w-2xl mx-auto">
                 Join thousands of users who have already started their journey to a more organized,
                 motivated, and fulfilling life.
               </p>
@@ -187,7 +187,7 @@ export default function Home() {
             <h2 className="text-4xl lg:text-5xl font-bold mb-6 text-white">
               Built with <span className="text-amber-400">Modern Tech</span>
             </h2>
-            <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+            <p className="text-xl text-white/90 max-w-3xl mx-auto">
               Life Forge is crafted with cutting-edge technologies for the best performance and user
               experience.
             </p>
@@ -206,7 +206,7 @@ export default function Home() {
                 <div className="w-4rem h-4rem bg-gradient-to-br from-amber-500/20 to-orange-600/20 border-round-xl flex align-items-center justify-content-center mx-auto mb-3 border-1 border-amber-500/30">
                   <i className={`${tech.icon} text-2xl text-amber-400`}></i>
                 </div>
-                <span className="text-sm font-medium text-gray-300">{tech.name}</span>
+                <span className="text-sm font-medium text-white/90">{tech.name}</span>
               </div>
             ))}
           </div>

@@ -129,12 +129,32 @@ export const QuoteOrb: React.FC<QuoteOrbProps> = ({ className }) => {
   const header = (
     <div className="flex align-items-center justify-content-between">
       <div className="flex align-items-center gap-4">
-        <i className="pi pi-star text-2xl text-yellow-500"></i>
-        <h3 className="text-lg font-semibold m-0">Wisdom Orb</h3>
+        <i className="pi pi-star text-2xl" style={{ color: 'var(--warm-gold)' }}></i>
+        <h3 className="text-lg font-semibold m-0" style={{ color: 'var(--foreground)' }}>
+          Wisdom Orb
+        </h3>
       </div>
-      {currentQuote && (
-        <Badge value={currentQuote.category} className={getCategoryColor(currentQuote.category)} />
-      )}
+      <div className="flex align-items-center gap-2">
+        {currentQuote && (
+          <Badge
+            value={currentQuote.category}
+            className={getCategoryColor(currentQuote.category)}
+          />
+        )}
+        <Button
+          icon="pi pi-info-circle"
+          rounded
+          text
+          size="small"
+          className="p-1"
+          style={{ color: 'var(--warm-gold)' }}
+          onClick={() => {
+            // Navigate to detailed quotes page
+            console.log('Navigate to quotes details');
+          }}
+          aria-label="Wisdom orb info"
+        />
+      </div>
     </div>
   );
 

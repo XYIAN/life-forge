@@ -52,7 +52,7 @@ export default function About() {
   return (
     <div className="min-h-screen">
       {/* Main Content */}
-      <main className="container mx-auto px-4 py-8">
+      <main className="container mx-auto px-4 py-8 max-w-6xl">
         {/* Hero Section */}
         <div className="text-center mb-8">
           <div className="w-6rem h-6rem bg-gradient-to-br from-blue-500 to-purple-600 border-round-xl flex align-items-center justify-content-center mx-auto mb-4 p-2 shadow-lg">

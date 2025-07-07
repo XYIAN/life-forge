@@ -44,10 +44,27 @@ export const WaterPanel: React.FC<WaterPanelProps> = ({ className }) => {
   const header = (
     <div className="flex align-items-center justify-content-between">
       <div className="flex align-items-center gap-4">
-        <i className="pi pi-tint text-2xl text-blue-500"></i>
-        <h3 className="text-lg font-semibold m-0">Water Tracker</h3>
+        <i className="pi pi-tint text-2xl" style={{ color: 'var(--warm-gold)' }}></i>
+        <h3 className="text-lg font-semibold m-0" style={{ color: 'var(--foreground)' }}>
+          Water Tracker
+        </h3>
       </div>
-      <Badge value={`${Math.round(progress)}%`} severity={progress >= 100 ? 'success' : 'info'} />
+      <div className="flex align-items-center gap-2">
+        <Badge value={`${Math.round(progress)}%`} severity={progress >= 100 ? 'success' : 'info'} />
+        <Button
+          icon="pi pi-info-circle"
+          rounded
+          text
+          size="small"
+          className="p-1"
+          style={{ color: 'var(--warm-gold)' }}
+          onClick={() => {
+            // Navigate to detailed water tracking page
+            console.log('Navigate to water details');
+          }}
+          aria-label="Water tracker info"
+        />
+      </div>
     </div>
   );
 
@@ -60,8 +77,10 @@ export const WaterPanel: React.FC<WaterPanelProps> = ({ className }) => {
         {/* Progress Section */}
         <div className="flex flex-column gap-2">
           <div className="flex justify-content-between align-items-center">
-            <span className="text-sm font-medium">Today&apos;s Progress</span>
-            <span className="text-sm font-bold">
+            <span className="text-sm font-medium" style={{ color: 'var(--foreground)' }}>
+              Today&apos;s Progress
+            </span>
+            <span className="text-sm font-bold" style={{ color: 'var(--foreground)' }}>
               {formatWaterAmount(totalWater)} / {formatWaterAmount(dailyGoal)}
             </span>
           </div>
@@ -75,7 +94,9 @@ export const WaterPanel: React.FC<WaterPanelProps> = ({ className }) => {
 
         {/* Quick Add Buttons */}
         <div className="flex flex-column gap-2">
-          <span className="text-sm font-medium">Quick Add</span>
+          <span className="text-sm font-medium" style={{ color: 'var(--foreground)' }}>
+            Quick Add
+          </span>
           <div className="flex gap-2 flex-wrap">
             <Button
               label="250ml"
@@ -107,10 +128,12 @@ export const WaterPanel: React.FC<WaterPanelProps> = ({ className }) => {
         {/* Current Session */}
         {currentSession.length > 0 && (
           <div className="flex flex-column gap-2">
-            <span className="text-sm font-medium">Current Session</span>
+            <span className="text-sm font-medium" style={{ color: 'var(--foreground)' }}>
+              Current Session
+            </span>
             <div className="flex align-items-center gap-2">
               <i className="pi pi-clock text-blue-500"></i>
-              <span className="text-sm">
+              <span className="text-sm" style={{ color: 'var(--foreground)' }}>
                 {formatWaterAmount(currentSession.reduce((sum, entry) => sum + entry.amount, 0))}
                 in last 2 hours
               </span>
