@@ -584,12 +584,16 @@ _Life Forge is continuously evolving. Stay tuned for magical updates! ✨_
 
 - **Theme Switcher Redesign**: Improved theme switcher with better organization and PrimeReact ToggleButton integration
 - **Advanced Theme Options**: Enhanced theme selection sidebar with improved UX
+- **Goals Page**: Complete goal tracking system with daily, weekly, monthly, and long-term goals
+- **Meditation Page**: Comprehensive meditation timer with guided sessions and progress tracking
+- **Settings Page**: Full user preferences and configuration management system
 
 ### Changed
 
 - **Theme Switcher Component**: Now uses PrimeReact ToggleButton for light/dark toggle within the sidebar only
 - **Header Layout**: Theme palette button remains in header for accessing advanced theme options
 - **CSS Organization**: Updated theme button styles to use consistent glassmorphism design
+- **Dashboard Navigation**: Added functional settings page with comprehensive user controls
 
 ### Fixed
 
@@ -599,3 +603,17 @@ _Life Forge is continuously evolving. Stay tuned for magical updates! ✨_
 - **ShineBorder Component**: Fixed z-index and positioning issues where animated border was overlapping content
 - **Anime.js Integration**: Fixed async/await issues in animation calls across all dashboard pages
 - **Console Errors**: Resolved "animeInstance is not a function" errors in nutrition and other pages
+- **Settings Functionality**: Fixed settings page to be fully functional with proper event handling
+
+## [1.2.0] - 2024-12-19
+
+### Fixed
+
+- Fixed infinite loop and anime.js errors in analytics page by removing problematic animation calls
+- Removed unused imports and variables from analytics page
+- Fixed React hook dependency warnings in analytics page
+
+### Changed
+
+- Simplified analytics page to remove animation dependencies that were causing performance issues
+- Improved analytics page layout and responsiveness
