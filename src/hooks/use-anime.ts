@@ -11,6 +11,16 @@ const loadAnime = async () => {
   return anime;
 };
 
+interface AnimeInstance {
+  play: () => void;
+  pause: () => void;
+  restart: () => void;
+  reverse: () => void;
+  seek: (time: number) => void;
+  timeline: (options?: AnimeOptions) => AnimeInstance;
+  add: (animation: AnimeOptions, offset?: number) => AnimeInstance;
+}
+
 interface AnimeOptions {
   targets: string | HTMLElement | HTMLElement[];
   duration?: number;
@@ -19,9 +29,9 @@ interface AnimeOptions {
   direction?: 'normal' | 'reverse' | 'alternate';
   loop?: boolean | number;
   autoplay?: boolean;
-  onComplete?: (anim: unknown) => void;
-  onUpdate?: (anim: unknown) => void;
-  onBegin?: (anim: unknown) => void;
+  onComplete?: (anim: AnimeInstance) => void;
+  onUpdate?: (anim: AnimeInstance) => void;
+  onBegin?: (anim: AnimeInstance) => void;
 }
 
 interface UseAnimeReturn {
@@ -30,97 +40,92 @@ interface UseAnimeReturn {
   restart: () => void;
   reverse: () => void;
   seek: (time: number) => void;
-  timeline: () => unknown;
-  add: (params: AnimeOptions) => unknown;
+  timeline: () => Promise<AnimeInstance>;
+  add: (params: AnimeOptions) => Promise<AnimeInstance>;
 }
 
 export const useAnime = (options: AnimeOptions): UseAnimeReturn => {
-  const animationRef = useRef<unknown>(null);
+  const animationRef = useRef<AnimeInstance | null>(null);
 
   useEffect(() => {
     const initAnimation = async () => {
       const animeInstance = await loadAnime();
       if (options.autoplay !== false) {
-        animationRef.current = animeInstance(options);
+        animationRef.current = (animeInstance as (options: AnimeOptions) => AnimeInstance)(options);
       }
     };
 
     initAnimation();
 
     return () => {
-      if (
-        animationRef.current &&
-        typeof animationRef.current === 'object' &&
-        animationRef.current !== null
-      ) {
-        const anim = animationRef.current as { pause: () => void };
-        if (anim.pause) {
-          anim.pause();
-        }
+      if (animationRef.current) {
+        animationRef.current.pause();
       }
     };
-  }, []);
+  }, [options]);
 
   const play = async () => {
     if (!animationRef.current) {
       const animeInstance = await loadAnime();
       if (options.autoplay !== false) {
-        animationRef.current = (animeInstance as any)(options);
+        animationRef.current = (animeInstance as (options: AnimeOptions) => AnimeInstance)(options);
       }
     }
     if (animationRef.current) {
-      (animationRef.current as any).play();
+      animationRef.current.play();
     }
   };
 
   const pause = async () => {
     if (!animationRef.current) {
       const animeInstance = await loadAnime();
-      animationRef.current = (animeInstance as any)(options);
+      animationRef.current = (animeInstance as (options: AnimeOptions) => AnimeInstance)(options);
     }
     if (animationRef.current) {
-      (animationRef.current as any).pause();
+      animationRef.current.pause();
     }
   };
 
   const restart = async () => {
     if (!animationRef.current) {
       const animeInstance = await loadAnime();
-      animationRef.current = (animeInstance as any)(options);
+      animationRef.current = (animeInstance as (options: AnimeOptions) => AnimeInstance)(options);
     }
     if (animationRef.current) {
-      (animationRef.current as any).restart();
+      animationRef.current.restart();
     }
   };
 
   const reverse = async () => {
     if (!animationRef.current) {
       const animeInstance = await loadAnime();
-      animationRef.current = (animeInstance as any)(options);
+      animationRef.current = (animeInstance as (options: AnimeOptions) => AnimeInstance)(options);
     }
     if (animationRef.current) {
-      (animationRef.current as any).reverse();
+      animationRef.current.reverse();
     }
   };
 
   const seek = async (time: number) => {
     if (!animationRef.current) {
       const animeInstance = await loadAnime();
-      animationRef.current = (animeInstance as any)(options);
+      animationRef.current = (animeInstance as (options: AnimeOptions) => AnimeInstance)(options);
     }
     if (animationRef.current) {
-      (animationRef.current as any).seek(time);
+      animationRef.current.seek(time);
     }
   };
 
-  const timeline = async () => {
+  const timeline = async (): Promise<AnimeInstance> => {
     const animeInstance = await loadAnime();
-    return animeInstance.timeline(options);
+    return (animeInstance as { timeline: (options?: AnimeOptions) => AnimeInstance }).timeline(
+      options
+    );
   };
 
-  const add = async (newOptions: AnimeOptions) => {
+  const add = async (newOptions: AnimeOptions): Promise<AnimeInstance> => {
     const animeInstance = await loadAnime();
-    return (animeInstance as any)(newOptions);
+    return (animeInstance as (options: AnimeOptions) => AnimeInstance)(newOptions);
   };
 
   return {
@@ -316,15 +321,15 @@ export const createStaggerAnimation = (
 };
 
 // Timeline animations
-export const createTimeline = async () => {
+export const createTimeline = async (): Promise<AnimeInstance> => {
   const animeInstance = await loadAnime();
-  return animeInstance.timeline();
+  return (animeInstance as { timeline: () => AnimeInstance }).timeline();
 };
 
 // Chain animations
-export const chainAnimations = async (animations: AnimeOptions[]) => {
+export const chainAnimations = async (animations: AnimeOptions[]): Promise<AnimeInstance> => {
   const animeInstance = await loadAnime();
-  const timeline = animeInstance.timeline();
+  const timeline = (animeInstance as { timeline: () => AnimeInstance }).timeline();
 
   animations.forEach((animation, index) => {
     timeline.add(animation, index * 200);

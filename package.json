@@ -1,6 +1,6 @@
 {
   "name": "life-forge",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Life Forge: Modular dashboard with advanced animations, charts, and glassmorphism UI. Workouts, Nutrition, Sleep, Analytics, and more.",
   "private": true,
   "scripts": {

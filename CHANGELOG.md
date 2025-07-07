@@ -5,6 +5,75 @@ All notable changes to Life Forge will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.2.0] - 2024-12-19
+
+### 🎨 **Button Theming & Background Improvements**
+
+This update focuses on comprehensive theming improvements, background fixes, and enhanced particle effects to create a more polished and consistent user experience.
+
+### Enhanced
+
+- **Button Theming**: Complete overhaul of hamburger and theme button styling
+  - **Hamburger Button**: Updated to use CSS variables for proper theme adaptation
+  - **Theme Button**: Consistent glassmorphism styling with white icons in dark mode
+  - **Hover Effects**: Added smooth hover animations with `translateY(-2px)` and glow effects
+  - **Focus States**: Proper focus outlines with `var(--warm-gold)` color for accessibility
+  - **Icon Visibility**: Icons now use `var(--foreground)` for proper contrast in all themes
+  - **CSS Variables**: Replaced hardcoded colors with theme-aware CSS custom properties
+- **Particles Overlay**: Significantly enhanced particle system for more dynamic background
+  - **Increased Quantity**: Raised from 100 to 150 particles (50% increase)
+  - **Faster Movement**: Tripled particle speed from 0.1 to 0.3 for more dynamic movement
+  - **Global Velocity**: Added `vx={0.2}` and `vy={0.1}` for additional movement direction
+  - **Enhanced Responsiveness**: Reduced ease from 50 to 40 for snappier mouse interaction
+  - **Better Performance**: Optimized rendering while maintaining 60fps animation
+- **Background Image**: Fixed parallax background positioning and visibility
+  - **Proper Centering**: Background image now properly centered and fully visible
+  - **Height Fix**: Corrected from 200vh to 100vh to prevent positioning issues
+  - **Brightness Adjustment**: Increased brightness from 0.3 to 0.7 for better visibility
+  - **CSS-Only Parallax**: Simplified to use `background-attachment: fixed` for better performance
+  - **Responsive Design**: Proper mobile optimization with scroll-based parallax
+
+### Fixed
+
+- **Next.js Link Component**: Resolved deprecated Link syntax causing navigation errors
+  - **Removed Anchor Tags**: Eliminated `<a>` tags inside `<Link>` components
+  - **Modern Syntax**: Updated to use new Next.js Link component syntax
+  - **Removed passHref**: No longer needed in modern Next.js Link implementation
+  - **Proper Styling**: Applied styling directly to Link components
+- **Dashboard Navigation**: Fixed Link component errors preventing dashboard access
+  - **Navigation Links**: All dashboard section links now work properly
+  - **Theme Consistency**: Navigation maintains proper theming across all sections
+  - **Error Prevention**: Eliminated "Invalid <Link> with <a> child" errors
+- **Component Theming**: Fixed white background issues in multiple dashboard components
+  - **Good Evening Section**: Added proper glassmorphism background and themed text
+  - **Next Big Thing**: Fixed white background, added glassmorphism, themed all text
+  - **Tarot Cards**: Applied glassmorphism styling, themed text colors
+  - **Daily Reflections**: Fixed theming and background issues
+  - **Daily Tarot**: Applied proper glassmorphism and themed text
+  - **Mystery Box**: Fixed white background, added glassmorphism styling
+  - **Social Fun**: Fixed header/subtitle theming, ensured white/bright text in dark mode
+- **Fancy Button Borders**: Removed problematic ShineBorder components
+  - **Replaced with Cards**: All ShineBorder components replaced with proper Card components
+  - **Consistent Styling**: Applied glassmorphism styling across all dashboard panels
+  - **Better Performance**: Eliminated complex border animations that could cause issues
+
+### Technical
+
+- **CSS Variables**: Complete migration to CSS custom properties for consistent theming
+- **Component Architecture**: Improved button and navigation component structure
+- **Animation Performance**: Optimized particle system for smooth 60fps rendering
+- **Code Quality**: Removed unused imports and variables to fix linter errors
+- **TypeScript Safety**: Maintained strict typing throughout all improvements
+- **Responsive Design**: Enhanced mobile experience with proper touch targets
+
+### User Experience
+
+- **Consistent Theming**: All buttons and components now properly change with theme
+- **Better Visibility**: White icons in dark mode for improved contrast and readability
+- **Smoother Animations**: Enhanced particle effects create more engaging background
+- **Fixed Navigation**: Dashboard navigation now works without errors
+- **Professional Look**: Consistent glassmorphism styling throughout the application
+
 ## [1.0.3] - 2024-12-19
 
 ### 🔧 **Hydration Mismatch Fix**

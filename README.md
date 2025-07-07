@@ -1,4 +1,4 @@
-# 🪄 Life Forge v1.0.0 - Your Personal Daily Dashboard
+# 🪄 Life Forge v1.2.0 - Your Personal Daily Dashboard
 
 Transform your daily routine into an adventure with Life Forge - a beautifully crafted personal dashboard that helps you track, motivate, and enhance your daily life. Experience the magic of turning mundane tracking into an engaging, visual journey of self-improvement.
 
@@ -9,15 +9,17 @@ Life Forge is a next-generation dashboard app built with Next.js, TypeScript, Pr
 - Modular dashboard with nested routes for Workouts, Nutrition, Sleep, Analytics, and more
 - Advanced animations using anime.js and custom hooks
 - Multiple chart types (bar, line, doughnut, radar) using Chart.js and PrimeReact
-- Glassmorphism and dynamic theming
-- Mobile-first responsive design
+- Glassmorphism and dynamic theming with consistent button styling
+- Enhanced particle effects with 150 particles moving at 3x speed
+- Mobile-first responsive design with proper touch targets
 - Personalized user onboarding and info dialogs
-- Magic UI components (ShineBorder, Particles, etc.)
+- Magic UI components (Particles, etc.)
 - Persistent data with localStorage
+- Fixed parallax background with proper centering and visibility
 
 **🎯 Perfect for**: Students, professionals, wellness enthusiasts, and anyone looking to build better daily habits with style.
 
-**🚀 Status**: Production Ready - v1.0.0 Stable Release
+**🚀 Status**: Production Ready - v1.2.0 Enhanced Release
 
 ## 🌟 Core Features
 
@@ -63,6 +65,7 @@ Life Forge is a next-generation dashboard app built with Next.js, TypeScript, Pr
 - **Light/Dark Modes**: Instant switching for any time of day
 - **Surprise Me**: Random theme generator for when you want something fresh
 - **Glassmorphism Design**: Modern, translucent interface with subtle animations
+- **Consistent Button Theming**: All buttons properly adapt to theme changes
 
 ## 🎮 How to Get Started
 
@@ -94,6 +97,7 @@ Life Forge is a next-generation dashboard app built with Next.js, TypeScript, Pr
 - **Hover Animations**: Discover delightful microinteractions throughout the app
 - **Achievement Celebrations**: Enjoy confetti and particle effects for milestones
 - **Floating Elements**: Watch for subtle magical touches in the UI
+- **Enhanced Particles**: 150 particles moving at 3x speed for dynamic background effects
 
 ### 🎨 **Arcane Styling**
 
@@ -101,6 +105,7 @@ Life Forge is a next-generation dashboard app built with Next.js, TypeScript, Pr
 - **Smooth Transitions**: Satisfying animations for every interaction
 - **Glassmorphism Effects**: Modern, translucent cards with backdrop blur
 - **Responsive Magic**: Beautiful experience on mobile, tablet, and desktop
+- **Consistent Theming**: All buttons and components properly change with theme
 
 ## 📱 Multi-Device Experience
 
@@ -110,6 +115,7 @@ Life Forge is a next-generation dashboard app built with Next.js, TypeScript, Pr
 - Swipe gestures for navigation
 - Optimized button sizes for thumb interaction
 - Portrait and landscape support
+- Proper hamburger menu theming
 
 ### 💻 **Desktop Enhanced**
 
@@ -117,6 +123,7 @@ Life Forge is a next-generation dashboard app built with Next.js, TypeScript, Pr
 - Keyboard shortcuts for power users
 - Multi-panel view for comprehensive tracking
 - Enhanced visual effects and animations
+- Fixed parallax background with proper centering
 
 ### 🔒 **Privacy First**
 
@@ -162,6 +169,7 @@ Life Forge believes that beautiful tools inspire beautiful habits. Every pixel i
 - **Celebrations**: Visual rewards for hitting milestones
 - **Progress Bars**: Satisfying visual feedback for all activities
 - **Easter Eggs**: Hidden surprises that reward exploration
+- **Dynamic Particles**: Engaging background effects that respond to your movement
 
 ### 🌟 **Mindful Technology**
 
@@ -169,6 +177,7 @@ Life Forge believes that beautiful tools inspire beautiful habits. Every pixel i
 - **Offline Capable**: Works without an internet connection
 - **Fast Loading**: Optimized for instant access to your data
 - **Minimal Distractions**: Clean interface focused on what matters
+- **Consistent Experience**: All components properly themed and accessible
 
 ## 🌈 Inspiration & Philosophy
 
@@ -183,6 +192,8 @@ Life Forge is built on the belief that small, consistent actions create extraord
 - **Completion Animations**: Watch for special effects when you achieve goals
 - **Session Tracking**: Discover patterns in your focus and mood cycles
 - **Streak Celebrations**: Unlock special animations for consistency rewards
+- **Enhanced Particles**: Watch 150 particles dance across your screen at 3x speed
+- **Button Magic**: Hover over buttons to see them lift and glow with theme colors
 
 ## 🌟 Join the Journey
 
