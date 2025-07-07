@@ -4,6 +4,7 @@ import React from 'react';
 import Image from 'next/image';
 import { Button } from 'primereact/button';
 import { ThemeSwitcher } from '@common';
+import { HamburgerMenu } from '@layout';
 import Link from 'next/link';
 
 interface GlobalHeaderProps {
@@ -12,8 +13,8 @@ interface GlobalHeaderProps {
 
 export const GlobalHeader: React.FC<GlobalHeaderProps> = ({ currentPage = 'home' }) => {
   return (
-    <header className="sticky top-0 z-5 backdrop-blur-md bg-white/80 dark:bg-gray-900/80 border-b border-gray-200/50 dark:border-gray-700/50">
-      <div className="container mx-auto px-4 py-3">
+    <header className="sticky top-0 z-50 backdrop-blur-md bg-white/10 dark:bg-gray-900/10 border-b border-white/20 dark:border-gray-700/20">
+      <div className="container mx-auto px-2 py-2">
         <div className="flex align-items-center justify-content-between">
           {/* Logo */}
           <Link href="/" className="text-decoration-none">
@@ -36,8 +37,8 @@ export const GlobalHeader: React.FC<GlobalHeaderProps> = ({ currentPage = 'home'
             </div>
           </Link>
 
-          {/* Navigation */}
-          <div className="flex align-items-center gap-2">
+          {/* Navigation - Desktop Only */}
+          <div className="hidden lg:flex align-items-center gap-2">
             {currentPage !== 'home' && (
               <Link href="/">
                 <Button
@@ -69,6 +70,12 @@ export const GlobalHeader: React.FC<GlobalHeaderProps> = ({ currentPage = 'home'
               </Link>
             )}
             <ThemeSwitcher />
+          </div>
+
+          {/* Mobile Navigation */}
+          <div className="flex lg:hidden align-items-center gap-2">
+            <ThemeSwitcher />
+            <HamburgerMenu currentPage={currentPage} />
           </div>
         </div>
       </div>

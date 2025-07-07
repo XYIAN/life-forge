@@ -1,181 +1,216 @@
 'use client';
 
-import React from 'react';
-import { Button } from 'primereact/button';
+import { useState, useEffect } from 'react';
+// import { useRouter } from 'next/navigation';
 import { Card } from 'primereact/card';
-import { useDashboard } from '@/lib/providers/dashboard-provider';
-import { WaterPanel, MoodPanel, QuoteOrb, GoalList, TimerCard } from '@dashboard';
+import { Button } from 'primereact/button';
+// import { useAnimation } from '@/hooks/useAnimation';
+// import { useTheme } from '@/hooks/useTheme';
+// import { useSmoothCursor } from '@/hooks/useSmoothCursor';
+// import { useParticles } from '@/hooks/useParticles';
+import { WaterPanel } from '@/components/dashboard/water-panel';
+import { MoodPanel } from '@/components/dashboard/mood-panel';
+import { GoalList } from '@/components/dashboard/goal-list';
+import { TimerCard } from '@/components/dashboard/timer-card';
+// import ThemeSwitcher from '@/components/dashboard/theme-switcher';
+import NextBigThingPanel from '@/components/dashboard/next-big-thing-panel';
+import MorningEveningPrompts from '@/components/dashboard/morning-evening-prompts';
+import MiniWorkoutsCarousel from '@/components/dashboard/mini-workouts-carousel';
+import DailyTarotPull from '@/components/dashboard/daily-tarot-pull';
+import MysteryBox from '@/components/dashboard/mystery-box';
+import SocialFunPanel from '@/components/dashboard/social-fun-panel';
+import TrendsPage from '@/components/dashboard/trends-page';
 
-export default function Dashboard() {
-  const { enabledPanels } = useDashboard();
+export default function DashboardPage() {
+  const [currentTime, setCurrentTime] = useState<Date | null>(null);
+  const [greeting, setGreeting] = useState('');
+  const [activeSection, setActiveSection] = useState('main');
+  const [isClient, setIsClient] = useState(false);
+  // const router = useRouter();
+  // const { isDark } = useTheme();
+  // const { animateIn } = useAnimation();
+  // const { SmoothCursor } = useSmoothCursor();
+  // const { Particles } = useParticles();
 
-  const renderPanel = (panelId: string) => {
-    switch (panelId) {
-      case 'water-tracker':
-        return <WaterPanel className="h-full" />;
-      case 'mood-tracker':
-        return <MoodPanel className="h-full" />;
-      case 'quote-orb':
-        return <QuoteOrb className="h-full" />;
-      case 'goal-tracker':
-        return <GoalList className="h-full" />;
-      case 'focus-timer':
-        return <TimerCard className="h-full" />;
-      default:
-        return (
-          <Card className="h-full flex align-items-center justify-content-center">
-            <div className="text-center" style={{ color: 'var(--foreground)', opacity: 0.7 }}>
-              <i className="pi pi-cog text-3xl mb-2"></i>
-              <p>Panel coming soon...</p>
-            </div>
-          </Card>
-        );
+  // Set client flag on mount to prevent hydration mismatch
+  useEffect(() => {
+    setIsClient(true);
+    setCurrentTime(new Date());
+  }, []);
+
+  useEffect(() => {
+    if (!isClient) return;
+
+    const timer = setInterval(() => {
+      setCurrentTime(new Date());
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [isClient]);
+
+  useEffect(() => {
+    if (!currentTime) return;
+
+    const hour = currentTime.getHours();
+    if (hour < 12) {
+      setGreeting('Good Morning');
+    } else if (hour < 17) {
+      setGreeting('Good Afternoon');
+    } else {
+      setGreeting('Good Evening');
     }
+  }, [currentTime]);
+
+  const navigateToSection = (section: string) => {
+    setActiveSection(section);
+    // Scroll to top when changing sections
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  return (
-    <div className="min-h-screen">
-      {/* Main Content */}
-      <main className="container mx-auto px-4 py-6">
-        {/* Welcome Section */}
-        <div className="mb-6">
-          <div className="text-center mb-4">
-            <h2 className="text-3xl font-bold text-white mb-2">Your Life Dashboard</h2>
-            <p className="text-white/90 max-w-2xl mx-auto">
-              Track your progress, manage your goals, and stay motivated with your personalized
-              dashboard.
-            </p>
-          </div>
+  const renderMainDashboard = () => {
+    const cardHeader = (
+      <div className="flex align-items-center justify-between">
+        <div className="flex align-items-center gap-3">
+          <i className="pi pi-home text-blue-500 text-xl"></i>
+          <span className="text-xl font-bold">
+            {!isClient || !greeting ? 'Welcome' : `${greeting}, User!`}
+          </span>
         </div>
-
-        {/* Dashboard Panels */}
-        {enabledPanels.length > 0 ? (
-          <div className="flex flex-column gap-8">
-            {enabledPanels.map(panel => (
-              <div key={panel.id} className="dashboard-panel">
-                {renderPanel(panel.id)}
-              </div>
-            ))}
-          </div>
+        {/* <ThemeSwitcher /> */}
+      </div>
+    );
+    const cardSubtitle = (
+      <span className="text-gray-600 dark:text-gray-300">
+        {!isClient || !currentTime ? (
+          'Loading...'
         ) : (
-          /* Empty State */
-          <div className="text-center py-12">
-            <Card className="max-w-md mx-auto">
-              <div className="flex flex-column align-items-center gap-4">
-                <div className="w-5rem h-5rem bg-gradient-to-br from-blue-100 to-purple-100 dark:from-blue-900/50 dark:to-purple-900/50 border-round-xl flex align-items-center justify-content-center">
-                  <i className="pi pi-plus text-3xl text-blue-500"></i>
-                </div>
-                <div>
-                  <h3 className="text-xl font-semibold mb-2" style={{ color: 'var(--foreground)' }}>
-                    Customize Your Dashboard
-                  </h3>
-                  <p className="mb-4" style={{ color: 'var(--foreground)', opacity: 0.8 }}>
-                    Your dashboard is empty. Add some panels to get started!
-                  </p>
-                  <Button
-                    label="Add Panels"
-                    icon="pi pi-cog"
-                    severity="info"
-                    onClick={() => {
-                      // This would open a panel configuration dialog
-                      console.log('Open panel configuration');
-                    }}
-                  />
-                </div>
-              </div>
-            </Card>
-          </div>
+          <>
+            {currentTime.toLocaleDateString('en-US', {
+              weekday: 'long',
+              year: 'numeric',
+              month: 'long',
+              day: 'numeric',
+            })}{' '}
+            • {currentTime.toLocaleTimeString()}
+          </>
         )}
-
-        {/* Quick Stats */}
-        <div className="mt-8">
-          <Card className="glass-card">
-            <div className="flex justify-content-between align-items-center">
-              <div>
-                <h4
-                  className="text-lg font-semibold m-0 mb-1"
-                  style={{ color: 'var(--foreground)' }}
-                >
-                  Daily Overview
-                </h4>
-                <p className="text-sm m-0" style={{ color: 'var(--foreground)', opacity: 0.8 }}>
-                  {new Date().toLocaleDateString('en-US', {
-                    weekday: 'long',
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric',
-                  })}
-                </p>
-              </div>
-              <div className="flex align-items-center gap-4">
-                <div className="text-center">
-                  <div className="text-2xl font-bold" style={{ color: 'var(--warm-gold)' }}>
-                    {enabledPanels.length}
-                  </div>
-                  <div className="text-xs" style={{ color: 'var(--foreground)', opacity: 0.7 }}>
-                    Active Panels
-                  </div>
-                </div>
-                <div className="text-center">
-                  <div className="text-2xl font-bold" style={{ color: 'var(--warm-gold)' }}>
-                    🎯
-                  </div>
-                  <div className="text-xs" style={{ color: 'var(--foreground)', opacity: 0.7 }}>
-                    Goals
-                  </div>
-                </div>
-                <div className="text-center">
-                  <div className="text-2xl font-bold" style={{ color: 'var(--deep-purple)' }}>
-                    ✨
-                  </div>
-                  <div className="text-xs" style={{ color: 'var(--foreground)', opacity: 0.7 }}>
-                    Magic
-                  </div>
+      </span>
+    );
+    return (
+      <div className="space-y-6">
+        {/* Welcome Section */}
+        <Card
+          className="dashboard-card shadow-lg border-0"
+          header={cardHeader}
+          subTitle={cardSubtitle}
+        >
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            {/* Quick Stats */}
+            <div className="p-4 border border-gray-200 dark:border-gray-700 rounded-lg bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20">
+              <div className="flex items-center gap-3">
+                <i className="pi pi-check-circle text-blue-500 text-2xl"></i>
+                <div>
+                  <div className="text-2xl font-bold text-gray-900 dark:text-gray-100">3</div>
+                  <div className="text-sm text-gray-600 dark:text-gray-400">Goals Completed</div>
                 </div>
               </div>
             </div>
-          </Card>
+
+            <div className="p-4 border border-gray-200 dark:border-gray-700 rounded-lg bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20">
+              <div className="flex items-center gap-3">
+                <i className="pi pi-heart text-green-500 text-2xl"></i>
+                <div>
+                  <div className="text-2xl font-bold text-gray-900 dark:text-gray-100">4.2</div>
+                  <div className="text-sm text-gray-600 dark:text-gray-400">Average Mood</div>
+                </div>
+              </div>
+            </div>
+
+            <div className="p-4 border border-gray-200 dark:border-gray-700 rounded-lg bg-gradient-to-br from-orange-50 to-yellow-50 dark:from-orange-900/20 dark:to-yellow-900/20">
+              <div className="flex items-center gap-3">
+                <i className="pi pi-bolt text-orange-500 text-2xl"></i>
+                <div>
+                  <div className="text-2xl font-bold text-gray-900 dark:text-gray-100">7.5</div>
+                  <div className="text-sm text-gray-600 dark:text-gray-400">Energy Level</div>
+                </div>
+              </div>
+            </div>
+
+            <div className="p-4 border border-gray-200 dark:border-gray-700 rounded-lg bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20">
+              <div className="flex items-center gap-3">
+                <i className="pi pi-star text-purple-500 text-2xl"></i>
+                <div>
+                  <div className="text-2xl font-bold text-gray-900 dark:text-gray-100">85%</div>
+                  <div className="text-sm text-gray-600 dark:text-gray-400">Daily Progress</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </Card>
+
+        {/* Core Panels */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <WaterPanel />
+          <MoodPanel />
         </div>
 
-        {/* Floating Action Buttons */}
-        <div className="fixed bottom-6 right-6 z-4 flex flex-column gap-3">
-          <Button
-            icon="pi pi-plus"
-            rounded
-            size="large"
-            className="glass-card shadow-lg border-1 border-amber-500/30 hover:border-amber-500/50 transition-all duration-300"
-            style={{
-              background: 'var(--glass-bg)',
-              backdropFilter: 'blur(25px) saturate(180%)',
-              color: 'var(--warm-gold)',
-              width: '3.5rem',
-              height: '3.5rem',
-            }}
-            onClick={() => {
-              // Open quick add dialog
-              console.log('Quick add');
-            }}
-            aria-label="Quick add"
-          />
-          <Button
-            icon="pi pi-cog"
-            rounded
-            className="glass-card shadow-lg border-1 border-amber-500/30 hover:border-amber-500/50 transition-all duration-300"
-            style={{
-              background: 'var(--glass-bg)',
-              backdropFilter: 'blur(25px) saturate(180%)',
-              color: 'var(--warm-gold)',
-              width: '3rem',
-              height: '3rem',
-            }}
-            onClick={() => {
-              // Open dashboard settings
-              console.log('Dashboard settings');
-            }}
-            aria-label="Dashboard settings"
-          />
+        {/* Goals and Timer */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <GoalList />
+          <TimerCard />
         </div>
-      </main>
+
+        {/* New Features Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <NextBigThingPanel />
+          <MorningEveningPrompts />
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <MiniWorkoutsCarousel />
+          <DailyTarotPull />
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <MysteryBox />
+          <SocialFunPanel />
+        </div>
+      </div>
+    );
+  };
+
+  const renderTrendsPage = () => <TrendsPage />;
+
+  const renderNavigation = () => (
+    <div className="mb-6">
+      <div className="flex flex-wrap gap-2 justify-center">
+        <Button
+          label="Dashboard"
+          icon="pi pi-home"
+          className={`p-button-outlined ${activeSection === 'main' ? 'p-button-primary' : ''}`}
+          onClick={() => navigateToSection('main')}
+        />
+        <Button
+          label="Trends"
+          icon="pi pi-chart-line"
+          className={`p-button-outlined ${activeSection === 'trends' ? 'p-button-primary' : ''}`}
+          onClick={() => navigateToSection('trends')}
+        />
+      </div>
+    </div>
+  );
+
+  return (
+    <div className="dashboard-page min-h-screen bg-gray-50 dark:bg-gray-900">
+      {/* <SmoothCursor />
+      <Particles /> */}
+
+      <div className="container mx-auto px-4 py-8">
+        {renderNavigation()}
+
+        {activeSection === 'main' && renderMainDashboard()}
+        {activeSection === 'trends' && renderTrendsPage()}
+      </div>
     </div>
   );
 }

@@ -177,9 +177,17 @@ export const WaterPanel: React.FC<WaterPanelProps> = ({ className }) => {
 
           {/* Achievement Message */}
           {progress >= 100 && (
-            <div className="flex align-items-center gap-2 p-2 bg-green-50 border-round">
-              <i className="pi pi-check-circle text-green-600"></i>
-              <span className="text-sm text-green-700 font-medium">Daily goal achieved! 🎉</span>
+            <div
+              className="flex align-items-center gap-2 p-2 border-round glass-card"
+              style={{
+                background: 'rgba(16, 185, 129, 0.1)',
+                border: '1px solid var(--warm-gold)',
+              }}
+            >
+              <i className="pi pi-check-circle" style={{ color: 'var(--warm-gold)' }}></i>
+              <span className="text-sm font-medium" style={{ color: 'var(--foreground)' }}>
+                Daily goal achieved! 🎉
+              </span>
             </div>
           )}
         </div>
