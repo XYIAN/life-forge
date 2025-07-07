@@ -1,6 +1,4 @@
 import { useEffect, useRef } from 'react';
-// @ts-expect-error - animejs types are not properly exported
-import anime from 'animejs';
 
 interface UseFloatAnimationProps {
   elementRef: React.RefObject<HTMLElement>;
@@ -19,37 +17,82 @@ export const useFloatAnimation = ({
   easing = 'easeInOutSine',
   loop = true,
 }: UseFloatAnimationProps) => {
-  const animationRef = useRef<ReturnType<typeof anime> | null>(null);
+  const animationRef = useRef<number | null>(null);
 
   useEffect(() => {
     if (!elementRef.current) return;
 
-    animationRef.current = anime({
-      targets: elementRef.current,
-      translateY: [0, -amplitude, 0],
-      duration,
-      delay,
-      easing,
-      loop,
-      direction: 'alternate',
-    });
+    const element = elementRef.current;
+    let startTime: number | null = null;
+    let animationId: number | null = null;
+
+    const animate = (currentTime: number) => {
+      if (!startTime) startTime = currentTime;
+      const elapsed = currentTime - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+
+      // Simple sine wave animation
+      const y = Math.sin(progress * Math.PI * 2) * amplitude;
+      element.style.transform = `translateY(${y}px)`;
+
+      if (loop && progress >= 1) {
+        startTime = currentTime;
+      }
+
+      if (loop || progress < 1) {
+        animationId = requestAnimationFrame(animate);
+      }
+    };
+
+    const startAnimation = () => {
+      animationId = requestAnimationFrame(animate);
+      animationRef.current = animationId;
+    };
+
+    if (delay > 0) {
+      setTimeout(startAnimation, delay);
+    } else {
+      startAnimation();
+    }
 
     return () => {
-      if (animationRef.current) {
-        animationRef.current.pause();
+      if (animationId) {
+        cancelAnimationFrame(animationId);
       }
     };
   }, [elementRef, duration, delay, amplitude, easing, loop]);
 
   const pause = () => {
     if (animationRef.current) {
-      animationRef.current.pause();
+      cancelAnimationFrame(animationRef.current);
+      animationRef.current = null;
     }
   };
 
   const resume = () => {
-    if (animationRef.current) {
-      animationRef.current.play();
+    if (!animationRef.current && elementRef.current) {
+      // Restart animation
+      const element = elementRef.current;
+      let startTime: number | null = null;
+
+      const animate = (currentTime: number) => {
+        if (!startTime) startTime = currentTime;
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+
+        const y = Math.sin(progress * Math.PI * 2) * amplitude;
+        element.style.transform = `translateY(${y}px)`;
+
+        if (loop && progress >= 1) {
+          startTime = currentTime;
+        }
+
+        if (loop || progress < 1) {
+          animationRef.current = requestAnimationFrame(animate);
+        }
+      };
+
+      animationRef.current = requestAnimationFrame(animate);
     }
   };
 

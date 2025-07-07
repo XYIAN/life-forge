@@ -1,14 +1,8 @@
-import { useRef } from 'react';
-// @ts-expect-error - animejs types are not properly exported
-import anime from 'animejs';
-
 interface UseCelebrationAnimationProps {
   containerRef: React.RefObject<HTMLElement>;
 }
 
 export const useCelebrationAnimation = ({ containerRef }: UseCelebrationAnimationProps) => {
-  const animationRef = useRef<ReturnType<typeof anime> | null>(null);
-
   const createSparkle = (x: number, y: number) => {
     if (!containerRef.current) return;
 
@@ -51,21 +45,18 @@ export const useCelebrationAnimation = ({ containerRef }: UseCelebrationAnimatio
       if (sparkle) sparkles.push(sparkle);
     }
 
-    if (animationRef.current) {
-      animationRef.current.pause();
-    }
+    // Simple animation using CSS transitions
+    sparkles.forEach((sparkle, index) => {
+      const delay = index * 50;
+      setTimeout(() => {
+        sparkle.style.transition = 'all 1.5s ease-out';
+        sparkle.style.transform = `translate(${(Math.random() - 0.5) * 200}px, ${
+          (Math.random() - 0.5) * 200
+        }px) scale(0)`;
+        sparkle.style.opacity = '0';
 
-    animationRef.current = anime({
-      targets: sparkles,
-      translateX: () => (Math.random() - 0.5) * 200,
-      translateY: () => (Math.random() - 0.5) * 200,
-      scale: [0, 1, 0],
-      opacity: [0, 1, 0],
-      duration: 1500,
-      easing: 'easeOutExpo',
-      complete: () => {
-        sparkles.forEach(sparkle => sparkle.remove());
-      },
+        setTimeout(() => sparkle.remove(), 1500);
+      }, delay);
     });
   };
 
@@ -80,37 +71,34 @@ export const useCelebrationAnimation = ({ containerRef }: UseCelebrationAnimatio
       if (confetti) confettis.push(confetti);
     }
 
-    if (animationRef.current) {
-      animationRef.current.pause();
-    }
+    // Simple animation using CSS transitions
+    confettis.forEach((confetti, index) => {
+      const delay = index * 50;
+      setTimeout(() => {
+        confetti.style.transition = 'all 2s ease-out';
+        confetti.style.transform = `translateY(${Math.random() * 300 + 100}px) translateX(${
+          (Math.random() - 0.5) * 200
+        }px) rotate(${Math.random() * 360}deg) scale(0)`;
+        confetti.style.opacity = '0';
 
-    animationRef.current = anime({
-      targets: confettis,
-      translateY: () => Math.random() * 300 + 100,
-      translateX: () => (Math.random() - 0.5) * 200,
-      rotate: () => Math.random() * 360,
-      scale: [0, 1, 0],
-      opacity: [0, 1, 0],
-      duration: 2000,
-      delay: anime.stagger(50),
-      easing: 'easeOutExpo',
-      complete: () => {
-        confettis.forEach(confetti => confetti.remove());
-      },
+        setTimeout(() => confetti.remove(), 2000);
+      }, delay);
     });
   };
 
   const triggerElasticScale = (element: HTMLElement) => {
-    if (animationRef.current) {
-      animationRef.current.pause();
-    }
+    element.style.transition = 'transform 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55)';
+    element.style.transform = 'scale(1.1)';
 
-    animationRef.current = anime({
-      targets: element,
-      scale: [1, 1.1, 0.95, 1.05, 1],
-      duration: 600,
-      easing: 'easeInOutQuad',
-    });
+    setTimeout(() => {
+      element.style.transform = 'scale(0.95)';
+      setTimeout(() => {
+        element.style.transform = 'scale(1.05)';
+        setTimeout(() => {
+          element.style.transform = 'scale(1)';
+        }, 150);
+      }, 150);
+    }, 150);
   };
 
   return {

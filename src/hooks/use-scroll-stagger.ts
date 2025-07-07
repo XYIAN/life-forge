@@ -1,6 +1,4 @@
 import { useEffect, useRef } from 'react';
-// @ts-expect-error - animejs types are not properly exported
-import anime from 'animejs';
 
 interface UseScrollStaggerProps {
   elementRef: React.RefObject<HTMLElement>;
@@ -17,7 +15,6 @@ export const useScrollStagger = ({
   threshold = 0.1,
   animation = 'fadeIn',
 }: UseScrollStaggerProps) => {
-  const animationRef = useRef<ReturnType<typeof anime> | null>(null);
   const hasAnimated = useRef(false);
 
   useEffect(() => {
@@ -31,35 +28,15 @@ export const useScrollStagger = ({
 
             const targets = entry.target.querySelectorAll('[data-animate]');
 
-            const animations = {
-              fadeIn: {
-                opacity: [0, 1],
-                translateY: [30, 0],
-              },
-              slideUp: {
-                opacity: [0, 1],
-                translateY: [50, 0],
-              },
-              scaleIn: {
-                opacity: [0, 1],
-                scale: [0.8, 1],
-              },
-              slideInLeft: {
-                opacity: [0, 1],
-                translateX: [-50, 0],
-              },
-              slideInRight: {
-                opacity: [0, 1],
-                translateX: [50, 0],
-              },
-            };
+            targets.forEach((target, index) => {
+              const delay = index * staggerDelay;
+              const element = target as HTMLElement;
 
-            animationRef.current = anime({
-              targets,
-              ...animations[animation],
-              duration,
-              delay: anime.stagger(staggerDelay),
-              easing: 'easeOutCubic',
+              setTimeout(() => {
+                element.style.transition = `all ${duration}ms ease-out`;
+                element.style.opacity = '1';
+                element.style.transform = 'translateY(0) scale(1)';
+              }, delay);
             });
           }
         });
@@ -71,9 +48,6 @@ export const useScrollStagger = ({
 
     return () => {
       observer.disconnect();
-      if (animationRef.current) {
-        animationRef.current.pause();
-      }
     };
   }, [elementRef, staggerDelay, duration, threshold, animation]);
 
