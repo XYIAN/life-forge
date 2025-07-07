@@ -42,16 +42,7 @@ const workoutTypes = [
   { label: 'Sports', value: 'sports' },
 ];
 
-const exerciseTypes = [
-  { label: 'Push-ups', value: 'pushups' },
-  { label: 'Squats', value: 'squats' },
-  { label: 'Pull-ups', value: 'pullups' },
-  { label: 'Planks', value: 'planks' },
-  { label: 'Burpees', value: 'burpees' },
-  { label: 'Lunges', value: 'lunges' },
-  { label: 'Mountain Climbers', value: 'mountain_climbers' },
-  { label: 'Jumping Jacks', value: 'jumping_jacks' },
-];
+// Removed unused exerciseTypes variable
 
 export default function WorkoutsPage() {
   const [workouts, setWorkouts] = useState<Workout[]>([]);
@@ -72,7 +63,7 @@ export default function WorkoutsPage() {
     const savedWorkouts = localStorage.getItem('workouts');
     if (savedWorkouts) {
       setWorkouts(
-        JSON.parse(savedWorkouts).map((w: any) => ({
+        JSON.parse(savedWorkouts).map((w: Workout) => ({
           ...w,
           date: new Date(w.date),
         }))
