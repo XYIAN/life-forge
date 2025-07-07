@@ -5,6 +5,7 @@ import 'primereact/resources/themes/saga-blue/theme.css';
 import 'primereact/resources/primereact.min.css';
 import 'primeicons/primeicons.css';
 import '../styles/animations.css';
+import '../styles/magicui/index.css';
 import { Providers } from '@/lib/providers/providers';
 import { ParallaxBackground, GlobalHeader, GlobalFooter } from '@layout';
 import { ThemeLoadingWrapper } from '@common';
