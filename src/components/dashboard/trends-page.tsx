@@ -392,18 +392,29 @@ export default function TrendsPage() {
             ].map((metric, index) => (
               <div
                 key={index}
-                className="p-4 border border-gray-200 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800"
+                className="p-4 border rounded-lg glass-card"
+                style={{
+                  background: 'var(--glass-bg)',
+                  backdropFilter: 'blur(25px) saturate(180%)',
+                  border: '1px solid var(--glass-border)',
+                  color: 'var(--foreground)',
+                }}
               >
                 <div className="flex items-center justify-between">
                   <div>
-                    <div className="text-sm text-gray-500 dark:text-gray-400">{metric.label}</div>
-                    <div className="text-2xl font-bold text-gray-900 dark:text-gray-100">
+                    <div className="text-sm" style={{ color: 'var(--foreground)', opacity: 0.7 }}>
+                      {metric.label}
+                    </div>
+                    <div className="text-2xl font-bold" style={{ color: 'var(--foreground)' }}>
                       {getAverage(metric.data)}
                     </div>
                   </div>
                   <div className="text-right">
                     <i className={`${getTrendIcon(getTrend(metric.data))} text-lg`}></i>
-                    <div className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                    <div
+                      className="text-xs mt-1"
+                      style={{ color: 'var(--foreground)', opacity: 0.7 }}
+                    >
                       {getTrend(metric.data)}
                     </div>
                   </div>
@@ -413,7 +424,15 @@ export default function TrendsPage() {
           </div>
 
           {/* Main Chart */}
-          <div className="p-6 border border-gray-200 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800">
+          <div
+            className="p-6 border rounded-lg glass-card"
+            style={{
+              background: 'var(--glass-bg)',
+              backdropFilter: 'blur(25px) saturate(180%)',
+              border: '1px solid var(--glass-border)',
+              color: 'var(--foreground)',
+            }}
+          >
             {selectedChartType === 'line' && <Line data={chartData} options={chartOptions} />}
             {selectedChartType === 'bar' && <Bar data={barData} options={chartOptions} />}
             {selectedChartType === 'radar' && <Radar data={radarData} options={radarOptions} />}
@@ -422,8 +441,16 @@ export default function TrendsPage() {
           {/* Additional Charts */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {/* Steps Chart */}
-            <div className="p-4 border border-gray-200 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800">
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">
+            <div
+              className="p-4 border rounded-lg glass-card"
+              style={{
+                background: 'var(--glass-bg)',
+                backdropFilter: 'blur(25px) saturate(180%)',
+                border: '1px solid var(--glass-border)',
+                color: 'var(--foreground)',
+              }}
+            >
+              <h3 className="text-lg font-semibold mb-4" style={{ color: 'var(--foreground)' }}>
                 Daily Steps
               </h3>
               <Bar
@@ -452,8 +479,16 @@ export default function TrendsPage() {
             </div>
 
             {/* Wellness Distribution */}
-            <div className="p-4 border border-gray-200 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800">
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">
+            <div
+              className="p-4 border rounded-lg glass-card"
+              style={{
+                background: 'var(--glass-bg)',
+                backdropFilter: 'blur(25px) saturate(180%)',
+                border: '1px solid var(--glass-border)',
+                color: 'var(--foreground)',
+              }}
+            >
+              <h3 className="text-lg font-semibold mb-4" style={{ color: 'var(--foreground)' }}>
                 Today&apos;s Wellness Distribution
               </h3>
               <div className="flex justify-center">
@@ -480,16 +515,27 @@ export default function TrendsPage() {
           </div>
 
           {/* Insights */}
-          <div className="p-6 border border-gray-200 dark:border-gray-700 rounded-lg bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20">
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">
+          <div
+            className="p-6 border rounded-lg glass-card"
+            style={{
+              background: 'var(--glass-bg)',
+              backdropFilter: 'blur(25px) saturate(180%)',
+              border: '1px solid var(--glass-border)',
+              color: 'var(--foreground)',
+            }}
+          >
+            <h3 className="text-lg font-semibold mb-4" style={{ color: 'var(--foreground)' }}>
               📊 Insights & Recommendations
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <h4 className="font-medium text-gray-800 dark:text-gray-200 mb-2">
+                <h4 className="font-medium mb-2" style={{ color: 'var(--foreground)' }}>
                   Trend Analysis
                 </h4>
-                <ul className="space-y-1 text-sm text-gray-600 dark:text-gray-400">
+                <ul
+                  className="space-y-1 text-sm"
+                  style={{ color: 'var(--foreground)', opacity: 0.8 }}
+                >
                   <li>
                     • Your mood has been {getTrend(filteredData.map(d => d.mood))} over the past{' '}
                     {selectedPeriod} days
@@ -502,10 +548,13 @@ export default function TrendsPage() {
                 </ul>
               </div>
               <div>
-                <h4 className="font-medium text-gray-800 dark:text-gray-200 mb-2">
+                <h4 className="font-medium mb-2" style={{ color: 'var(--foreground)' }}>
                   Recommendations
                 </h4>
-                <ul className="space-y-1 text-sm text-gray-600 dark:text-gray-400">
+                <ul
+                  className="space-y-1 text-sm"
+                  style={{ color: 'var(--foreground)', opacity: 0.8 }}
+                >
                   <li>• Try to maintain consistent sleep patterns</li>
                   <li>• Increase water intake if below 8 glasses daily</li>
                   <li>• Consider adding more movement to your routine</li>

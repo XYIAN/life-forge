@@ -59,35 +59,44 @@ export default function WorkoutsPage() {
   const { add } = useAnime({ targets: '', autoplay: false });
 
   useEffect(() => {
-    // Load workouts from localStorage
-    const savedWorkouts = localStorage.getItem('workouts');
-    if (savedWorkouts) {
+    // Load workout entries from localStorage
+    const savedEntries = localStorage.getItem('workouts');
+    if (savedEntries) {
       setWorkouts(
-        JSON.parse(savedWorkouts).map((w: Workout) => ({
-          ...w,
-          date: new Date(w.date),
+        JSON.parse(savedEntries).map((e: Record<string, unknown>) => ({
+          ...e,
+          date: new Date(e.date as string),
         }))
       );
     }
 
     // Animate page entrance
-    if (containerRef.current) {
-      add({
-        targets: containerRef.current,
-        ...animePresets.fadeInUp,
-        duration: 1000,
-      });
-    }
-  }, []);
+    const animatePage = async () => {
+      if (containerRef.current) {
+        await add({
+          targets: containerRef.current,
+          ...animePresets.fadeInUp,
+          duration: 1000,
+        });
+      }
+    };
+
+    animatePage();
+  }, [add]);
 
   useEffect(() => {
     // Animate cards with stagger
-    if (cardsRef.current) {
-      const nodeList = cardsRef.current.querySelectorAll('.workout-card');
-      const cards = Array.from(nodeList) as HTMLElement[];
-      add(createStaggerAnimation(cards, animePresets.fadeInUp, 150));
-    }
-  }, [workouts]);
+    const animateCards = async () => {
+      if (cardsRef.current) {
+        const cards = Array.from(
+          cardsRef.current.querySelectorAll('.workout-card')
+        ) as HTMLElement[];
+        await add(createStaggerAnimation(cards, animePresets.fadeInUp, 150));
+      }
+    };
+
+    animateCards();
+  }, [workouts, add]);
 
   const saveWorkouts = (updatedWorkouts: Workout[]) => {
     setWorkouts(updatedWorkouts);

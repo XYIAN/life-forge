@@ -1,14 +1,10 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Card } from 'primereact/card';
 import { Dropdown } from 'primereact/dropdown';
 import { Chart } from 'primereact/chart';
-import { DataTable } from 'primereact/datatable';
-import { Column } from 'primereact/column';
 import { ProgressBar } from 'primereact/progressbar';
-import { ShineBorder } from '@/components/magicui';
-import { useAnime, animePresets, createStaggerAnimation } from '@/hooks/use-anime';
 
 interface AnalyticsData {
   date: string;
@@ -42,42 +38,16 @@ export default function AnalyticsPage() {
   const [selectedRange, setSelectedRange] = useState('7');
   const [selectedMetric, setSelectedMetric] = useState('mood');
   const [analyticsData, setAnalyticsData] = useState<AnalyticsData[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
 
   const containerRef = useRef<HTMLDivElement>(null);
   const chartsRef = useRef<HTMLDivElement>(null);
 
-  // Animation hooks
-  const { add } = useAnime({ targets: '', autoplay: false });
-
   useEffect(() => {
-    // Load analytics data from localStorage
+    // Load analytics data
     loadAnalyticsData();
-
-    // Animate page entrance
-    if (containerRef.current) {
-      add({
-        targets: containerRef.current,
-        ...animePresets.fadeInUp,
-        duration: 1000,
-      });
-    }
-  }, []);
-
-  useEffect(() => {
-    // Animate charts with stagger
-    if (chartsRef.current) {
-      const charts = Array.from(
-        chartsRef.current.querySelectorAll('.analytics-card')
-      ) as HTMLElement[];
-      const staggerOptions = createStaggerAnimation(charts, animePresets.fadeInUp, 200);
-      add(staggerOptions);
-    }
-  }, [analyticsData, add]);
+  }, [selectedRange]);
 
   const loadAnalyticsData = () => {
-    setIsLoading(true);
-
     // Generate mock data for demonstration
     const mockData: AnalyticsData[] = [];
     const days = parseInt(selectedRange);
@@ -99,12 +69,7 @@ export default function AnalyticsPage() {
     }
 
     setAnalyticsData(mockData);
-    setIsLoading(false);
   };
-
-  useEffect(() => {
-    loadAnalyticsData();
-  }, [selectedRange]);
 
   const getMetricColor = (metric: string) => {
     return metrics.find(m => m.value === metric)?.color || '#6b7280';
@@ -251,211 +216,189 @@ export default function AnalyticsPage() {
   };
 
   return (
-    <div ref={containerRef} className="analytics-page">
-      <div className="grid">
-        {/* Header */}
-        <div className="col-12 mb-4">
-          <ShineBorder
-            className="rounded-lg p-4"
-            shineColor={['#3b82f6', '#8b5cf6', '#ec4899']}
-            duration={8}
-            borderWidth={2}
-          >
-            <Card className="glass-card">
-              <div className="flex flex-column md:flex-row justify-content-between align-items-center">
-                <div>
-                  <h1 className="text-3xl font-bold m-0" style={{ color: 'var(--foreground)' }}>
-                    <i className="pi pi-chart-line mr-3" style={{ color: 'var(--warm-gold)' }}></i>
-                    Analytics
-                  </h1>
-                  <p
-                    className="text-lg m-0 mt-2"
-                    style={{ color: 'var(--foreground)', opacity: 0.7 }}
-                  >
-                    Deep insights into your life patterns and trends
-                  </p>
-                </div>
-                <div className="flex gap-3 mt-3 md:mt-0">
-                  <Dropdown
-                    value={selectedRange}
-                    options={timeRanges}
-                    onChange={e => setSelectedRange(e.value)}
-                    className="w-10rem"
-                  />
-                  <Dropdown
-                    value={selectedMetric}
-                    options={metrics}
-                    onChange={e => setSelectedMetric(e.value)}
-                    className="w-10rem"
-                  />
-                </div>
-              </div>
-            </Card>
-          </ShineBorder>
-        </div>
+    <div ref={containerRef} className="container mx-auto px-4 py-8">
+      <div className="mb-6">
+        <h1 className="text-3xl font-bold mb-2" style={{ color: 'var(--foreground)' }}>
+          Analytics
+        </h1>
+        <p className="text-lg" style={{ color: 'var(--foreground)', opacity: 0.8 }}>
+          Track your progress and insights
+        </p>
+      </div>
 
-        {/* Key Metrics */}
-        <div className="col-12 mb-4">
-          <div className="grid">
-            {metrics.map(metric => (
-              <div key={metric.value} className="col-12 sm:col-6 lg:col-3 mb-3">
-                <Card className="glass-card analytics-card">
-                  <div className="text-center">
-                    <div className="text-3xl mb-2" style={{ color: metric.color }}>
-                      <i className={metric.icon}></i>
-                    </div>
-                    <h3 className="text-xl font-bold m-0" style={{ color: 'var(--foreground)' }}>
-                      {averages[metric.value as keyof typeof averages]?.toFixed(1)}
-                    </h3>
-                    <p
-                      className="text-sm m-0 mt-1"
-                      style={{ color: 'var(--foreground)', opacity: 0.7 }}
-                    >
-                      {metric.label}
-                    </p>
-                    <ProgressBar
-                      value={(averages[metric.value as keyof typeof averages] / 10) * 100}
-                      className="mt-2"
-                      style={{ height: '6px' }}
-                    />
-                  </div>
-                </Card>
-              </div>
-            ))}
+      {/* Filters */}
+      <Card
+        className="glass-card mb-6"
+        style={{
+          background: 'var(--glass-bg)',
+          backdropFilter: 'blur(25px) saturate(180%)',
+          border: '1px solid var(--glass-border)',
+          color: 'var(--foreground)',
+        }}
+      >
+        <div className="flex flex-column md:flex-row gap-4 align-items-center">
+          <div className="field">
+            <label className="block mb-2 font-medium">Time Range</label>
+            <Dropdown
+              value={selectedRange}
+              options={timeRanges}
+              onChange={e => setSelectedRange(e.value)}
+              placeholder="Select time range"
+              className="w-full md:w-10rem"
+            />
+          </div>
+
+          <div className="field">
+            <label className="block mb-2 font-medium">Metric</label>
+            <Dropdown
+              value={selectedMetric}
+              options={metrics}
+              onChange={e => setSelectedMetric(e.value)}
+              placeholder="Select metric"
+              className="w-full md:w-10rem"
+            />
           </div>
         </div>
+      </Card>
 
-        {/* Main Charts */}
-        <div className="col-12 lg:col-8 mb-4">
-          <Card className="glass-card analytics-card">
-            <h3 className="text-xl font-semibold mb-4" style={{ color: 'var(--foreground)' }}>
-              {getMetricLabel(selectedMetric)} Trend
-            </h3>
-            <div style={{ height: '400px' }}>
-              <Chart type="line" data={lineChartData} options={chartOptions} />
+      {/* Statistics Cards */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+        {metrics.map(metric => {
+          const value = averages[metric.value as keyof typeof averages] || 0;
+          const scaledValue =
+            metric.value === 'mood'
+              ? value * 2
+              : metric.value === 'water'
+              ? value * 1.25
+              : metric.value === 'sleep'
+              ? value * 1.25
+              : metric.value === 'workouts'
+              ? value * 3.33
+              : metric.value === 'calories'
+              ? (value - 1500) / 50
+              : value;
+
+          return (
+            <Card key={metric.value} className="glass-card text-center">
+              <div className="text-2xl mb-2" style={{ color: metric.color }}>
+                <i className={metric.icon}></i>
+              </div>
+              <div className="text-lg font-bold mb-1" style={{ color: 'var(--foreground)' }}>
+                {scaledValue.toFixed(1)}
+              </div>
+              <div className="text-sm" style={{ color: 'var(--foreground)', opacity: 0.7 }}>
+                {metric.label}
+              </div>
+              <ProgressBar
+                value={(scaledValue / 10) * 100}
+                className="mt-2"
+                style={{ height: '4px' }}
+              />
+            </Card>
+          );
+        })}
+      </div>
+
+      {/* Charts */}
+      <div ref={chartsRef} className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* Line Chart */}
+        <Card
+          className="glass-card analytics-card"
+          style={{
+            background: 'var(--glass-bg)',
+            backdropFilter: 'blur(25px) saturate(180%)',
+            border: '1px solid var(--glass-border)',
+            color: 'var(--foreground)',
+          }}
+        >
+          <h2 className="text-xl font-semibold mb-4" style={{ color: 'var(--warm-gold)' }}>
+            <i className="pi pi-chart-line mr-2"></i>
+            {getMetricLabel(selectedMetric)} Trend
+          </h2>
+          <div className="h-20rem">
+            <Chart type="line" data={lineChartData} options={chartOptions} />
+          </div>
+        </Card>
+
+        {/* Radar Chart */}
+        <Card
+          className="glass-card analytics-card"
+          style={{
+            background: 'var(--glass-bg)',
+            backdropFilter: 'blur(25px) saturate(180%)',
+            border: '1px solid var(--glass-border)',
+            color: 'var(--foreground)',
+          }}
+        >
+          <h2 className="text-xl font-semibold mb-4" style={{ color: 'var(--warm-gold)' }}>
+            <i className="pi pi-chart-pie mr-2"></i>
+            Overall Performance
+          </h2>
+          <div className="h-20rem">
+            <Chart type="radar" data={radarChartData} options={radarChartOptions} />
+          </div>
+        </Card>
+
+        {/* Bar Chart */}
+        <Card
+          className="glass-card analytics-card"
+          style={{
+            background: 'var(--glass-bg)',
+            backdropFilter: 'blur(25px) saturate(180%)',
+            border: '1px solid var(--glass-border)',
+            color: 'var(--foreground)',
+          }}
+        >
+          <h2 className="text-xl font-semibold mb-4" style={{ color: 'var(--warm-gold)' }}>
+            <i className="pi pi-chart-bar mr-2"></i>
+            Metric Comparison
+          </h2>
+          <div className="h-20rem">
+            <Chart type="bar" data={barChartData} options={chartOptions} />
+          </div>
+        </Card>
+
+        {/* Summary */}
+        <Card
+          className="glass-card analytics-card"
+          style={{
+            background: 'var(--glass-bg)',
+            backdropFilter: 'blur(25px) saturate(180%)',
+            border: '1px solid var(--glass-border)',
+            color: 'var(--foreground)',
+          }}
+        >
+          <h2 className="text-xl font-semibold mb-4" style={{ color: 'var(--warm-gold)' }}>
+            <i className="pi pi-info-circle mr-2"></i>
+            Summary
+          </h2>
+          <div className="grid gap-4">
+            <div className="text-center p-4 border-round-lg glass-card">
+              <div className="text-3xl font-bold mb-2" style={{ color: 'var(--warm-gold)' }}>
+                {analyticsData.length}
+              </div>
+              <div style={{ color: 'var(--foreground)' }}>Days Tracked</div>
             </div>
-          </Card>
-        </div>
 
-        <div className="col-12 lg:col-4 mb-4">
-          <Card className="glass-card analytics-card">
-            <h3 className="text-xl font-semibold mb-4" style={{ color: 'var(--foreground)' }}>
-              Life Balance Radar
-            </h3>
-            <div style={{ height: '400px' }}>
-              <Chart type="radar" data={radarChartData} options={radarChartOptions} />
+            <div className="text-center p-4 border-round-lg glass-card">
+              <div className="text-3xl font-bold mb-2" style={{ color: 'var(--warm-gold)' }}>
+                {(
+                  (Object.values(averages).reduce((sum, val) => sum + val, 0) /
+                    Object.keys(averages).length) *
+                  2
+                ).toFixed(1)}
+              </div>
+              <div style={{ color: 'var(--foreground)' }}>Average Score</div>
             </div>
-          </Card>
-        </div>
 
-        {/* Performance Comparison */}
-        <div className="col-12 mb-4">
-          <Card className="glass-card analytics-card">
-            <h3 className="text-xl font-semibold mb-4" style={{ color: 'var(--foreground)' }}>
-              Performance Overview
-            </h3>
-            <div style={{ height: '300px' }}>
-              <Chart type="bar" data={barChartData} options={chartOptions} />
+            <div className="text-center p-4 border-round-lg glass-card">
+              <div className="text-3xl font-bold mb-2" style={{ color: 'var(--warm-gold)' }}>
+                {Math.max(...Object.values(averages).map(val => val * 2)).toFixed(1)}
+              </div>
+              <div style={{ color: 'var(--foreground)' }}>Best Metric</div>
             </div>
-          </Card>
-        </div>
-
-        {/* Detailed Data Table */}
-        <div className="col-12">
-          <Card className="glass-card analytics-card">
-            <h3 className="text-xl font-semibold mb-4" style={{ color: 'var(--foreground)' }}>
-              Daily Data
-            </h3>
-            <DataTable
-              value={analyticsData}
-              paginator
-              rows={10}
-              rowsPerPageOptions={[5, 10, 20]}
-              className="glass-table"
-              loading={isLoading}
-            >
-              <Column
-                field="date"
-                header="Date"
-                body={(rowData: AnalyticsData) => (
-                  <span style={{ color: 'var(--foreground)' }}>
-                    {new Date(rowData.date).toLocaleDateString()}
-                  </span>
-                )}
-              />
-              <Column
-                field="mood"
-                header="Mood"
-                body={(rowData: AnalyticsData) => (
-                  <div className="flex align-items-center">
-                    <span style={{ color: 'var(--foreground)' }}>{rowData.mood}/5</span>
-                    <ProgressBar
-                      value={(rowData.mood / 5) * 100}
-                      className="ml-2"
-                      style={{ width: '60px', height: '8px' }}
-                    />
-                  </div>
-                )}
-              />
-              <Column
-                field="focus"
-                header="Focus"
-                body={(rowData: AnalyticsData) => (
-                  <div className="flex align-items-center">
-                    <span style={{ color: 'var(--foreground)' }}>{rowData.focus}/10</span>
-                    <ProgressBar
-                      value={(rowData.focus / 10) * 100}
-                      className="ml-2"
-                      style={{ width: '60px', height: '8px' }}
-                    />
-                  </div>
-                )}
-              />
-              <Column
-                field="water"
-                header="Water"
-                body={(rowData: AnalyticsData) => (
-                  <span style={{ color: 'var(--foreground)' }}>{rowData.water}L</span>
-                )}
-              />
-              <Column
-                field="sleep"
-                header="Sleep"
-                body={(rowData: AnalyticsData) => (
-                  <span style={{ color: 'var(--foreground)' }}>{rowData.sleep}h</span>
-                )}
-              />
-              <Column
-                field="workouts"
-                header="Workouts"
-                body={(rowData: AnalyticsData) => (
-                  <span style={{ color: 'var(--foreground)' }}>{rowData.workouts}</span>
-                )}
-              />
-              <Column
-                field="calories"
-                header="Calories"
-                body={(rowData: AnalyticsData) => (
-                  <span style={{ color: 'var(--foreground)' }}>{rowData.calories}</span>
-                )}
-              />
-              <Column
-                field="productivity"
-                header="Productivity"
-                body={(rowData: AnalyticsData) => (
-                  <div className="flex align-items-center">
-                    <span style={{ color: 'var(--foreground)' }}>{rowData.productivity}/10</span>
-                    <ProgressBar
-                      value={(rowData.productivity / 10) * 100}
-                      className="ml-2"
-                      style={{ width: '60px', height: '8px' }}
-                    />
-                  </div>
-                )}
-              />
-            </DataTable>
-          </Card>
-        </div>
+          </div>
+        </Card>
       </div>
     </div>
   );

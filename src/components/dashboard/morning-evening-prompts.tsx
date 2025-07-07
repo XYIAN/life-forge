@@ -130,38 +130,57 @@ export default function MorningEveningPrompts() {
 
   const title = (
     <div className="flex align-items-center gap-2">
-      <i className="pi pi-comments text-blue-500 text-xl"></i>
-      <span className="text-xl font-bold">Daily Reflections</span>
+      <i className="pi pi-comments text-xl" style={{ color: 'var(--warm-gold)' }}></i>
+      <span className="text-xl font-bold" style={{ color: 'var(--foreground)' }}>
+        Daily Reflections
+      </span>
     </div>
   );
   const subtitle = (
-    <span className="text-gray-600 dark:text-gray-300">
+    <span style={{ color: 'var(--foreground)', opacity: 0.8 }}>
       Morning and evening prompts for self-reflection
     </span>
   );
 
   return (
     <div className="morning-evening-prompts">
-      <Card className="prompts-card shadow-lg border-0" header={title} subTitle={subtitle}>
+      <Card
+        className="prompts-card shadow-lg border-0 glass-card"
+        header={title}
+        subTitle={subtitle}
+        style={{
+          background: 'var(--glass-bg)',
+          backdropFilter: 'blur(25px) saturate(180%)',
+          border: '1px solid var(--glass-border)',
+          color: 'var(--foreground)',
+        }}
+      >
         <div className="space-y-6">
           {/* Morning Section */}
-          <div className="text-center p-6 border border-orange-200 dark:border-orange-800 rounded-lg bg-orange-50 dark:bg-orange-900/20">
+          <div
+            className="text-center p-6 border rounded-lg glass-card"
+            style={{
+              background: 'var(--glass-bg)',
+              border: '1px solid var(--glass-border)',
+              color: 'var(--foreground)',
+            }}
+          >
             <div className="mb-4">
-              <i className="pi pi-sun text-3xl text-orange-500 mb-3"></i>
-              <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-2">
+              <i className="pi pi-sun text-3xl mb-3" style={{ color: 'var(--warm-gold)' }}></i>
+              <h3 className="text-lg font-semibold mb-2" style={{ color: 'var(--foreground)' }}>
                 Morning Reflection
               </h3>
-              <p className="text-gray-600 dark:text-gray-400 text-sm">
+              <p className="text-sm" style={{ color: 'var(--foreground)', opacity: 0.8 }}>
                 Start your day with intention and gratitude
               </p>
             </div>
 
             {hasMorningResponse ? (
               <div className="text-center">
-                <div className="text-green-500 mb-2">
+                <div className="mb-2" style={{ color: 'var(--warm-gold)' }}>
                   <i className="pi pi-check-circle text-xl"></i>
                 </div>
-                <p className="text-sm text-gray-600 dark:text-gray-400">
+                <p className="text-sm" style={{ color: 'var(--foreground)', opacity: 0.8 }}>
                   Morning reflection completed
                 </p>
               </div>
@@ -169,30 +188,41 @@ export default function MorningEveningPrompts() {
               <Button
                 label="Start Morning Reflection"
                 icon="pi pi-play"
-                className="p-button-outlined p-button-orange"
+                className="p-button-outlined"
+                style={{
+                  borderColor: 'var(--warm-gold)',
+                  color: 'var(--warm-gold)',
+                }}
                 onClick={() => startPrompt('morning')}
               />
             )}
           </div>
 
           {/* Evening Section */}
-          <div className="text-center p-6 border border-purple-200 dark:border-purple-800 rounded-lg bg-purple-50 dark:bg-purple-900/20">
+          <div
+            className="text-center p-6 border rounded-lg glass-card"
+            style={{
+              background: 'var(--glass-bg)',
+              border: '1px solid var(--glass-border)',
+              color: 'var(--foreground)',
+            }}
+          >
             <div className="mb-4">
-              <i className="pi pi-moon text-3xl text-purple-500 mb-3"></i>
-              <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-2">
+              <i className="pi pi-moon text-3xl mb-3" style={{ color: 'var(--warm-gold)' }}></i>
+              <h3 className="text-lg font-semibold mb-2" style={{ color: 'var(--foreground)' }}>
                 Evening Reflection
               </h3>
-              <p className="text-gray-600 dark:text-gray-400 text-sm">
+              <p className="text-sm" style={{ color: 'var(--foreground)', opacity: 0.8 }}>
                 Reflect on your day and prepare for tomorrow
               </p>
             </div>
 
             {hasEveningResponse ? (
               <div className="text-center">
-                <div className="text-green-500 mb-2">
+                <div className="mb-2" style={{ color: 'var(--warm-gold)' }}>
                   <i className="pi pi-check-circle text-xl"></i>
                 </div>
-                <p className="text-sm text-gray-600 dark:text-gray-400">
+                <p className="text-sm" style={{ color: 'var(--foreground)', opacity: 0.8 }}>
                   Evening reflection completed
                 </p>
               </div>
@@ -200,7 +230,11 @@ export default function MorningEveningPrompts() {
               <Button
                 label="Start Evening Reflection"
                 icon="pi pi-play"
-                className="p-button-outlined p-button-purple"
+                className="p-button-outlined"
+                style={{
+                  borderColor: 'var(--warm-gold)',
+                  color: 'var(--warm-gold)',
+                }}
                 onClick={() => startPrompt('evening')}
               />
             )}
@@ -209,45 +243,48 @@ export default function MorningEveningPrompts() {
           {/* Today's Responses */}
           {todayResponses.length > 0 && (
             <div className="space-y-3">
-              <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200">
+              <h3 className="text-lg font-semibold" style={{ color: 'var(--foreground)' }}>
                 Today&apos;s Reflections
               </h3>
               {todayResponses.map(response => (
                 <div
                   key={response.id}
-                  className={`p-4 border rounded-lg ${
-                    response.type === 'morning'
-                      ? 'border-orange-200 dark:border-orange-800 bg-orange-50 dark:bg-orange-900/20'
-                      : 'border-purple-200 dark:border-purple-800 bg-purple-50 dark:bg-purple-900/20'
-                  }`}
+                  className="p-4 border rounded-lg glass-card"
+                  style={{
+                    background: 'var(--glass-bg)',
+                    border: '1px solid var(--glass-border)',
+                    color: 'var(--foreground)',
+                  }}
                 >
                   <div className="flex justify-between items-start mb-3">
                     <div className="flex items-center gap-2">
                       <i
-                        className={`pi ${response.type === 'morning' ? 'pi-sun' : 'pi-moon'} ${
-                          response.type === 'morning' ? 'text-orange-500' : 'text-purple-500'
-                        }`}
+                        className={`pi ${response.type === 'morning' ? 'pi-sun' : 'pi-moon'}`}
+                        style={{ color: 'var(--warm-gold)' }}
                       ></i>
-                      <span className="font-medium text-gray-900 dark:text-gray-100">
+                      <span className="font-medium" style={{ color: 'var(--foreground)' }}>
                         {response.type === 'morning' ? 'Morning' : 'Evening'} Reflection
                       </span>
                     </div>
                     <div className="flex items-center gap-2">
                       <span className="text-2xl">{getMoodEmoji(response.mood)}</span>
-                      <span className="text-sm text-gray-500 dark:text-gray-400">
+                      <span
+                        className="text-sm"
+                        style={{ color: 'var(--foreground)', opacity: 0.7 }}
+                      >
                         {response.mood}/5
                       </span>
                     </div>
                   </div>
 
                   <div className="mb-3">
-                    <p className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    <p className="text-sm font-medium mb-2" style={{ color: 'var(--foreground)' }}>
                       {response.question}
                     </p>
-                    <p className="text-gray-600 dark:text-gray-400">{response.answer}</p>
+                    <p style={{ color: 'var(--foreground)', opacity: 0.9 }}>{response.answer}</p>
                   </div>
 
-                  <div className="text-xs text-gray-500 dark:text-gray-400">
+                  <div className="text-xs" style={{ color: 'var(--foreground)', opacity: 0.6 }}>
                     {response.createdAt.toLocaleTimeString([], {
                       hour: '2-digit',
                       minute: '2-digit',
@@ -261,7 +298,7 @@ export default function MorningEveningPrompts() {
           {/* Recent History */}
           {responses.length > 0 && (
             <div className="space-y-3">
-              <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200">
+              <h3 className="text-lg font-semibold" style={{ color: 'var(--foreground)' }}>
                 Recent Reflections
               </h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
@@ -271,27 +308,40 @@ export default function MorningEveningPrompts() {
                   .map(response => (
                     <div
                       key={response.id}
-                      className="p-3 border border-gray-200 dark:border-gray-700 rounded-lg hover:shadow-sm transition-shadow"
+                      className="p-3 border rounded-lg hover:shadow-sm transition-shadow glass-card"
+                      style={{
+                        background: 'var(--glass-bg)',
+                        border: '1px solid var(--glass-border)',
+                        color: 'var(--foreground)',
+                      }}
                     >
                       <div className="flex justify-between items-start mb-2">
                         <div className="flex items-center gap-1">
                           <i
                             className={`pi ${
                               response.type === 'morning' ? 'pi-sun' : 'pi-moon'
-                            } text-xs ${
-                              response.type === 'morning' ? 'text-orange-500' : 'text-purple-500'
-                            }`}
+                            } text-xs`}
+                            style={{ color: 'var(--warm-gold)' }}
                           ></i>
-                          <span className="text-xs font-medium text-gray-600 dark:text-gray-400">
+                          <span
+                            className="text-xs font-medium"
+                            style={{ color: 'var(--foreground)', opacity: 0.8 }}
+                          >
                             {response.type}
                           </span>
                         </div>
                         <span className="text-lg">{getMoodEmoji(response.mood)}</span>
                       </div>
-                      <p className="text-sm text-gray-700 dark:text-gray-300 line-clamp-2">
+                      <p
+                        className="text-sm line-clamp-2"
+                        style={{ color: 'var(--foreground)', opacity: 0.9 }}
+                      >
                         {response.answer}
                       </p>
-                      <div className="text-xs text-gray-500 dark:text-gray-400 mt-2">
+                      <div
+                        className="text-xs mt-2"
+                        style={{ color: 'var(--foreground)', opacity: 0.6 }}
+                      >
                         {response.createdAt.toLocaleDateString()}
                       </div>
                     </div>
@@ -312,27 +362,48 @@ export default function MorningEveningPrompts() {
         className="p-fluid"
       >
         <div className="space-y-4">
-          <div className="text-center p-4 bg-orange-50 dark:bg-orange-900/20 rounded-lg">
-            <i className="pi pi-sun text-2xl text-orange-500 mb-2"></i>
-            <h3 className="font-semibold text-gray-800 dark:text-gray-200 mb-2">
+          <div
+            className="text-center p-4 rounded-lg glass-card"
+            style={{
+              background: 'var(--glass-bg)',
+              border: '1px solid var(--glass-border)',
+              color: 'var(--foreground)',
+            }}
+          >
+            <i className="pi pi-sun text-2xl mb-2" style={{ color: 'var(--warm-gold)' }}></i>
+            <h3 className="font-semibold mb-2" style={{ color: 'var(--foreground)' }}>
               Good Morning! ☀️
             </h3>
-            <p className="text-gray-600 dark:text-gray-400">
+            <p style={{ color: 'var(--foreground)', opacity: 0.8 }}>
               Take a moment to reflect on your day ahead
             </p>
           </div>
 
           <div>
-            <label className="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">
+            <label
+              className="block text-sm font-medium mb-2"
+              style={{ color: 'var(--foreground)' }}
+            >
               Today&apos;s Question
             </label>
-            <p className="p-3 bg-gray-50 dark:bg-gray-800 rounded-lg text-gray-800 dark:text-gray-200 font-medium">
+            <p
+              className="p-3 rounded-lg font-medium glass-card"
+              style={{
+                background: 'var(--glass-bg)',
+                border: '1px solid var(--glass-border)',
+                color: 'var(--foreground)',
+              }}
+            >
               {currentResponse.question}
             </p>
           </div>
 
           <div>
-            <label htmlFor="answer" className="block text-sm font-medium mb-2">
+            <label
+              htmlFor="answer"
+              className="block text-sm font-medium mb-2"
+              style={{ color: 'var(--foreground)' }}
+            >
               Your Reflection
             </label>
             <InputTextarea
@@ -341,11 +412,19 @@ export default function MorningEveningPrompts() {
               onChange={e => setCurrentResponse({ ...currentResponse, answer: e.target.value })}
               placeholder="Share your thoughts..."
               rows={4}
+              style={{
+                background: 'var(--glass-bg)',
+                border: '1px solid var(--glass-border)',
+                color: 'var(--foreground)',
+              }}
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium mb-2">
+            <label
+              className="block text-sm font-medium mb-2"
+              style={{ color: 'var(--foreground)' }}
+            >
               How are you feeling this morning?
             </label>
             <div className="flex items-center gap-3">
@@ -388,25 +467,48 @@ export default function MorningEveningPrompts() {
         className="p-fluid"
       >
         <div className="space-y-4">
-          <div className="text-center p-4 bg-purple-50 dark:bg-purple-900/20 rounded-lg">
-            <i className="pi pi-moon text-2xl text-purple-500 mb-2"></i>
-            <h3 className="font-semibold text-gray-800 dark:text-gray-200 mb-2">
+          <div
+            className="text-center p-4 rounded-lg glass-card"
+            style={{
+              background: 'var(--glass-bg)',
+              border: '1px solid var(--glass-border)',
+              color: 'var(--foreground)',
+            }}
+          >
+            <i className="pi pi-moon text-2xl mb-2" style={{ color: 'var(--warm-gold)' }}></i>
+            <h3 className="font-semibold mb-2" style={{ color: 'var(--foreground)' }}>
               Good Evening! 🌙
             </h3>
-            <p className="text-gray-600 dark:text-gray-400">Take a moment to reflect on your day</p>
+            <p style={{ color: 'var(--foreground)', opacity: 0.8 }}>
+              Take a moment to reflect on your day
+            </p>
           </div>
 
           <div>
-            <label className="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">
+            <label
+              className="block text-sm font-medium mb-2"
+              style={{ color: 'var(--foreground)' }}
+            >
               Today&apos;s Question
             </label>
-            <p className="p-3 bg-gray-50 dark:bg-gray-800 rounded-lg text-gray-800 dark:text-gray-200 font-medium">
+            <p
+              className="p-3 rounded-lg font-medium glass-card"
+              style={{
+                background: 'var(--glass-bg)',
+                border: '1px solid var(--glass-border)',
+                color: 'var(--foreground)',
+              }}
+            >
               {currentResponse.question}
             </p>
           </div>
 
           <div>
-            <label htmlFor="evening-answer" className="block text-sm font-medium mb-2">
+            <label
+              htmlFor="evening-answer"
+              className="block text-sm font-medium mb-2"
+              style={{ color: 'var(--foreground)' }}
+            >
               Your Reflection
             </label>
             <InputTextarea
@@ -415,11 +517,21 @@ export default function MorningEveningPrompts() {
               onChange={e => setCurrentResponse({ ...currentResponse, answer: e.target.value })}
               placeholder="Share your thoughts..."
               rows={4}
+              style={{
+                background: 'var(--glass-bg)',
+                border: '1px solid var(--glass-border)',
+                color: 'var(--foreground)',
+              }}
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium mb-2">How was your day overall?</label>
+            <label
+              className="block text-sm font-medium mb-2"
+              style={{ color: 'var(--foreground)' }}
+            >
+              How was your day overall?
+            </label>
             <div className="flex items-center gap-3">
               <Rating
                 value={currentResponse.mood}

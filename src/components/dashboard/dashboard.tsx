@@ -1,8 +1,9 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Card } from 'primereact/card';
 import { Button } from 'primereact/button';
+import { Toast } from 'primereact/toast';
 import {
   DailyGoalsPanel,
   MoodTrackerPanel,
@@ -30,24 +31,47 @@ export default function Dashboard() {
   const [activePanel, setActivePanel] = useState<string | null>(null);
   const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
   const [showUserDialog, setShowUserDialog] = useState(false);
+  const [isClient, setIsClient] = useState(false);
+  const toast = useRef<Toast>(null);
+
+  // Debug logging
+  useEffect(() => {
+    console.log('Dashboard: Component mounted');
+    setIsClient(true);
+  }, []);
 
   // Check for user info on component mount
   useEffect(() => {
+    console.log('Dashboard: Checking for user info...');
     const savedUserInfo = localStorage.getItem('userInfo');
+    console.log('Dashboard: Saved user info:', savedUserInfo);
+
     if (savedUserInfo) {
       try {
         const parsed = JSON.parse(savedUserInfo);
+        console.log('Dashboard: Parsed user info:', parsed);
         setUserInfo(parsed);
       } catch (error) {
-        console.error('Error parsing user info:', error);
+        console.error('Dashboard: Error parsing user info:', error);
         setShowUserDialog(true);
       }
     } else {
+      console.log('Dashboard: No user info found, showing dialog');
       setShowUserDialog(true);
     }
   }, []);
 
+  // Debug logging for state changes
+  useEffect(() => {
+    console.log('Dashboard: userInfo state changed:', userInfo);
+  }, [userInfo]);
+
+  useEffect(() => {
+    console.log('Dashboard: showUserDialog state changed:', showUserDialog);
+  }, [showUserDialog]);
+
   const handleUserInfoSave = (info: UserInfo) => {
+    console.log('Dashboard: Saving user info:', info);
     setUserInfo(info);
     setShowUserDialog(false);
   };
@@ -133,17 +157,51 @@ export default function Dashboard() {
   ];
 
   const handlePanelClick = (panelId: string) => {
+    console.log('Dashboard: Panel clicked:', panelId);
+    const panel = panels.find(p => p.id === panelId);
+    const isOpening = activePanel !== panelId;
+
     setActivePanel(activePanel === panelId ? null : panelId);
+
+    if (isOpening && panel) {
+      toast.current?.show({
+        severity: 'info',
+        summary: 'Panel Opened',
+        detail: `${panel.title} is now active`,
+        life: 3000,
+        style: {
+          background: 'var(--glass-bg)',
+          backdropFilter: 'blur(25px) saturate(180%)',
+          border: '1px solid var(--glass-border)',
+          color: 'var(--foreground)',
+        },
+      });
+    } else if (!isOpening) {
+      toast.current?.show({
+        severity: 'info',
+        summary: 'Panel Closed',
+        detail: 'Returned to dashboard overview',
+        life: 2000,
+        style: {
+          background: 'var(--glass-bg)',
+          backdropFilter: 'blur(25px) saturate(180%)',
+          border: '1px solid var(--glass-border)',
+          color: 'var(--foreground)',
+        },
+      });
+    }
   };
 
   const getGreeting = () => {
+    if (!isClient) return 'Welcome';
     const hour = new Date().getHours();
     if (hour < 12) return 'Good morning';
     if (hour < 18) return 'Good afternoon';
     return 'Good evening';
   };
 
-  if (!userInfo) {
+  // Show loading state while checking user info
+  if (!isClient || (!userInfo && !showUserDialog)) {
     return (
       <div className="flex justify-center items-center h-screen">
         <div className="text-center">
@@ -159,6 +217,7 @@ export default function Dashboard() {
 
   return (
     <div className="dashboard min-h-screen p-4">
+      <Toast ref={toast} position="top-right" />
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="mb-8">
@@ -181,7 +240,7 @@ export default function Dashboard() {
               }}
             >
               <h1 className="text-3xl font-bold mb-2" style={{ color: 'var(--foreground)' }}>
-                {getGreeting()}, {userInfo.name}!
+                {getGreeting()}, {userInfo?.name || 'there'}!
               </h1>
               <p style={{ color: 'var(--foreground)', opacity: 0.9 }}>
                 Ready to make today amazing? Let&apos;s check in on your wellness journey.

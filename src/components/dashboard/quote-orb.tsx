@@ -209,18 +209,32 @@ export const QuoteOrb: React.FC<QuoteOrbProps> = ({ className }) => {
               onClick={handleOrbClick}
               style={orbStyle}
             >
-              <div className="orb-inner bg-white dark:bg-gray-800 border-round-xl p-4 text-center min-h-8rem flex align-items-center justify-content-center">
+              <div
+                className="orb-inner border-round-xl p-4 text-center min-h-8rem flex align-items-center justify-content-center glass-card"
+                style={{
+                  background: 'var(--glass-bg)',
+                  backdropFilter: 'blur(25px) saturate(180%)',
+                  border: '1px solid var(--glass-border)',
+                  color: 'var(--foreground)',
+                }}
+              >
                 <div
                   className={`quote-text ${
                     isAnimating ? 'opacity-0' : 'opacity-100'
                   } transition-opacity duration-300`}
                 >
                   {currentQuote ? (
-                    <p className="text-sm md:text-base font-medium line-height-3 m-0 text-gray-700 dark:text-gray-200">
+                    <p
+                      className="text-sm md:text-base font-medium line-height-3 m-0"
+                      style={{ color: 'var(--foreground)' }}
+                    >
                       &quot;{currentQuote.text}&quot;
                     </p>
                   ) : (
-                    <p className="text-sm md:text-base font-medium line-height-3 m-0 text-gray-400">
+                    <p
+                      className="text-sm md:text-base font-medium line-height-3 m-0"
+                      style={{ color: 'var(--foreground)', opacity: 0.7 }}
+                    >
                       Loading wisdom...
                     </p>
                   )}

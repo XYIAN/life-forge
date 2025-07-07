@@ -5,6 +5,128 @@ All notable changes to Life Forge will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.2.3] - 2024-12-19
+
+### 🎨 **Dashboard Text Color Fix**
+
+This update fixes the text visibility issues in the dashboard by properly configuring CSS variables for theme-aware colors.
+
+### Fixed
+
+- **Text Visibility**: Resolved black text appearing in dark mode
+  - **Root Cause**: CSS variables using complex `oklch()` color values that didn't switch properly
+  - **Solution**: Replaced with proper hex color values that change with theme
+  - **Impact**: All dashboard text now properly visible in both light and dark modes
+- **Theme Variables**: Complete overhaul of CSS custom properties for theme-aware colors
+  - **Light Mode**: Proper dark text on light backgrounds
+  - **Dark Mode**: White text on dark backgrounds with proper contrast
+  - **Dynamic Switching**: Colors now properly change when switching themes
+- **Component Theming**: Ensured all dashboard components use theme-aware colors
+  - **Cards**: All glass cards now have proper text colors
+  - **Panels**: All dashboard panels maintain proper text visibility
+  - **PrimeReact Components**: All PrimeReact components properly themed
+  - **Icons**: Icons maintain proper contrast in all themes
+
+### Technical
+
+- **CSS Variables**: Replaced `oklch()` color values with hex colors
+- **Theme Detection**: Proper `@media (prefers-color-scheme: dark)` and `.dark-mode` class support
+- **Color Consistency**: Unified color system across all components
+- **Performance**: Simplified color calculations for better performance
+
+### User Experience
+
+- **Better Readability**: All text is now clearly visible in both themes
+- **Consistent Theming**: Smooth transitions between light and dark modes
+- **Professional Appearance**: Proper contrast ratios for accessibility
+- **No More Black Text**: Eliminated invisible text issues in dark mode
+
+## [1.2.2] - 2024-12-19
+
+### 🔧 **Critical Redirect Loop Fix**
+
+This update fixes a critical redirect loop issue that was preventing the dashboard from loading properly, causing "ERR_TOO_MANY_REDIRECTS" errors.
+
+### Fixed
+
+- **Redirect Loop**: Resolved infinite redirect loop caused by Next.js config
+  - **Root Cause**: `next.config.ts` had a redirect from `/dashboard` to `/dashboard/` that created a loop
+  - **Solution**: Removed the problematic redirect rule entirely
+  - **Impact**: Dashboard now loads properly without redirect errors
+- **Dashboard Functionality**: Restored full dashboard functionality with all panels
+  - **All Panels**: Daily Goals, Mood Tracker, Water Tracker, Focus Timer, Next Big Thing, Daily Reflections, Mini Workouts, Daily Tarot, Mystery Box, Social Fun, Trends & Analytics
+  - **User Dialog**: User onboarding dialog works properly
+  - **Panel Interactions**: Click to open/close panels with toast notifications
+  - **Theme Integration**: All panels maintain proper glassmorphism styling
+- **Debug Logging**: Added comprehensive debug logging to dashboard component
+  - **State Tracking**: Logs user info loading, state changes, and panel interactions
+  - **Error Prevention**: Better error handling and debugging capabilities
+  - **Development**: Easier troubleshooting for future issues
+
+### Technical
+
+- **Next.js Config**: Removed redirects section that was causing the loop
+- **Component Architecture**: Restored full dashboard component with all imports
+- **State Management**: Improved user info handling with proper client-side detection
+- **Error Handling**: Enhanced error handling for localStorage and user data parsing
+
+### User Experience
+
+- **No More Redirects**: Dashboard loads immediately without redirect loops
+- **Full Functionality**: All dashboard panels and features are now accessible
+- **Smooth Navigation**: Panel opening/closing works with proper animations
+- **User Onboarding**: New users see the onboarding dialog on first visit
+
+## [1.2.1] - 2024-12-19
+
+### 🎨 **About Page Theme Integration**
+
+This update completely overhauls the about page theming to align with the application's dynamic theme system, ensuring all icons and components properly change with theme switches.
+
+### Enhanced
+
+- **About Page Theming**: Complete theme integration for all about page components
+  - **Feature Icons**: All feature icons now use `var(--warm-gold)` for consistent theming
+  - **Tech Stack Icons**: Technology icons updated to use theme-aware colors
+  - **Card Backgrounds**: All cards now use glassmorphism styling with `var(--glass-bg)`
+  - **Text Colors**: All text now uses `var(--foreground)` for proper theme adaptation
+  - **Button Styling**: CTA buttons use `var(--warm-gold)` background with proper contrast
+- **AboutHeroSection**: Updated hero section with theme-aware styling
+  - **Icon Container**: Replaced gradient background with glassmorphism styling
+  - **Text Colors**: Title and description now use theme variables
+  - **Visual Consistency**: Maintains glassmorphism design language
+- **CreatorSection**: Enhanced creator section theming
+  - **Profile Icon**: User icon now uses `var(--warm-gold)` color
+  - **Social Buttons**: All social media buttons use consistent warm gold styling
+  - **Card Background**: Applied glassmorphism styling with proper borders
+- **PhilosophySection**: Updated philosophy badges and text theming
+  - **Number Badges**: Badges now use `var(--warm-gold)` background
+  - **Text Colors**: All philosophy text uses theme-aware colors
+  - **Visual Hierarchy**: Maintained proper contrast and readability
+
+### Fixed
+
+- **Hardcoded Colors**: Removed all hardcoded color classes that don't adapt to themes
+  - **Blue/Purple Gradients**: Replaced with glassmorphism backgrounds
+  - **White Text**: Updated to use `var(--foreground)` for proper theme switching
+  - **Icon Colors**: Eliminated hardcoded blue, purple, and other static colors
+- **Theme Consistency**: All about page elements now properly change with theme
+- **Visual Cohesion**: About page now matches dashboard and main app theming
+
+### Technical
+
+- **CSS Variables**: Complete migration to CSS custom properties for about page
+- **Component Architecture**: Improved about page component styling structure
+- **Theme Integration**: Seamless integration with existing theme system
+- **Code Quality**: Maintained TypeScript safety and component organization
+
+### User Experience
+
+- **Consistent Theming**: About page now properly adapts to light/dark mode changes
+- **Visual Harmony**: All icons and elements maintain consistent styling across themes
+- **Professional Appearance**: Glassmorphism design language applied throughout
+- **Better Accessibility**: Improved contrast and readability in all theme modes
+
 ## [1.2.0] - 2024-12-19
 
 ### 🎨 **Button Theming & Background Improvements**
@@ -455,3 +577,43 @@ _Life Forge is continuously evolving. Stay tuned for magical updates! ✨_
 
 - README and documentation to reflect new features
 - Upgraded package version to 1.1.0
+
+## [Unreleased]
+
+### Added
+
+- **Theme Switcher Redesign**: Improved theme switcher with better organization and PrimeReact ToggleButton integration
+- **Advanced Theme Options**: Enhanced theme selection sidebar with improved UX
+- **Goals Page**: Complete goal tracking system with daily, weekly, monthly, and long-term goals
+- **Meditation Page**: Comprehensive meditation timer with guided sessions and progress tracking
+- **Settings Page**: Full user preferences and configuration management system
+
+### Changed
+
+- **Theme Switcher Component**: Now uses PrimeReact ToggleButton for light/dark toggle within the sidebar only
+- **Header Layout**: Theme palette button remains in header for accessing advanced theme options
+- **CSS Organization**: Updated theme button styles to use consistent glassmorphism design
+- **Dashboard Navigation**: Added functional settings page with comprehensive user controls
+
+### Fixed
+
+- **Theme Button Positioning**: Resolved positioning issues with theme controls
+- **Navigation Menu**: Ensured hamburger menu and navigation remain fully functional
+- **Button Styling**: Ensured consistent theming across all theme-related buttons
+- **ShineBorder Component**: Fixed z-index and positioning issues where animated border was overlapping content
+- **Anime.js Integration**: Fixed async/await issues in animation calls across all dashboard pages
+- **Console Errors**: Resolved "animeInstance is not a function" errors in nutrition and other pages
+- **Settings Functionality**: Fixed settings page to be fully functional with proper event handling
+
+## [1.2.0] - 2024-12-19
+
+### Fixed
+
+- Fixed infinite loop and anime.js errors in analytics page by removing problematic animation calls
+- Removed unused imports and variables from analytics page
+- Fixed React hook dependency warnings in analytics page
+
+### Changed
+
+- Simplified analytics page to remove animation dependencies that were causing performance issues
+- Improved analytics page layout and responsiveness

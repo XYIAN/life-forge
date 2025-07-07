@@ -16,37 +16,39 @@
   --warm-gold: #d4af37;
   --deep-purple: #8b5cf6;
   --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.129 0.042 264.695);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.129 0.042 264.695);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.129 0.042 264.695);
-  --primary: oklch(0.208 0.042 265.755);
-  --primary-foreground: oklch(0.984 0.003 247.858);
-  --secondary: oklch(0.968 0.007 247.896);
-  --secondary-foreground: oklch(0.208 0.042 265.755);
-  --muted: oklch(0.968 0.007 247.896);
-  --muted-foreground: oklch(0.554 0.046 257.417);
-  --accent: oklch(0.968 0.007 247.896);
-  --accent-foreground: oklch(0.208 0.042 265.755);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.929 0.013 255.508);
-  --input: oklch(0.929 0.013 255.508);
-  --ring: oklch(0.704 0.04 256.788);
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
-  --sidebar: oklch(0.984 0.003 247.858);
-  --sidebar-foreground: oklch(0.129 0.042 264.695);
-  --sidebar-primary: oklch(0.208 0.042 265.755);
-  --sidebar-primary-foreground: oklch(0.984 0.003 247.858);
-  --sidebar-accent: oklch(0.968 0.007 247.896);
-  --sidebar-accent-foreground: oklch(0.208 0.042 265.755);
-  --sidebar-border: oklch(0.929 0.013 255.508);
-  --sidebar-ring: oklch(0.704 0.04 256.788);
+
+  /* Light mode colors */
+  --background: #ffffff;
+  --foreground: #1a1a1a;
+  --card: #ffffff;
+  --card-foreground: #1a1a1a;
+  --popover: #ffffff;
+  --popover-foreground: #1a1a1a;
+  --primary: #d4af37;
+  --primary-foreground: #ffffff;
+  --secondary: #f5f5f5;
+  --secondary-foreground: #1a1a1a;
+  --muted: #f5f5f5;
+  --muted-foreground: #6b7280;
+  --accent: #f5f5f5;
+  --accent-foreground: #1a1a1a;
+  --destructive: #ef4444;
+  --border: #e5e7eb;
+  --input: #e5e7eb;
+  --ring: #d4af37;
+  --chart-1: #3b82f6;
+  --chart-2: #10b981;
+  --chart-3: #f59e0b;
+  --chart-4: #ef4444;
+  --chart-5: #8b5cf6;
+  --sidebar: #ffffff;
+  --sidebar-foreground: #1a1a1a;
+  --sidebar-primary: #d4af37;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #f5f5f5;
+  --sidebar-accent-foreground: #1a1a1a;
+  --sidebar-border: #e5e7eb;
+  --sidebar-ring: #d4af37;
 }
 
 @theme inline {
@@ -95,15 +97,69 @@
     --glass-bg: rgba(139, 92, 47, 0.2);
     --glass-border: rgba(212, 175, 55, 0.4);
     --shadow-glass: 0 8px 32px 0 rgba(0, 0, 0, 0.6);
+
+    /* Dark mode colors */
+    --background: #0f0e0a;
+    --foreground: #ffffff;
+    --card: #1a1a1a;
+    --card-foreground: #ffffff;
+    --popover: #1a1a1a;
+    --popover-foreground: #ffffff;
+    --primary: #d4af37;
+    --primary-foreground: #0f0e0a;
+    --secondary: #2a2a2a;
+    --secondary-foreground: #ffffff;
+    --muted: #2a2a2a;
+    --muted-foreground: #a1a1aa;
+    --accent: #2a2a2a;
+    --accent-foreground: #ffffff;
+    --destructive: #ef4444;
+    --border: #3a3a3a;
+    --input: #3a3a3a;
+    --ring: #d4af37;
+    --sidebar: #0f0e0a;
+    --sidebar-foreground: #ffffff;
+    --sidebar-primary: #d4af37;
+    --sidebar-primary-foreground: #0f0e0a;
+    --sidebar-accent: #2a2a2a;
+    --sidebar-accent-foreground: #ffffff;
+    --sidebar-border: #3a3a3a;
+    --sidebar-ring: #d4af37;
   }
 }
 
 .dark-mode {
   --background: #0f0e0a;
-  --foreground: #f4f1e8;
+  --foreground: #ffffff;
   --glass-bg: rgba(139, 92, 47, 0.2);
   --glass-border: rgba(212, 175, 55, 0.4);
   --shadow-glass: 0 8px 32px 0 rgba(0, 0, 0, 0.6);
+
+  /* Dark mode colors */
+  --card: #1a1a1a;
+  --card-foreground: #ffffff;
+  --popover: #1a1a1a;
+  --popover-foreground: #ffffff;
+  --primary: #d4af37;
+  --primary-foreground: #0f0e0a;
+  --secondary: #2a2a2a;
+  --secondary-foreground: #ffffff;
+  --muted: #2a2a2a;
+  --muted-foreground: #a1a1aa;
+  --accent: #2a2a2a;
+  --accent-foreground: #ffffff;
+  --destructive: #ef4444;
+  --border: #3a3a3a;
+  --input: #3a3a3a;
+  --ring: #d4af37;
+  --sidebar: #0f0e0a;
+  --sidebar-foreground: #ffffff;
+  --sidebar-primary: #d4af37;
+  --sidebar-primary-foreground: #0f0e0a;
+  --sidebar-accent: #2a2a2a;
+  --sidebar-accent-foreground: #ffffff;
+  --sidebar-border: #3a3a3a;
+  --sidebar-ring: #d4af37;
 }
 
 /* Base Styles */
@@ -230,61 +286,6 @@ body {
   }
 }
 
-/* Floating Particles Animation */
-.floating-particles {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  overflow: hidden;
-}
-
-.particle {
-  position: absolute;
-  font-size: 1.5rem;
-  opacity: 0;
-  animation: float-up 3s ease-out forwards;
-}
-
-.particle-1 {
-  left: 20%;
-  animation-delay: 0s;
-}
-
-.particle-2 {
-  left: 40%;
-  animation-delay: 0.5s;
-}
-
-.particle-3 {
-  left: 60%;
-  animation-delay: 1s;
-}
-
-.particle-4 {
-  left: 80%;
-  animation-delay: 1.5s;
-}
-
-@keyframes float-up {
-  0% {
-    transform: translateY(100px) rotate(0deg);
-    opacity: 0;
-  }
-  20% {
-    opacity: 1;
-  }
-  80% {
-    opacity: 1;
-  }
-  100% {
-    transform: translateY(-100px) rotate(360deg);
-    opacity: 0;
-  }
-}
-
 /* Sparkle Animation */
 .sparkle-animation {
   animation: sparkle 2s ease-in-out;
@@ -389,17 +390,25 @@ body {
 }
 
 /* Theme Switcher */
-.theme-switcher-button {
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  transition: all 0.3s ease;
+.theme-advanced-button {
+  background: var(--glass-bg) !important;
+  border: 1px solid var(--glass-border) !important;
+  backdrop-filter: blur(25px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(25px) saturate(180%) !important;
+  color: var(--foreground) !important;
 }
 
-.theme-switcher-button:hover {
-  background: rgba(255, 255, 255, 0.2);
-  transform: scale(1.05);
+.theme-switcher-sidebar .p-sidebar-content {
+  background: var(--glass-bg);
+  backdrop-filter: blur(25px) saturate(180%);
+  -webkit-backdrop-filter: blur(25px) saturate(180%);
+}
+
+.theme-switcher-sidebar .p-sidebar-header {
+  background: var(--glass-bg);
+  backdrop-filter: blur(25px) saturate(180%);
+  -webkit-backdrop-filter: blur(25px) saturate(180%);
+  border-bottom: 1px solid var(--glass-border);
 }
 
 .theme-card {
@@ -608,19 +617,19 @@ textarea:focus-visible {
 
 .dark {
   --background: oklch(0.129 0.042 264.695);
-  --foreground: oklch(0.984 0.003 247.858);
+  --foreground: #ffffff;
   --card: oklch(0.208 0.042 265.755);
-  --card-foreground: oklch(0.984 0.003 247.858);
+  --card-foreground: #ffffff;
   --popover: oklch(0.208 0.042 265.755);
-  --popover-foreground: oklch(0.984 0.003 247.858);
+  --popover-foreground: #ffffff;
   --primary: oklch(0.929 0.013 255.508);
   --primary-foreground: oklch(0.208 0.042 265.755);
   --secondary: oklch(0.279 0.041 260.031);
-  --secondary-foreground: oklch(0.984 0.003 247.858);
+  --secondary-foreground: #ffffff;
   --muted: oklch(0.279 0.041 260.031);
-  --muted-foreground: oklch(0.704 0.04 256.788);
+  --muted-foreground: #b3b3b3;
   --accent: oklch(0.279 0.041 260.031);
-  --accent-foreground: oklch(0.984 0.003 247.858);
+  --accent-foreground: #ffffff;
   --destructive: oklch(0.704 0.191 22.216);
   --border: oklch(1 0 0 / 10%);
   --input: oklch(1 0 0 / 15%);
@@ -631,11 +640,11 @@ textarea:focus-visible {
   --chart-4: oklch(0.627 0.265 303.9);
   --chart-5: oklch(0.645 0.246 16.439);
   --sidebar: oklch(0.208 0.042 265.755);
-  --sidebar-foreground: oklch(0.984 0.003 247.858);
+  --sidebar-foreground: #ffffff;
   --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.984 0.003 247.858);
+  --sidebar-primary-foreground: #ffffff;
   --sidebar-accent: oklch(0.279 0.041 260.031);
-  --sidebar-accent-foreground: oklch(0.984 0.003 247.858);
+  --sidebar-accent-foreground: #ffffff;
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.551 0.027 264.364);
 }
@@ -646,6 +655,36 @@ textarea:focus-visible {
   }
   body {
     @apply bg-background text-foreground;
+  }
+
+  /* Force white text in dark mode for entire app */
+  .dark *,
+  .dark-mode * {
+    color: #ffffff !important;
+  }
+
+  /* Allow specific elements to override */
+  .dark .text-warm-gold,
+  .dark .text-blue-500,
+  .dark .text-green-500,
+  .dark .text-red-500,
+  .dark .text-yellow-500,
+  .dark .text-purple-500,
+  .dark .text-pink-500,
+  .dark .text-orange-500,
+  .dark .text-cyan-500,
+  .dark .text-indigo-500,
+  .dark-mode .text-warm-gold,
+  .dark-mode .text-blue-500,
+  .dark-mode .text-green-500,
+  .dark-mode .text-red-500,
+  .dark-mode .text-yellow-500,
+  .dark-mode .text-purple-500,
+  .dark-mode .text-pink-500,
+  .dark-mode .text-orange-500,
+  .dark-mode .text-cyan-500,
+  .dark-mode .text-indigo-500 {
+    color: inherit !important;
   }
 }
 
@@ -662,36 +701,6 @@ textarea:focus-visible {
 }
 .animate-pulse-glow {
   animation: pulseGlow 2.5s infinite alternate;
-}
-
-@keyframes glow {
-  0%,
-  100% {
-    opacity: 0.6;
-    filter: blur(8px);
-  }
-  50% {
-    opacity: 1;
-    filter: blur(16px);
-  }
-}
-.animate-glow {
-  animation: glow 2.5s infinite alternate;
-}
-
-@keyframes float {
-  0% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-8px);
-  }
-  100% {
-    transform: translateY(0);
-  }
-}
-.animate-float {
-  animation: float 2.2s ease-in-out infinite;
 }
 
 /* Responsive Design - Mobile First */
@@ -758,28 +767,6 @@ textarea:focus-visible {
 }
 
 .user-info-dialog .p-dialog-header {
-  background: var(--glass-bg);
-  backdrop-filter: blur(25px) saturate(180%);
-  -webkit-backdrop-filter: blur(25px) saturate(180%);
-  border-bottom: 1px solid var(--glass-border);
-}
-
-/* Theme Switcher Styles */
-.theme-switcher-button {
-  background: var(--glass-bg) !important;
-  border: 1px solid var(--glass-border) !important;
-  backdrop-filter: blur(25px) saturate(180%) !important;
-  -webkit-backdrop-filter: blur(25px) saturate(180%) !important;
-  color: var(--foreground) !important;
-}
-
-.theme-switcher-sidebar .p-sidebar-content {
-  background: var(--glass-bg);
-  backdrop-filter: blur(25px) saturate(180%);
-  -webkit-backdrop-filter: blur(25px) saturate(180%);
-}
-
-.theme-switcher-sidebar .p-sidebar-header {
   background: var(--glass-bg);
   backdrop-filter: blur(25px) saturate(180%);
   -webkit-backdrop-filter: blur(25px) saturate(180%);
@@ -878,12 +865,12 @@ textarea:focus-visible {
 
 /* Hamburger and Theme Button Styles */
 .hamburger-button,
-.theme-switcher-button {
+.theme-advanced-button {
   transition: all 0.3s ease !important;
 }
 
 .hamburger-button:hover,
-.theme-switcher-button:hover {
+.theme-advanced-button:hover {
   transform: translateY(-2px) !important;
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3) !important;
   border-color: var(--warm-gold) !important;
@@ -891,28 +878,187 @@ textarea:focus-visible {
 }
 
 .hamburger-button:focus,
-.theme-switcher-button:focus {
+.theme-advanced-button:focus {
   outline: 2px solid var(--warm-gold) !important;
   outline-offset: 2px !important;
 }
 
 /* Ensure icons are always visible */
 .hamburger-button .p-button-icon,
-.theme-switcher-button .p-button-icon {
+.theme-advanced-button .p-button-icon {
   color: var(--foreground) !important;
   font-weight: 600 !important;
 }
 
 /* Dark mode specific adjustments */
 .dark-mode .hamburger-button,
-.dark-mode .theme-switcher-button {
+.dark-mode .theme-advanced-button {
   color: var(--foreground) !important;
   background: var(--glass-bg) !important;
   border-color: var(--glass-border) !important;
 }
 
 .dark-mode .hamburger-button:hover,
-.dark-mode .theme-switcher-button:hover {
+.dark-mode .theme-advanced-button:hover {
   background: rgba(255, 255, 255, 0.1) !important;
   border-color: var(--warm-gold) !important;
+}
+
+/* Dashboard Text Visibility - Ensure white text in dark mode */
+.dark .dashboard,
+.dark .dashboard *,
+.dark-mode .dashboard,
+.dark-mode .dashboard * {
+  color: #ffffff !important;
+}
+
+.dark .dashboard h1,
+.dark .dashboard h2,
+.dark .dashboard h3,
+.dark .dashboard h4,
+.dark .dashboard h5,
+.dark .dashboard h6,
+.dark-mode .dashboard h1,
+.dark-mode .dashboard h2,
+.dark-mode .dashboard h3,
+.dark-mode .dashboard h4,
+.dark-mode .dashboard h5,
+.dark-mode .dashboard h6 {
+  color: #ffffff !important;
+}
+
+.dark .dashboard p,
+.dark .dashboard span,
+.dark .dashboard div,
+.dark-mode .dashboard p,
+.dark-mode .dashboard span,
+.dark-mode .dashboard div {
+  color: #ffffff !important;
+}
+
+.dark .dashboard .glass-card,
+.dark .dashboard .glass-card *,
+.dark-mode .dashboard .glass-card,
+.dark-mode .dashboard .glass-card * {
+  color: #ffffff !important;
+}
+
+.dark .dashboard .panel-card,
+.dark .dashboard .panel-card *,
+.dark-mode .dashboard .panel-card,
+.dark-mode .dashboard .panel-card * {
+  color: #ffffff !important;
+}
+
+/* Ensure PrimeReact components have white text */
+.dark .dashboard .p-card,
+.dark .dashboard .p-card *,
+.dark-mode .dashboard .p-card,
+.dark-mode .dashboard .p-card * {
+  color: #ffffff !important;
+}
+
+.dark .dashboard .p-dialog,
+.dark .dashboard .p-dialog *,
+.dark-mode .dashboard .p-dialog,
+.dark-mode .dashboard .p-dialog * {
+  color: #ffffff !important;
+}
+
+.dark .dashboard .p-button,
+.dark-mode .dashboard .p-button {
+  color: #ffffff !important;
+}
+
+.dark .dashboard .p-inputtext,
+.dark-mode .dashboard .p-inputtext {
+  color: #ffffff !important;
+  background: rgba(255, 255, 255, 0.1) !important;
+}
+
+.dark .dashboard .p-dropdown,
+.dark-mode .dashboard .p-dropdown {
+  color: #ffffff !important;
+}
+
+.dark .dashboard .p-dropdown-label,
+.dark-mode .dashboard .p-dropdown-label {
+  color: #ffffff !important;
+}
+
+.dark .dashboard .p-calendar input,
+.dark-mode .dashboard .p-calendar input {
+  color: #ffffff !important;
+}
+
+.dark .dashboard .p-progressbar,
+.dark-mode .dashboard .p-progressbar {
+  color: #ffffff !important;
+}
+
+.dark .dashboard .p-datatable,
+.dark-mode .dashboard .p-datatable {
+  color: #ffffff !important;
+}
+
+.dark .dashboard .p-datatable th,
+.dark .dashboard .p-datatable td,
+.dark-mode .dashboard .p-datatable th,
+.dark-mode .dashboard .p-datatable td {
+  color: #ffffff !important;
+}
+
+.dark .dashboard .p-tag,
+.dark-mode .dashboard .p-tag {
+  color: #ffffff !important;
+}
+
+.dark .dashboard .p-badge,
+.dark-mode .dashboard .p-badge {
+  color: #ffffff !important;
+}
+
+/* Override any opacity issues */
+.dark .dashboard [style*='opacity'],
+.dark-mode .dashboard [style*='opacity'] {
+  color: #ffffff !important;
+}
+
+.dark .dashboard [style*='var(--foreground)'],
+.dark-mode .dashboard [style*='var(--foreground)'] {
+  color: #ffffff !important;
+}
+
+/* Force white text for all text elements in dashboard */
+.dark .dashboard .text-gray-900,
+.dark .dashboard .text-gray-800,
+.dark .dashboard .text-gray-700,
+.dark .dashboard .text-gray-600,
+.dark .dashboard .text-gray-500,
+.dark .dashboard .text-gray-400,
+.dark .dashboard .text-gray-300,
+.dark .dashboard .text-gray-200,
+.dark .dashboard .text-gray-100,
+.dark-mode .dashboard .text-gray-900,
+.dark-mode .dashboard .text-gray-800,
+.dark-mode .dashboard .text-gray-700,
+.dark-mode .dashboard .text-gray-600,
+.dark-mode .dashboard .text-gray-500,
+.dark-mode .dashboard .text-gray-400,
+.dark-mode .dashboard .text-gray-300,
+.dark-mode .dashboard .text-gray-200,
+.dark-mode .dashboard .text-gray-100 {
+  color: #ffffff !important;
+}
+
+/* Override any inline styles that might be setting black text */
+.dark .dashboard [style*='color: black'],
+.dark .dashboard [style*='color: #000'],
+.dark .dashboard [style*='color: rgb(0, 0, 0)'],
+.dark .dashboard [style*='color: rgba(0, 0, 0'],
+.dark-mode .dashboard [style*='color: black'],
+.dark-mode .dashboard [style*='color: #000'],
+.dark-mode .dashboard [style*='color: rgb(0, 0, 0)'],
+.dark-mode .dashboard [style*='color: rgba(0, 0, 0'] {
+  color: #ffffff !important;
 }
