@@ -71,7 +71,7 @@ export default function SleepPage() {
     const savedEntries = localStorage.getItem('sleepEntries');
     if (savedEntries) {
       setSleepEntries(
-        JSON.parse(savedEntries).map((e: any) => ({
+        JSON.parse(savedEntries).map((e: SleepEntry) => ({
           ...e,
           date: new Date(e.date),
           bedtime: new Date(e.bedtime),
@@ -93,7 +93,8 @@ export default function SleepPage() {
   useEffect(() => {
     // Animate cards with stagger
     if (cardsRef.current) {
-      const cards = cardsRef.current.querySelectorAll('.sleep-card');
+      const nodeList = cardsRef.current.querySelectorAll('.sleep-card');
+      const cards = Array.from(nodeList) as HTMLElement[];
       add(createStaggerAnimation(cards, animePresets.fadeInUp, 150));
     }
   }, [sleepEntries]);
@@ -499,8 +500,8 @@ export default function SleepPage() {
               Bedtime
             </label>
             <Calendar
-              value={currentEntry.bedtime}
-              onChange={e => setCurrentEntry({ ...currentEntry, bedtime: e.value })}
+              value={currentEntry.bedtime ?? undefined}
+              onChange={e => setCurrentEntry({ ...currentEntry, bedtime: e.value ?? undefined })}
               showTime
               showSeconds={false}
               className="w-full"
@@ -516,8 +517,8 @@ export default function SleepPage() {
               Wake Time
             </label>
             <Calendar
-              value={currentEntry.wakeTime}
-              onChange={e => setCurrentEntry({ ...currentEntry, wakeTime: e.value })}
+              value={currentEntry.wakeTime ?? undefined}
+              onChange={e => setCurrentEntry({ ...currentEntry, wakeTime: e.value ?? undefined })}
               showTime
               showSeconds={false}
               className="w-full"

@@ -3,7 +3,6 @@
 import { useState, useEffect } from 'react';
 import { Card } from 'primereact/card';
 import { Button } from 'primereact/button';
-import { ShineBorder } from '@/components/magicui';
 import {
   DailyGoalsPanel,
   MoodTrackerPanel,
@@ -163,11 +162,14 @@ export default function Dashboard() {
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="mb-8">
-          <ShineBorder
-            className="rounded-lg p-6 mb-6"
-            shineColor={['#3b82f6', '#8b5cf6', '#ec4899']}
-            duration={8}
-            borderWidth={2}
+          <Card
+            className="rounded-lg p-6 mb-6 glass-card"
+            style={{
+              background: 'var(--glass-bg)',
+              backdropFilter: 'blur(25px) saturate(180%)',
+              border: '1px solid var(--glass-border)',
+              color: 'var(--foreground)',
+            }}
           >
             <div
               className="text-center glass-card p-6"
@@ -185,102 +187,69 @@ export default function Dashboard() {
                 Ready to make today amazing? Let&apos;s check in on your wellness journey.
               </p>
             </div>
-          </ShineBorder>
+          </Card>
         </div>
 
         {/* Dashboard Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 justify-items-center items-center justify-center">
           {panels.map(panel => (
-            <ShineBorder
+            <Card
               key={panel.id}
-              className="rounded-lg cursor-pointer transition-all duration-300 hover:scale-105"
-              shineColor={
-                panel.color === 'blue'
-                  ? '#3b82f6'
-                  : panel.color === 'pink'
-                  ? '#ec4899'
-                  : panel.color === 'cyan'
-                  ? '#06b6d4'
-                  : panel.color === 'orange'
-                  ? '#f97316'
-                  : panel.color === 'yellow'
-                  ? '#eab308'
-                  : panel.color === 'green'
-                  ? '#10b981'
-                  : panel.color === 'purple'
-                  ? '#8b5cf6'
-                  : panel.color === 'indigo'
-                  ? '#6366f1'
-                  : '#6b7280'
-              }
-              duration={12}
-              borderWidth={1}
-              onShineComplete={() => console.log(`${panel.title} shine effect completed`)}
+              className={`panel-card shadow-lg border-0 hover:shadow-xl transition-all duration-300 glass-card ${
+                activePanel === panel.id ? 'ring-2 ring-blue-500' : ''
+              }`}
+              style={{
+                background: 'var(--glass-bg)',
+                backdropFilter: 'blur(25px) saturate(180%)',
+                border: '1px solid var(--glass-border)',
+                color: 'var(--foreground)',
+              }}
+              onClick={() => handlePanelClick(panel.id)}
             >
-              <Card
-                className={`panel-card shadow-lg border-0 hover:shadow-xl transition-all duration-300 glass-card ${
-                  activePanel === panel.id ? 'ring-2 ring-blue-500' : ''
-                }`}
-                style={{
-                  background: 'var(--glass-bg)',
-                  backdropFilter: 'blur(25px) saturate(180%)',
-                  border: '1px solid var(--glass-border)',
-                  color: 'var(--foreground)',
-                }}
-                onClick={() => handlePanelClick(panel.id)}
-              >
-                <div className="text-center p-4">
-                  <div className="text-4xl mb-3" style={{ color: 'var(--warm-gold)' }}>
-                    <i className={panel.icon}></i>
-                  </div>
-                  <h3 className="text-lg font-semibold mb-2" style={{ color: 'var(--foreground)' }}>
-                    {panel.title}
-                  </h3>
-                  <p className="text-sm" style={{ color: 'var(--foreground)', opacity: 0.9 }}>
-                    Click to explore
-                  </p>
+              <div className="text-center p-4">
+                <div className="text-4xl mb-3" style={{ color: 'var(--warm-gold)' }}>
+                  <i className={panel.icon}></i>
                 </div>
-              </Card>
-            </ShineBorder>
+                <h3 className="text-lg font-semibold mb-2" style={{ color: 'var(--foreground)' }}>
+                  {panel.title}
+                </h3>
+                <p className="text-sm" style={{ color: 'var(--foreground)', opacity: 0.9 }}>
+                  Click to explore
+                </p>
+              </div>
+            </Card>
           ))}
         </div>
 
         {/* Active Panel Content */}
         {activePanel && (
           <div className="mt-8 flex justify-center items-center">
-            <ShineBorder
-              className="rounded-lg"
-              shineColor={['#3b82f6', '#8b5cf6']}
-              duration={10}
-              borderWidth={2}
+            <Card
+              className="rounded-lg shadow-xl glass-card"
+              style={{
+                background: 'var(--glass-bg)',
+                backdropFilter: 'blur(25px) saturate(180%)',
+                border: '1px solid var(--glass-border)',
+                color: 'var(--foreground)',
+              }}
             >
-              <div
-                className="rounded-lg shadow-xl glass-card"
-                style={{
-                  background: 'var(--glass-bg)',
-                  backdropFilter: 'blur(25px) saturate(180%)',
-                  border: '1px solid var(--glass-border)',
-                  color: 'var(--foreground)',
-                }}
-              >
-                <div className="p-6">
-                  <Button
-                    icon="pi pi-times"
-                    className="p-button-text p-button-rounded absolute top-4 right-4"
-                    onClick={() => setActivePanel(null)}
-                    style={{ color: 'var(--foreground)' }}
-                  />
-                  {(() => {
-                    const panel = panels.find(p => p.id === activePanel);
-                    if (panel) {
-                      const PanelComponent = panel.component;
-                      return <PanelComponent />;
-                    }
-                    return null;
-                  })()}
-                </div>
+              <div className="p-6">
+                <Button
+                  icon="pi pi-times"
+                  className="p-button-text p-button-rounded absolute top-4 right-4"
+                  onClick={() => setActivePanel(null)}
+                  style={{ color: 'var(--foreground)' }}
+                />
+                {(() => {
+                  const panel = panels.find(p => p.id === activePanel);
+                  if (panel) {
+                    const PanelComponent = panel.component;
+                    return <PanelComponent />;
+                  }
+                  return null;
+                })()}
               </div>
-            </ShineBorder>
+            </Card>
           </div>
         )}
       </div>

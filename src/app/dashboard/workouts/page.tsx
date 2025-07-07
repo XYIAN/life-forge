@@ -83,7 +83,8 @@ export default function WorkoutsPage() {
   useEffect(() => {
     // Animate cards with stagger
     if (cardsRef.current) {
-      const cards = cardsRef.current.querySelectorAll('.workout-card');
+      const nodeList = cardsRef.current.querySelectorAll('.workout-card');
+      const cards = Array.from(nodeList) as HTMLElement[];
       add(createStaggerAnimation(cards, animePresets.fadeInUp, 150));
     }
   }, [workouts]);
@@ -126,7 +127,7 @@ export default function WorkoutsPage() {
     setExercises([...exercises, newExercise]);
   };
 
-  const updateExercise = (index: number, field: keyof Exercise, value: any) => {
+  const updateExercise = (index: number, field: keyof Exercise, value: string | number | null) => {
     const updatedExercises = [...exercises];
     updatedExercises[index] = { ...updatedExercises[index], [field]: value };
     setExercises(updatedExercises);
@@ -509,7 +510,7 @@ export default function WorkoutsPage() {
                     </label>
                     <InputNumber
                       value={exercise.sets}
-                      onValueChange={e => updateExercise(index, 'sets', e.value)}
+                      onValueChange={e => updateExercise(index, 'sets', e.value ?? null)}
                       min={1}
                       className="w-full"
                     />
@@ -520,7 +521,7 @@ export default function WorkoutsPage() {
                     </label>
                     <InputNumber
                       value={exercise.reps}
-                      onValueChange={e => updateExercise(index, 'reps', e.value)}
+                      onValueChange={e => updateExercise(index, 'reps', e.value ?? null)}
                       min={1}
                       className="w-full"
                     />
@@ -531,7 +532,7 @@ export default function WorkoutsPage() {
                     </label>
                     <InputNumber
                       value={exercise.weight}
-                      onValueChange={e => updateExercise(index, 'weight', e.value)}
+                      onValueChange={e => updateExercise(index, 'weight', e.value ?? null)}
                       min={0}
                       className="w-full"
                     />
@@ -542,7 +543,7 @@ export default function WorkoutsPage() {
                     </label>
                     <InputNumber
                       value={exercise.restTime}
-                      onValueChange={e => updateExercise(index, 'restTime', e.value)}
+                      onValueChange={e => updateExercise(index, 'restTime', e.value ?? null)}
                       min={0}
                       className="w-full"
                     />

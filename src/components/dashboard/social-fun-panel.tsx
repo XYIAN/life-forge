@@ -344,15 +344,23 @@ export default function SocialFunPanel() {
         className="glass-card social-fun-card shadow-lg border-0"
         header={
           <div className="flex align-items-center gap-2">
-            <i className="pi pi-users text-indigo-500 text-xl"></i>
-            <span className="text-xl font-bold">Social Fun</span>
+            <i className="pi pi-users text-xl" style={{ color: 'var(--warm-gold)' }}></i>
+            <span className="text-xl font-bold" style={{ color: 'var(--foreground)' }}>
+              Social Fun
+            </span>
           </div>
         }
         subTitle={
-          <span className="text-gray-600 dark:text-gray-300">
+          <span style={{ color: 'var(--foreground)', opacity: 0.8 }}>
             Connect, share, and grow with others
           </span>
         }
+        style={{
+          background: 'var(--glass-bg)',
+          backdropFilter: 'blur(25px) saturate(180%)',
+          border: '1px solid var(--glass-border)',
+          color: 'var(--foreground)',
+        }}
       >
         <div className="space-y-6">
           {/* Action Buttons */}

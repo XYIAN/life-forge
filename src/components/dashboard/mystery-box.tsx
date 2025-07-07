@@ -370,27 +370,46 @@ export default function MysteryBox() {
 
   const title = (
     <div className="flex align-items-center gap-2">
-      <i className="pi pi-gift text-pink-500 text-xl"></i>
-      <span className="text-xl font-bold">Mystery Box</span>
+      <i className="pi pi-gift text-xl" style={{ color: 'var(--warm-gold)' }}></i>
+      <span className="text-xl font-bold" style={{ color: 'var(--foreground)' }}>
+        Mystery Box
+      </span>
     </div>
   );
   const subtitle = (
-    <span className="text-gray-600 dark:text-gray-300">
+    <span style={{ color: 'var(--foreground)', opacity: 0.8 }}>
       Open daily for surprise rewards and challenges
     </span>
   );
 
   return (
     <div className="mystery-box">
-      <Card className="mystery-box-card shadow-lg border-0" header={title} subTitle={subtitle}>
+      <Card
+        className="mystery-box-card shadow-lg border-0 glass-card"
+        header={title}
+        subTitle={subtitle}
+        style={{
+          background: 'var(--glass-bg)',
+          backdropFilter: 'blur(25px) saturate(180%)',
+          border: '1px solid var(--glass-border)',
+          color: 'var(--foreground)',
+        }}
+      >
         <div className="space-y-6">
           {/* Mystery Box */}
-          <div className="text-center p-8 border border-pink-200 dark:border-pink-800 rounded-lg bg-gradient-to-br from-pink-50 to-purple-50 dark:from-pink-900/20 dark:to-purple-900/20">
+          <div
+            className="text-center p-8 border rounded-lg glass-card"
+            style={{
+              background: 'var(--glass-bg)',
+              border: '1px solid var(--glass-border)',
+              color: 'var(--foreground)',
+            }}
+          >
             <div className="text-6xl mb-4 animate-pulse">🎁</div>
-            <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-2">
+            <h3 className="text-lg font-semibold mb-2" style={{ color: 'var(--foreground)' }}>
               Daily Mystery Box
             </h3>
-            <p className="text-gray-600 dark:text-gray-400 mb-4">
+            <p className="mb-4" style={{ color: 'var(--foreground)', opacity: 0.8 }}>
               {canOpenToday
                 ? "Ready to discover today's surprise?"
                 : 'Come back tomorrow for another mystery!'}
@@ -400,15 +419,21 @@ export default function MysteryBox() {
               <Button
                 label="Open Box"
                 icon="pi pi-gift"
-                className="p-button-outlined p-button-pink"
+                className="p-button-outlined"
+                style={{
+                  borderColor: 'var(--warm-gold)',
+                  color: 'var(--warm-gold)',
+                }}
                 onClick={openMysteryBox}
               />
             ) : (
               <div className="text-center">
-                <div className="text-gray-400 mb-2">
+                <div className="mb-2" style={{ color: 'var(--foreground)', opacity: 0.6 }}>
                   <i className="pi pi-lock text-xl"></i>
                 </div>
-                <p className="text-sm text-gray-500 dark:text-gray-400">Already opened today</p>
+                <p className="text-sm" style={{ color: 'var(--foreground)', opacity: 0.7 }}>
+                  Already opened today
+                </p>
               </div>
             )}
           </div>
@@ -416,7 +441,7 @@ export default function MysteryBox() {
           {/* Recent Rewards */}
           {history.length > 0 && (
             <div className="space-y-3">
-              <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200">
+              <h3 className="text-lg font-semibold" style={{ color: 'var(--foreground)' }}>
                 Recent Rewards
               </h3>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
@@ -426,23 +451,33 @@ export default function MysteryBox() {
                   .map(item => (
                     <div
                       key={item.id}
-                      className={`p-3 border rounded-lg hover:shadow-sm transition-shadow ${getRarityBg(
-                        item.reward.rarity
-                      )}`}
+                      className="p-3 border rounded-lg hover:shadow-sm transition-shadow glass-card"
+                      style={{
+                        background: 'var(--glass-bg)',
+                        border: '1px solid var(--glass-border)',
+                        color: 'var(--foreground)',
+                      }}
                     >
                       <div className="flex items-center gap-3">
                         <div className="text-2xl">{item.reward.icon}</div>
                         <div className="flex-1">
-                          <div className="font-medium text-gray-900 dark:text-gray-100 text-sm">
+                          <div
+                            className="font-medium text-sm"
+                            style={{ color: 'var(--foreground)' }}
+                          >
                             {item.reward.title}
                           </div>
                           <div
-                            className={`text-xs font-medium ${getRarityColor(item.reward.rarity)}`}
+                            className="text-xs font-medium"
+                            style={{ color: 'var(--warm-gold)' }}
                           >
                             {item.reward.rarity.charAt(0).toUpperCase() +
                               item.reward.rarity.slice(1)}
                           </div>
-                          <div className="text-xs text-gray-500 dark:text-gray-400">
+                          <div
+                            className="text-xs"
+                            style={{ color: 'var(--foreground)', opacity: 0.7 }}
+                          >
                             {item.createdAt.toLocaleDateString()}
                           </div>
                         </div>
@@ -455,7 +490,7 @@ export default function MysteryBox() {
 
           {/* Reward Types Info */}
           <div className="space-y-3">
-            <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200">
+            <h3 className="text-lg font-semibold" style={{ color: 'var(--foreground)' }}>
               Possible Rewards
             </h3>
             <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
@@ -464,10 +499,18 @@ export default function MysteryBox() {
                 return (
                   <div
                     key={type}
-                    className="text-center p-3 border border-gray-200 dark:border-gray-700 rounded-lg hover:shadow-sm transition-shadow"
+                    className="text-center p-3 border rounded-lg hover:shadow-sm transition-shadow glass-card"
+                    style={{
+                      background: 'var(--glass-bg)',
+                      border: '1px solid var(--glass-border)',
+                      color: 'var(--foreground)',
+                    }}
                   >
                     <div className="text-2xl mb-2">{sampleReward?.icon}</div>
-                    <div className="text-sm font-medium text-gray-900 dark:text-gray-100 capitalize">
+                    <div
+                      className="text-sm font-medium capitalize"
+                      style={{ color: 'var(--foreground)' }}
+                    >
                       {type}
                     </div>
                   </div>

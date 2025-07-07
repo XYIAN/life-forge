@@ -135,7 +135,17 @@ export default function NextBigThingPanel() {
 
   return (
     <div className="next-big-thing-panel">
-      <Card className="next-big-thing-card shadow-lg border-0" header={title} subTitle={subtitle}>
+      <Card
+        className="next-big-thing-card shadow-lg border-0 glass-card"
+        header={title}
+        subTitle={subtitle}
+        style={{
+          background: 'var(--glass-bg)',
+          backdropFilter: 'blur(25px) saturate(180%)',
+          border: '1px solid var(--glass-border)',
+          color: 'var(--foreground)',
+        }}
+      >
         <div className="space-y-4">
           {/* Add Goal Button */}
           <div className="flex justify-center">
@@ -143,6 +153,10 @@ export default function NextBigThingPanel() {
               label="Add New Goal"
               icon="pi pi-plus"
               className="p-button-rounded p-button-outlined"
+              style={{
+                borderColor: 'var(--glass-border)',
+                color: 'var(--foreground)',
+              }}
               onClick={() => setShowAddDialog(true)}
             />
           </div>
@@ -156,10 +170,11 @@ export default function NextBigThingPanel() {
               {activeGoals.map(goal => (
                 <div
                   key={goal.id}
-                  className="p-4 border border-gray-200 dark:border-gray-700 rounded-lg glass-card"
+                  className="p-4 border rounded-lg glass-card"
                   style={{
                     background: 'var(--glass-bg)',
                     border: '1px solid var(--glass-border)',
+                    color: 'var(--foreground)',
                   }}
                 >
                   <div className="flex justify-between items-start mb-3">
@@ -256,8 +271,9 @@ export default function NextBigThingPanel() {
                   key={goal.id}
                   className="p-4 border rounded-lg glass-card"
                   style={{
-                    background: 'rgba(16, 185, 129, 0.1)',
-                    border: '1px solid var(--warm-gold)',
+                    background: 'var(--glass-bg)',
+                    border: '1px solid var(--glass-border)',
+                    color: 'var(--foreground)',
                   }}
                 >
                   <div className="flex justify-between items-start">

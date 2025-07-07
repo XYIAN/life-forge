@@ -159,16 +159,16 @@ body {
   top: 0;
   left: 0;
   width: 100%;
-  height: 200vh; /* Much taller for true parallax effect */
+  height: 100vh;
   background-image: url('/bg-1.png');
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
-  filter: hue-rotate(180deg) brightness(0.3) contrast(1.2); /* Change to black hue */
-  z-index: -10;
-  transform: translateZ(0); /* Hardware acceleration */
-  will-change: transform;
   background-attachment: fixed;
+  filter: hue-rotate(180deg) brightness(0.3) contrast(1.2);
+  z-index: -10;
+  transform: translateZ(0);
+  will-change: transform;
 }
 
 .parallax-container {
@@ -185,9 +185,9 @@ body {
   height: 100%;
   background: linear-gradient(
     180deg,
-    rgba(0, 0, 0, 0.05) 0%,
+    rgba(0, 0, 0, 0.1) 0%,
     rgba(0, 0, 0, 0.05) 50%,
-    rgba(0, 0, 0, 0.05) 100%
+    rgba(0, 0, 0, 0.1) 100%
   );
   z-index: -5;
   pointer-events: none;
@@ -197,9 +197,9 @@ body {
 .dark-mode .parallax-overlay {
   background: linear-gradient(
     180deg,
-    rgba(0, 0, 0, 0.08) 0%,
+    rgba(0, 0, 0, 0.15) 0%,
     rgba(0, 0, 0, 0.08) 50%,
-    rgba(0, 0, 0, 0.08) 100%
+    rgba(0, 0, 0, 0.15) 100%
   );
 }
 

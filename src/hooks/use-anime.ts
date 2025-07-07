@@ -6,7 +6,7 @@ let anime: unknown = null;
 const loadAnime = async () => {
   if (!anime) {
     const animeModule = await import('animejs');
-    anime = (animeModule as any).default;
+    anime = (animeModule as unknown as { default: unknown }).default || animeModule;
   }
   return anime;
 };
@@ -62,73 +62,54 @@ export const useAnime = (options: AnimeOptions): UseAnimeReturn => {
   }, []);
 
   const play = async () => {
-    const animeInstance = await loadAnime();
-    if (
-      animationRef.current &&
-      typeof animationRef.current === 'object' &&
-      animationRef.current !== null
-    ) {
-      const anim = animationRef.current as { play: () => void };
-      if (anim.play) {
-        anim.play();
+    if (!animationRef.current) {
+      const animeInstance = await loadAnime();
+      if (options.autoplay !== false) {
+        animationRef.current = (animeInstance as any)(options);
       }
-    } else {
-      animationRef.current = animeInstance(options);
+    }
+    if (animationRef.current) {
+      (animationRef.current as any).play();
     }
   };
 
   const pause = async () => {
-    if (
-      animationRef.current &&
-      typeof animationRef.current === 'object' &&
-      animationRef.current !== null
-    ) {
-      const anim = animationRef.current as { pause: () => void };
-      if (anim.pause) {
-        anim.pause();
-      }
+    if (!animationRef.current) {
+      const animeInstance = await loadAnime();
+      animationRef.current = (animeInstance as any)(options);
+    }
+    if (animationRef.current) {
+      (animationRef.current as any).pause();
     }
   };
 
   const restart = async () => {
-    const animeInstance = await loadAnime();
-    if (
-      animationRef.current &&
-      typeof animationRef.current === 'object' &&
-      animationRef.current !== null
-    ) {
-      const anim = animationRef.current as { restart: () => void };
-      if (anim.restart) {
-        anim.restart();
-      }
-    } else {
-      animationRef.current = animeInstance(options);
+    if (!animationRef.current) {
+      const animeInstance = await loadAnime();
+      animationRef.current = (animeInstance as any)(options);
+    }
+    if (animationRef.current) {
+      (animationRef.current as any).restart();
     }
   };
 
   const reverse = async () => {
-    if (
-      animationRef.current &&
-      typeof animationRef.current === 'object' &&
-      animationRef.current !== null
-    ) {
-      const anim = animationRef.current as { reverse: () => void };
-      if (anim.reverse) {
-        anim.reverse();
-      }
+    if (!animationRef.current) {
+      const animeInstance = await loadAnime();
+      animationRef.current = (animeInstance as any)(options);
+    }
+    if (animationRef.current) {
+      (animationRef.current as any).reverse();
     }
   };
 
   const seek = async (time: number) => {
-    if (
-      animationRef.current &&
-      typeof animationRef.current === 'object' &&
-      animationRef.current !== null
-    ) {
-      const anim = animationRef.current as { seek: (time: number) => void };
-      if (anim.seek) {
-        anim.seek(time);
-      }
+    if (!animationRef.current) {
+      const animeInstance = await loadAnime();
+      animationRef.current = (animeInstance as any)(options);
+    }
+    if (animationRef.current) {
+      (animationRef.current as any).seek(time);
     }
   };
 
@@ -137,9 +118,9 @@ export const useAnime = (options: AnimeOptions): UseAnimeReturn => {
     return animeInstance.timeline(options);
   };
 
-  const add = async (params: AnimeOptions) => {
+  const add = async (newOptions: AnimeOptions) => {
     const animeInstance = await loadAnime();
-    return animeInstance(params);
+    return (animeInstance as any)(newOptions);
   };
 
   return {
@@ -322,16 +303,15 @@ export const animePresets = {
 };
 
 // Stagger animations
-export const createStaggerAnimation = async (
+export const createStaggerAnimation = (
   targets: string | HTMLElement | HTMLElement[],
   baseAnimation: Record<string, unknown>,
   staggerDelay: number = 100
-) => {
-  const animeInstance = await loadAnime();
+): AnimeOptions => {
   return {
     targets,
     ...baseAnimation,
-    delay: animeInstance.stagger(staggerDelay),
+    delay: (el: HTMLElement, index: number) => index * staggerDelay,
   };
 };
 

@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { Card } from 'primereact/card';
 import { Button } from 'primereact/button';
-import { Carousel } from 'primereact/carousel';
+import { Carousel, CarouselResponsiveOption } from 'primereact/carousel';
 import { Dialog } from 'primereact/dialog';
 import { ProgressBar } from 'primereact/progressbar';
 // import { useAnimation } from '@/hooks/useAnimation';
@@ -299,6 +299,29 @@ export default function MiniWorkoutsCarousel() {
   // const { animateIn } = useAnimation();
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
+  const responsiveOptions: CarouselResponsiveOption[] = [
+    {
+      breakpoint: '1400px',
+      numVisible: 2,
+      numScroll: 1,
+    },
+    {
+      breakpoint: '1199px',
+      numVisible: 2,
+      numScroll: 1,
+    },
+    {
+      breakpoint: '767px',
+      numVisible: 1,
+      numScroll: 1,
+    },
+    {
+      breakpoint: '575px',
+      numVisible: 1,
+      numScroll: 1,
+    },
+  ];
+
   useEffect(() => {
     // Animation handled by CSS
   }, []);
@@ -471,17 +494,31 @@ export default function MiniWorkoutsCarousel() {
   );
 
   return (
-    <div className="mini-workouts-carousel">
-      <Card className="workouts-card shadow-lg border-0" header={title} subTitle={subtitle}>
-        <div className="space-y-4 flex flex-col items-center justify-center">
+    <div className="mini-workouts-carousel w-full flex justify-center items-center">
+      <Card
+        className="workouts-card shadow-lg border-0 max-w-4xl w-full mx-auto glass-card"
+        header={title}
+        subTitle={subtitle}
+        style={{
+          background: 'var(--glass-bg)',
+          backdropFilter: 'blur(25px) saturate(180%)',
+          border: '1px solid var(--glass-border)',
+          color: 'var(--foreground)',
+        }}
+      >
+        <div className="py-4 px-2 w-full">
           <Carousel
             value={WORKOUTS}
             numVisible={3}
             numScroll={1}
+            responsiveOptions={responsiveOptions}
             className="custom-carousel"
             itemTemplate={workoutTemplate}
             circular
             autoplayInterval={5000}
+            showIndicators
+            showNavigators
+            contentClassName="flex items-center justify-center"
           />
         </div>
       </Card>

@@ -115,9 +115,8 @@ export default function NutritionPage() {
       const cards = Array.from(
         cardsRef.current.querySelectorAll('.nutrition-card')
       ) as HTMLElement[];
-      createStaggerAnimation(cards, animePresets.fadeInUp, 150).then(staggerOptions => {
-        add(staggerOptions);
-      });
+      const staggerOptions = createStaggerAnimation(cards, animePresets.fadeInUp, 150);
+      add(staggerOptions);
     }
   }, [nutritionEntries, add]);
 

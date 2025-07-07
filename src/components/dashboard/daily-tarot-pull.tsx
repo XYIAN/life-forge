@@ -365,43 +365,74 @@ export default function DailyTarotPull() {
 
   const title = (
     <div className="flex align-items-center gap-2">
-      <i className="pi pi-star text-purple-500 text-xl"></i>
-      <span className="text-xl font-bold">Daily Tarot Pull</span>
+      <i className="pi pi-star text-xl" style={{ color: 'var(--warm-gold)' }}></i>
+      <span className="text-xl font-bold" style={{ color: 'var(--foreground)' }}>
+        Daily Tarot Pull
+      </span>
     </div>
   );
   const subtitle = (
-    <span className="text-gray-600 dark:text-gray-300">Seek guidance from the cards</span>
+    <span style={{ color: 'var(--foreground)', opacity: 0.8 }}>Seek guidance from the cards</span>
   );
 
   return (
     <div className="daily-tarot-pull">
-      <Card className="tarot-card shadow-lg border-0" header={title} subTitle={subtitle}>
+      <Card
+        className="tarot-card shadow-lg border-0 glass-card"
+        header={title}
+        subTitle={subtitle}
+        style={{
+          background: 'var(--glass-bg)',
+          backdropFilter: 'blur(25px) saturate(180%)',
+          border: '1px solid var(--glass-border)',
+          color: 'var(--foreground)',
+        }}
+      >
         <div className="space-y-6">
           {/* Today's Pull */}
           {todayPull ? (
-            <div className="text-center p-6 border border-purple-200 dark:border-purple-800 rounded-lg bg-purple-50 dark:bg-purple-900/20">
+            <div
+              className="text-center p-6 border rounded-lg glass-card"
+              style={{
+                background: 'var(--glass-bg)',
+                border: '1px solid var(--glass-border)',
+                color: 'var(--foreground)',
+              }}
+            >
               <div className="mb-4">
                 <div className="text-6xl mb-3 transform transition-transform duration-500 hover:scale-110">
                   {todayPull.card.image}
                 </div>
-                <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-2">
+                <h3 className="text-xl font-semibold mb-2" style={{ color: 'var(--foreground)' }}>
                   {todayPull.card.name}
                   {todayPull.isReversed && (
-                    <span className="text-sm text-gray-500 dark:text-gray-400 ml-2">
+                    <span
+                      className="text-sm ml-2"
+                      style={{ color: 'var(--foreground)', opacity: 0.7 }}
+                    >
                       (Reversed)
                     </span>
                   )}
                 </h3>
-                <p className="text-gray-600 dark:text-gray-400 mb-4">
+                <p className="mb-4" style={{ color: 'var(--foreground)', opacity: 0.8 }}>
                   {todayPull.card.description}
                 </p>
               </div>
 
-              <div className="text-left bg-white dark:bg-gray-800 p-4 rounded-lg">
-                <h4 className="font-semibold text-gray-900 dark:text-gray-100 mb-2">
+              <div
+                className="text-left p-4 rounded-lg glass-card"
+                style={{
+                  background: 'var(--glass-bg)',
+                  border: '1px solid var(--glass-border)',
+                  color: 'var(--foreground)',
+                }}
+              >
+                <h4 className="font-semibold mb-2" style={{ color: 'var(--foreground)' }}>
                   Today&apos;s Message
                 </h4>
-                <p className="text-gray-700 dark:text-gray-300">{todayPull.interpretation}</p>
+                <p style={{ color: 'var(--foreground)', opacity: 0.9 }}>
+                  {todayPull.interpretation}
+                </p>
               </div>
 
               <div className="mt-4">
@@ -409,7 +440,12 @@ export default function DailyTarotPull() {
                   {todayPull.card.keywords.map((keyword, index) => (
                     <span
                       key={index}
-                      className="px-2 py-1 bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200 text-xs rounded"
+                      className="px-2 py-1 text-xs rounded"
+                      style={{
+                        background: 'var(--warm-gold)',
+                        color: 'var(--background)',
+                        opacity: 0.8,
+                      }}
                     >
                       {keyword}
                     </span>
@@ -418,18 +454,29 @@ export default function DailyTarotPull() {
               </div>
             </div>
           ) : (
-            <div className="text-center p-8 border border-purple-200 dark:border-purple-800 rounded-lg bg-purple-50 dark:bg-purple-900/20">
+            <div
+              className="text-center p-8 border rounded-lg glass-card"
+              style={{
+                background: 'var(--glass-bg)',
+                border: '1px solid var(--glass-border)',
+                color: 'var(--foreground)',
+              }}
+            >
               <div className="text-4xl mb-4">🔮</div>
-              <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-2">
+              <h3 className="text-lg font-semibold mb-2" style={{ color: 'var(--foreground)' }}>
                 Ready for Today&apos;s Guidance?
               </h3>
-              <p className="text-gray-600 dark:text-gray-400 mb-4">
+              <p className="mb-4" style={{ color: 'var(--foreground)', opacity: 0.8 }}>
                 Pull a card to receive wisdom for your day
               </p>
               <Button
                 label="Pull Daily Card"
                 icon="pi pi-star"
-                className="p-button-outlined p-button-purple"
+                className="p-button-outlined"
+                style={{
+                  borderColor: 'var(--warm-gold)',
+                  color: 'var(--warm-gold)',
+                }}
                 onClick={pullDailyCard}
               />
             </div>
@@ -438,7 +485,7 @@ export default function DailyTarotPull() {
           {/* Recent Pulls */}
           {dailyPulls.length > 0 && (
             <div className="space-y-3">
-              <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200">
+              <h3 className="text-lg font-semibold" style={{ color: 'var(--foreground)' }}>
                 Recent Pulls
               </h3>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
@@ -448,20 +495,34 @@ export default function DailyTarotPull() {
                   .map(pull => (
                     <div
                       key={pull.id}
-                      className="p-3 border border-gray-200 dark:border-gray-700 rounded-lg hover:shadow-sm transition-shadow"
+                      className="p-3 border rounded-lg hover:shadow-sm transition-shadow glass-card"
+                      style={{
+                        background: 'var(--glass-bg)',
+                        border: '1px solid var(--glass-border)',
+                        color: 'var(--foreground)',
+                      }}
                     >
                       <div className="flex items-center gap-3">
                         <div className="text-2xl">{pull.card.image}</div>
                         <div className="flex-1">
-                          <div className="font-medium text-gray-900 dark:text-gray-100 text-sm">
+                          <div
+                            className="font-medium text-sm"
+                            style={{ color: 'var(--foreground)' }}
+                          >
                             {pull.card.name}
                             {pull.isReversed && (
-                              <span className="text-xs text-gray-500 dark:text-gray-400 ml-1">
+                              <span
+                                className="text-xs ml-1"
+                                style={{ color: 'var(--foreground)', opacity: 0.7 }}
+                              >
                                 (R)
                               </span>
                             )}
                           </div>
-                          <div className="text-xs text-gray-500 dark:text-gray-400">
+                          <div
+                            className="text-xs"
+                            style={{ color: 'var(--foreground)', opacity: 0.7 }}
+                          >
                             {pull.createdAt.toLocaleDateString()}
                           </div>
                         </div>

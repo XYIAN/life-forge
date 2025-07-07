@@ -95,7 +95,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
                 {dashboardSections.map(section => {
                   const isActive = pathname === section.href;
                   return (
-                    <Link key={section.id} href={section.href} passHref legacyBehavior>
+                    <Link key={section.id} href={section.href} passHref>
                       <a
                         className={`p-4 border-round-lg cursor-pointer transition-all duration-300 glass-card hover:scale-105 ${
                           isActive ? 'border-2 shadow-lg' : 'border-1'

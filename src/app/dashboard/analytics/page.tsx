@@ -70,9 +70,8 @@ export default function AnalyticsPage() {
       const charts = Array.from(
         chartsRef.current.querySelectorAll('.analytics-card')
       ) as HTMLElement[];
-      createStaggerAnimation(charts, animePresets.fadeInUp, 200).then(staggerOptions => {
-        add(staggerOptions);
-      });
+      const staggerOptions = createStaggerAnimation(charts, animePresets.fadeInUp, 200);
+      add(staggerOptions);
     }
   }, [analyticsData, add]);
 
