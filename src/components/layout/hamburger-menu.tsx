@@ -5,10 +5,9 @@ import { Button } from 'primereact/button';
 import { Sidebar } from 'primereact/sidebar';
 import { Card } from 'primereact/card';
 import { Badge } from 'primereact/badge';
-import { ThemeSwitcher } from '@common';
-import { useTheme } from '@/lib/providers/theme-provider';
-import Link from 'next/link';
 import Image from 'next/image';
+import Link from 'next/link';
+import { ThemeSwitcher } from '@common';
 
 interface HamburgerMenuProps {
   currentPage?: 'home' | 'dashboard' | 'about';
@@ -20,7 +19,6 @@ export const HamburgerMenu: React.FC<HamburgerMenuProps> = ({
   className,
 }) => {
   const [sidebarVisible, setSidebarVisible] = useState(false);
-  const { isDarkMode } = useTheme();
 
   const navigationItems = [
     {
@@ -58,13 +56,11 @@ export const HamburgerMenu: React.FC<HamburgerMenuProps> = ({
         <Button
           icon="pi pi-bars"
           onClick={() => setSidebarVisible(true)}
-          className="p-button-text p-button-rounded"
+          className="p-button-text p-button-rounded hamburger-button"
           style={{
-            color: isDarkMode ? '#ffffff' : '#1f2937',
-            background: isDarkMode ? 'rgba(255, 255, 255, 0.1)' : 'rgba(255, 255, 255, 0.9)',
-            border: isDarkMode
-              ? '1px solid rgba(255, 255, 255, 0.2)'
-              : '1px solid rgba(0, 0, 0, 0.1)',
+            color: 'var(--foreground)',
+            background: 'var(--glass-bg)',
+            border: '1px solid var(--glass-border)',
             backdropFilter: 'blur(25px) saturate(180%)',
             fontSize: '1.5rem',
             width: '3rem',

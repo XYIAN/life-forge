@@ -26,7 +26,7 @@ export const CTASection: React.FC<CTASectionProps> = ({
 }) => {
   return (
     <section className="py-20 lg:py-32">
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto px-4 justify-content-center align-items-center justify-items-center flex flex-column">
         <Card className={`glass-card ${className} text-center p-8 border-2 border-amber-500/30`}>
           <div className="flex flex-column align-items-center gap-6">
             <div className="w-16 h-16 bg-gradient-to-br from-amber-500 to-orange-600 border-round-xl flex align-items-center justify-content-center shadow-2xl">

@@ -875,3 +875,44 @@ textarea:focus-visible {
     grid-template-columns: repeat(4, 1fr);
   }
 }
+
+/* Hamburger and Theme Button Styles */
+.hamburger-button,
+.theme-switcher-button {
+  transition: all 0.3s ease !important;
+}
+
+.hamburger-button:hover,
+.theme-switcher-button:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3) !important;
+  border-color: var(--warm-gold) !important;
+  background: var(--glass-bg) !important;
+}
+
+.hamburger-button:focus,
+.theme-switcher-button:focus {
+  outline: 2px solid var(--warm-gold) !important;
+  outline-offset: 2px !important;
+}
+
+/* Ensure icons are always visible */
+.hamburger-button .p-button-icon,
+.theme-switcher-button .p-button-icon {
+  color: var(--foreground) !important;
+  font-weight: 600 !important;
+}
+
+/* Dark mode specific adjustments */
+.dark-mode .hamburger-button,
+.dark-mode .theme-switcher-button {
+  color: var(--foreground) !important;
+  background: var(--glass-bg) !important;
+  border-color: var(--glass-border) !important;
+}
+
+.dark-mode .hamburger-button:hover,
+.dark-mode .theme-switcher-button:hover {
+  background: rgba(255, 255, 255, 0.1) !important;
+  border-color: var(--warm-gold) !important;
+}

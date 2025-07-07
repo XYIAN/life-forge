@@ -49,11 +49,9 @@ export const ThemeSwitcher: React.FC<ThemeSwitcherProps> = ({ className }) => {
           fontSize: '1.25rem',
           width: '2.5rem',
           height: '2.5rem',
-          color: isDarkMode ? '#ffffff' : '#1f2937',
-          background: isDarkMode ? 'rgba(255, 255, 255, 0.1)' : 'rgba(255, 255, 255, 0.9)',
-          border: isDarkMode
-            ? '1px solid rgba(255, 255, 255, 0.2)'
-            : '1px solid rgba(0, 0, 0, 0.1)',
+          color: 'var(--foreground)',
+          background: 'var(--glass-bg)',
+          border: '1px solid var(--glass-border)',
           backdropFilter: 'blur(25px) saturate(180%)',
         }}
         aria-label="Open theme switcher"

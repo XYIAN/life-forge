@@ -8,7 +8,7 @@ import Link from 'next/link';
 export const GlobalFooter: React.FC = () => {
   return (
     <footer className="mt-12 py-8 border-t border-gray-200/50 dark:border-gray-700/50">
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto px-4 justify-content-center align-items-center justify-items-center flex flex-column">
         <div className="flex flex-column lg:flex-row justify-content-between align-items-center gap-6">
           {/* Left Section - Logo & Description */}
           <div className="flex flex-column align-items-center lg:align-items-start gap-3">

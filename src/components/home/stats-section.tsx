@@ -19,7 +19,7 @@ export const StatsSection: React.FC<StatsSectionProps> = ({
 }) => {
   return (
     <section className={`py-20 lg:py-32 ${className}`}>
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto px-4 justify-content-center align-items-center justify-items-center flex flex-column">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {stats.map((stat, index) => (
             <div key={index} className="text-center">

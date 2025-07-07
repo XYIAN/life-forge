@@ -32,7 +32,7 @@ export const FeaturesSection: React.FC<FeaturesSectionProps> = ({
 
   return (
     <section ref={sectionRef} className="py-20 lg:py-32">
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto px-4 justify-content-center align-items-center justify-items-center flex flex-column">
         <div className="text-center mb-16">
           <h2 data-animate className="text-4xl lg:text-5xl font-bold mb-6 text-white">
             {title.split(' ').map((word, index) =>
