@@ -1,11 +1,9 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Card } from 'primereact/card';
 import { Button } from 'primereact/button';
-import { useRouter } from 'next/navigation';
 import { ShineBorder } from '@/components/magicui';
-import { useData } from '@/hooks';
 import {
   DailyGoalsPanel,
   MoodTrackerPanel,
@@ -18,19 +16,13 @@ import {
   MysteryBox,
   SocialFunPanel,
   TrendsPage,
-} from '@/dashboard';
+} from '@dashboard';
 
 export default function Dashboard() {
-  const router = useRouter();
-  const { userData } = useData();
   const [activePanel, setActivePanel] = useState<string | null>(null);
 
-  useEffect(() => {
-    // Check if user is authenticated
-    if (!userData) {
-      router.push('/');
-    }
-  }, [userData, router]);
+  // Mock user data for now
+  const userData = { name: 'User' };
 
   const panels = [
     {
