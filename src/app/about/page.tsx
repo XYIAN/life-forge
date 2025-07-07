@@ -1,63 +1,57 @@
-"use client";
+'use client';
 
-import React from "react";
-import { Button } from "primereact/button";
-import { Card } from "primereact/card";
-import { Badge } from "primereact/badge";
-import { ThemeSwitcher } from "@/components/theme-switcher";
-import Link from "next/link";
+import React from 'react';
+import { Button } from 'primereact/button';
+import { Card } from 'primereact/card';
+import { Badge } from 'primereact/badge';
+import { ThemeSwitcher } from '@/components/theme-switcher';
+import Link from 'next/link';
 
 export default function About() {
   const techStack = [
-    { name: "Next.js 15.3.3+", icon: "pi pi-code", color: "text-blue-600" },
-    { name: "TypeScript", icon: "pi pi-file", color: "text-blue-500" },
-    { name: "Tailwind CSS", icon: "pi pi-palette", color: "text-cyan-500" },
-    { name: "PrimeReact", icon: "pi pi-star", color: "text-purple-600" },
-    { name: "PrimeFlex", icon: "pi pi-th-large", color: "text-green-600" },
-    { name: "PrimeIcons", icon: "pi pi-heart", color: "text-red-500" },
+    { name: 'Next.js 15.3.3+', icon: 'pi pi-code', color: 'text-blue-600' },
+    { name: 'TypeScript', icon: 'pi pi-file', color: 'text-blue-500' },
+    { name: 'Tailwind CSS', icon: 'pi pi-palette', color: 'text-cyan-500' },
+    { name: 'PrimeReact', icon: 'pi pi-star', color: 'text-purple-600' },
+    { name: 'PrimeFlex', icon: 'pi pi-th-large', color: 'text-green-600' },
+    { name: 'PrimeIcons', icon: 'pi pi-heart', color: 'text-red-500' },
   ];
 
   const features = [
     {
-      icon: "pi pi-tint",
-      title: "Smart Water Tracking",
-      description:
-        "Automatically separates drinking sessions and tracks your hydration history.",
+      icon: 'pi pi-tint',
+      title: 'Smart Water Tracking',
+      description: 'Automatically separates drinking sessions and tracks your hydration history.',
     },
     {
-      icon: "pi pi-heart",
-      title: "Mood Monitoring",
-      description:
-        "Track your emotional state with beautiful visualizations and trend analysis.",
+      icon: 'pi pi-heart',
+      title: 'Mood Monitoring',
+      description: 'Track your emotional state with beautiful visualizations and trend analysis.',
     },
     {
-      icon: "pi pi-star",
-      title: "Wisdom Orb",
-      description:
-        "Over 5,000 inspirational quotes with magical interactions and easter eggs.",
+      icon: 'pi pi-star',
+      title: 'Wisdom Orb',
+      description: 'Over 5,000 inspirational quotes with magical interactions and easter eggs.',
     },
     {
-      icon: "pi pi-check-circle",
-      title: "Goal Management",
-      description:
-        "Set daily objectives and celebrate your achievements with visual progress.",
+      icon: 'pi pi-check-circle',
+      title: 'Goal Management',
+      description: 'Set daily objectives and celebrate your achievements with visual progress.',
     },
     {
-      icon: "pi pi-clock",
-      title: "Focus Timer",
-      description:
-        "Pomodoro technique implementation with customizable work and break intervals.",
+      icon: 'pi pi-clock',
+      title: 'Focus Timer',
+      description: 'Pomodoro technique implementation with customizable work and break intervals.',
     },
     {
-      icon: "pi pi-palette",
-      title: "Theme Switching",
-      description:
-        "Beautiful themes with light/dark modes and surprise me functionality.",
+      icon: 'pi pi-palette',
+      title: 'Theme Switching',
+      description: 'Beautiful themes with light/dark modes and surprise me functionality.',
     },
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 dark:from-gray-900 dark:via-blue-900 dark:to-purple-900">
+    <div className="min-h-screen">
       {/* Header */}
       <header className="sticky top-0 z-5 backdrop-blur-md bg-white/80 dark:bg-gray-900/80 border-b border-gray-200/50 dark:border-gray-700/50">
         <div className="container mx-auto px-4 py-3">
@@ -65,8 +59,12 @@ export default function About() {
             {/* Logo */}
             <Link href="/" className="text-decoration-none">
               <div className="flex align-items-center gap-3">
-                <div className="w-3rem h-3rem bg-gradient-to-br from-blue-500 to-purple-600 border-round-xl flex align-items-center justify-content-center">
-                  <i className="pi pi-star text-white text-xl"></i>
+                <div className="w-3rem h-3rem bg-gradient-to-br from-blue-500 to-purple-600 border-round-xl flex align-items-center justify-content-center p-1 shadow-lg">
+                  <img
+                    src="/icon-2.png"
+                    alt="Life Forge Logo"
+                    className="w-full h-full object-contain border-round-lg"
+                  />
                 </div>
                 <div>
                   <h1 className="text-2xl font-bold m-0 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
@@ -82,12 +80,7 @@ export default function About() {
             {/* Navigation */}
             <div className="flex align-items-center gap-2">
               <Link href="/">
-                <Button
-                  label="Dashboard"
-                  icon="pi pi-home"
-                  severity="secondary"
-                  text
-                />
+                <Button label="Dashboard" icon="pi pi-home" severity="secondary" text />
               </Link>
               <ThemeSwitcher />
             </div>
@@ -99,16 +92,19 @@ export default function About() {
       <main className="container mx-auto px-4 py-8">
         {/* Hero Section */}
         <div className="text-center mb-8">
-          <div className="w-6rem h-6rem bg-gradient-to-br from-blue-500 to-purple-600 border-round-xl flex align-items-center justify-content-center mx-auto mb-4">
-            <i className="pi pi-star text-white text-4xl"></i>
+          <div className="w-6rem h-6rem bg-gradient-to-br from-blue-500 to-purple-600 border-round-xl flex align-items-center justify-content-center mx-auto mb-4 p-2 shadow-lg">
+            <img
+              src="/icon-1.png"
+              alt="Life Forge Hero Icon"
+              className="w-full h-full object-contain border-round-lg"
+            />
           </div>
           <h1 className="text-4xl font-bold text-gray-800 dark:text-gray-200 mb-4">
             About Life Forge
           </h1>
           <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto leading-relaxed">
-            A beautifully crafted personal dashboard designed to transform your
-            daily routine into an adventure. Built with cutting-edge technology
-            and a touch of magic.
+            A beautifully crafted personal dashboard designed to transform your daily routine into
+            an adventure. Built with cutting-edge technology and a touch of magic.
           </p>
         </div>
 
@@ -169,10 +165,9 @@ export default function About() {
                   Meet the Creator
                 </h2>
                 <p className="text-gray-600 dark:text-gray-400 mb-6 line-height-3">
-                  Hi! I&apos;m Kyle Dilbeck, a passionate developer who believes
-                  in creating beautiful, functional applications that enhance
-                  daily life. Life Forge represents my vision of combining
-                  modern web technologies with thoughtful design to create
+                  Hi! I&apos;m Kyle Dilbeck, a passionate developer who believes in creating
+                  beautiful, functional applications that enhance daily life. Life Forge represents
+                  my vision of combining modern web technologies with thoughtful design to create
                   something truly magical.
                 </p>
                 <div className="flex justify-content-center lg:justify-content-start gap-3">
@@ -232,41 +227,24 @@ export default function About() {
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div className="flex flex-column align-items-center gap-3">
-                <Badge
-                  value="1"
-                  severity="info"
-                  className="w-2rem h-2rem text-lg font-bold"
-                />
-                <h3 className="text-lg font-semibold m-0">
-                  Beautiful & Functional
-                </h3>
+                <Badge value="1" severity="info" className="w-2rem h-2rem text-lg font-bold" />
+                <h3 className="text-lg font-semibold m-0">Beautiful & Functional</h3>
                 <p className="text-sm text-gray-600 dark:text-gray-400 m-0">
-                  Every component is designed with both aesthetics and usability
-                  in mind.
+                  Every component is designed with both aesthetics and usability in mind.
                 </p>
               </div>
               <div className="flex flex-column align-items-center gap-3">
-                <Badge
-                  value="2"
-                  severity="success"
-                  className="w-2rem h-2rem text-lg font-bold"
-                />
+                <Badge value="2" severity="success" className="w-2rem h-2rem text-lg font-bold" />
                 <h3 className="text-lg font-semibold m-0">Privacy First</h3>
                 <p className="text-sm text-gray-600 dark:text-gray-400 m-0">
-                  All your data stays local in your browser. No servers, no
-                  tracking.
+                  All your data stays local in your browser. No servers, no tracking.
                 </p>
               </div>
               <div className="flex flex-column align-items-center gap-3">
-                <Badge
-                  value="3"
-                  severity="warning"
-                  className="w-2rem h-2rem text-lg font-bold"
-                />
+                <Badge value="3" severity="warning" className="w-2rem h-2rem text-lg font-bold" />
                 <h3 className="text-lg font-semibold m-0">Continuous Magic</h3>
                 <p className="text-sm text-gray-600 dark:text-gray-400 m-0">
-                  Hidden easter eggs and delightful interactions make daily
-                  tracking fun.
+                  Hidden easter eggs and delightful interactions make daily tracking fun.
                 </p>
               </div>
             </div>
@@ -280,8 +258,8 @@ export default function About() {
               Ready to Transform Your Daily Routine?
             </h2>
             <p className="text-gray-600 dark:text-gray-400 mb-6">
-              Start your journey with Life Forge today and discover the magic of
-              mindful daily tracking.
+              Start your journey with Life Forge today and discover the magic of mindful daily
+              tracking.
             </p>
             <Link href="/">
               <Button

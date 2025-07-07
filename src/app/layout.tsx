@@ -5,6 +5,9 @@ import 'primereact/resources/themes/saga-blue/theme.css';
 import 'primereact/resources/primereact.min.css';
 import 'primeicons/primeicons.css';
 import { Providers } from '@/lib/providers/providers';
+import { ParallaxBackground } from '@/components/parallax-background';
+import { GlobalHeader } from '@/components/global-header';
+import { GlobalFooter } from '@/components/global-footer';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -31,6 +34,14 @@ export const metadata: Metadata = {
   authors: [{ name: 'Kyle Dilbeck', url: 'https://kyledilbeck.com' }],
   creator: 'Kyle Dilbeck',
   publisher: 'Kyle Dilbeck',
+  icons: {
+    icon: [
+      { url: '/icon-1.png', sizes: '32x32', type: 'image/png' },
+      { url: '/icon-2.png', sizes: '16x16', type: 'image/png' },
+    ],
+    apple: '/icon-1.png',
+    shortcut: '/icon-2.png',
+  },
   openGraph: {
     title: 'Life Forge - Your Personal Daily Dashboard',
     description: 'Transform your daily routine into an adventure with Life Forge',
@@ -38,12 +49,21 @@ export const metadata: Metadata = {
     siteName: 'Life Forge',
     locale: 'en_US',
     type: 'website',
+    images: [
+      {
+        url: '/icon-1.png',
+        width: 1200,
+        height: 630,
+        alt: 'Life Forge - Personal Daily Dashboard',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Life Forge - Your Personal Daily Dashboard',
     description: 'Transform your daily routine into an adventure with Life Forge',
     creator: '@kxdilbeck',
+    images: ['/icon-1.png'],
   },
   robots: {
     index: true,
@@ -63,7 +83,19 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <Providers>{children}</Providers>
+        {/* Parallax Background */}
+        <div className="parallax-background"></div>
+        <div className="parallax-overlay"></div>
+        <ParallaxBackground />
+
+        {/* Main Content */}
+        <div className="parallax-container">
+          <Providers>
+            <GlobalHeader />
+            <main>{children}</main>
+            <GlobalFooter />
+          </Providers>
+        </div>
       </body>
     </html>
   );

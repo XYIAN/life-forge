@@ -1,19 +1,18 @@
-"use client";
+'use client';
 
-import React, { useState } from "react";
-import { Card } from "primereact/card";
-import { Button } from "primereact/button";
-import { ProgressBar } from "primereact/progressbar";
-import { Badge } from "primereact/badge";
-import { useData } from "@/lib/providers/data-provider";
+import React, { useState } from 'react';
+import { Card } from 'primereact/card';
+import { Button } from 'primereact/button';
+import { ProgressBar } from 'primereact/progressbar';
+import { Badge } from 'primereact/badge';
+import { useData } from '@/lib/providers/data-provider';
 
 interface WaterPanelProps {
   className?: string;
 }
 
 export const WaterPanel: React.FC<WaterPanelProps> = ({ className }) => {
-  const { addWaterEntry, getTotalWaterForDate, getCurrentWaterSession } =
-    useData();
+  const { addWaterEntry, getTotalWaterForDate, getCurrentWaterSession } = useData();
   const [isAnimating, setIsAnimating] = useState(false);
 
   const today = new Date();
@@ -29,10 +28,10 @@ export const WaterPanel: React.FC<WaterPanelProps> = ({ className }) => {
   };
 
   const getProgressColor = (progress: number) => {
-    if (progress >= 100) return "#10b981"; // green
-    if (progress >= 70) return "#3b82f6"; // blue
-    if (progress >= 40) return "#f59e0b"; // amber
-    return "#ef4444"; // red
+    if (progress >= 100) return '#10b981'; // green
+    if (progress >= 70) return '#3b82f6'; // blue
+    if (progress >= 40) return '#f59e0b'; // amber
+    return '#ef4444'; // red
   };
 
   const formatWaterAmount = (amount: number) => {
@@ -44,23 +43,18 @@ export const WaterPanel: React.FC<WaterPanelProps> = ({ className }) => {
 
   const header = (
     <div className="flex align-items-center justify-content-between">
-      <div className="flex align-items-center gap-2">
+      <div className="flex align-items-center gap-4">
         <i className="pi pi-tint text-2xl text-blue-500"></i>
         <h3 className="text-lg font-semibold m-0">Water Tracker</h3>
       </div>
-      <Badge
-        value={`${Math.round(progress)}%`}
-        severity={progress >= 100 ? "success" : "info"}
-      />
+      <Badge value={`${Math.round(progress)}%`} severity={progress >= 100 ? 'success' : 'info'} />
     </div>
   );
 
   return (
     <Card
       header={header}
-      className={`water-panel glass-card ${className || ""} ${
-        isAnimating ? "animate-pulse" : ""
-      }`}
+      className={`water-panel glass-card ${className || ''} ${isAnimating ? 'animate-pulse' : ''}`}
     >
       <div className="flex flex-column gap-4">
         {/* Progress Section */}
@@ -73,7 +67,7 @@ export const WaterPanel: React.FC<WaterPanelProps> = ({ className }) => {
           </div>
           <ProgressBar
             value={progress}
-            style={{ height: "8px" }}
+            style={{ height: '8px' }}
             color={getProgressColor(progress)}
             className="w-full"
           />
@@ -117,9 +111,7 @@ export const WaterPanel: React.FC<WaterPanelProps> = ({ className }) => {
             <div className="flex align-items-center gap-2">
               <i className="pi pi-clock text-blue-500"></i>
               <span className="text-sm">
-                {formatWaterAmount(
-                  currentSession.reduce((sum, entry) => sum + entry.amount, 0)
-                )}
+                {formatWaterAmount(currentSession.reduce((sum, entry) => sum + entry.amount, 0))}
                 in last 2 hours
               </span>
             </div>
@@ -130,9 +122,7 @@ export const WaterPanel: React.FC<WaterPanelProps> = ({ className }) => {
         {progress >= 100 && (
           <div className="flex align-items-center gap-2 p-2 bg-green-50 border-round">
             <i className="pi pi-check-circle text-green-600"></i>
-            <span className="text-sm text-green-700 font-medium">
-              Daily goal achieved! 🎉
-            </span>
+            <span className="text-sm text-green-700 font-medium">Daily goal achieved! 🎉</span>
           </div>
         )}
       </div>

@@ -1,16 +1,19 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 /* CSS Variables for Life Forge */
 :root {
-  --background: #f8fafc;
-  --foreground: #1e293b;
-  --glass-bg: rgba(255, 255, 255, 0.25);
-  --glass-border: rgba(255, 255, 255, 0.18);
-  --shadow-glass: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-  --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  --gradient-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-  --gradient-magic: linear-gradient(45deg, #00c6ff 0%, #0072ff 100%);
+  --background: #1a1611;
+  --foreground: #f4f1e8;
+  --glass-bg: rgba(139, 92, 47, 0.15);
+  --glass-border: rgba(212, 175, 55, 0.3);
+  --shadow-glass: 0 8px 32px 0 rgba(139, 92, 47, 0.5);
+  --gradient-primary: linear-gradient(135deg, #d4af37 0%, #8b5c2f 100%);
+  --gradient-secondary: linear-gradient(135deg, #f59e0b 0%, #92400e 100%);
+  --gradient-magic: linear-gradient(45deg, #d4af37 0%, #8b5cf6 100%);
   --runic-border: #8b5cf6;
+  --earthy-brown: #8b5c2f;
+  --warm-gold: #d4af37;
+  --deep-purple: #8b5cf6;
 }
 
 @theme inline {
@@ -23,20 +26,20 @@
 /* Dark Mode Variables */
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0f172a;
-    --foreground: #f1f5f9;
-    --glass-bg: rgba(15, 23, 42, 0.25);
-    --glass-border: rgba(148, 163, 184, 0.18);
-    --shadow-glass: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    --background: #0f0e0a;
+    --foreground: #f4f1e8;
+    --glass-bg: rgba(139, 92, 47, 0.2);
+    --glass-border: rgba(212, 175, 55, 0.4);
+    --shadow-glass: 0 8px 32px 0 rgba(0, 0, 0, 0.6);
   }
 }
 
 .dark-mode {
-  --background: #0f172a;
-  --foreground: #f1f5f9;
-  --glass-bg: rgba(15, 23, 42, 0.25);
-  --glass-border: rgba(148, 163, 184, 0.18);
-  --shadow-glass: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  --background: #0f0e0a;
+  --foreground: #f4f1e8;
+  --glass-bg: rgba(139, 92, 47, 0.2);
+  --glass-border: rgba(212, 175, 55, 0.4);
+  --shadow-glass: 0 8px 32px 0 rgba(0, 0, 0, 0.6);
 }
 
 /* Base Styles */
@@ -59,17 +62,92 @@ body {
 /* Glassmorphism Effects */
 .glass-card {
   background: var(--glass-bg);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(25px) saturate(180%);
+  -webkit-backdrop-filter: blur(25px) saturate(180%);
   border: 1px solid var(--glass-border);
   box-shadow: var(--shadow-glass);
   border-radius: 12px;
   transition: all 0.3s ease;
+  position: relative;
+}
+
+.glass-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.1) 0%,
+    rgba(255, 255, 255, 0.05) 50%,
+    rgba(255, 255, 255, 0.1) 100%
+  );
+  border-radius: inherit;
+  z-index: -1;
 }
 
 .glass-card:hover {
   transform: translateY(-2px);
   box-shadow: 0 12px 40px 0 rgba(31, 38, 135, 0.5);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+/* Parallax Background Effect */
+.parallax-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 120vh; /* Make it taller for parallax effect */
+  background-image: url('/bg-1.png');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  z-index: -10;
+  transform: translateZ(0); /* Hardware acceleration */
+  will-change: transform;
+}
+
+.parallax-container {
+  position: relative;
+  z-index: 1;
+}
+
+/* Parallax overlay for better content readability */
+.parallax-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.95) 0%,
+    rgba(0, 0, 0, 0.95) 50%,
+    rgba(0, 0, 0, 0.95) 100%
+  );
+  z-index: -5;
+  pointer-events: none;
+}
+
+/* Dark mode parallax overlay */
+.dark-mode .parallax-overlay {
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.95) 0%,
+    rgba(0, 0, 0, 0.95) 50%,
+    rgba(0, 0, 0, 0.95) 100%
+  );
+}
+
+/* Mobile optimization for parallax */
+@media (max-width: 768px) {
+  .parallax-background {
+    background-attachment: scroll;
+    height: 100vh;
+    background-size: cover;
+    background-position: center center;
+  }
 }
 
 /* Arcane & Mystical Styling */
@@ -186,8 +264,7 @@ body {
   backdrop-filter: blur(15px);
   -webkit-backdrop-filter: blur(15px);
   border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1),
-    0 4px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 4px 20px rgba(0, 0, 0, 0.1);
 }
 
 /* Water Panel Animations */
@@ -282,7 +359,7 @@ body {
 }
 
 .runic-border::before {
-  content: "";
+  content: '';
   position: absolute;
   top: -2px;
   left: -2px;
@@ -313,18 +390,13 @@ body {
 }
 
 .magic-glow::before {
-  content: "";
+  content: '';
   position: absolute;
   top: -2px;
   left: -2px;
   right: -2px;
   bottom: -2px;
-  background: linear-gradient(
-    45deg,
-    transparent 30%,
-    rgba(139, 92, 246, 0.3),
-    transparent 70%
-  );
+  background: linear-gradient(45deg, transparent 30%, rgba(139, 92, 246, 0.3), transparent 70%);
   border-radius: inherit;
   z-index: -1;
   animation: magic-sweep 3s ease-in-out infinite;

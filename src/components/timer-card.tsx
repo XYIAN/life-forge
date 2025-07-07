@@ -1,25 +1,24 @@
-"use client";
+'use client';
 
-import React, { useState, useEffect, useRef, useCallback } from "react";
-import { Card } from "primereact/card";
-import { Button } from "primereact/button";
-import { InputNumber } from "primereact/inputnumber";
-import { ProgressBar } from "primereact/progressbar";
-import { Dialog } from "primereact/dialog";
-import { Toast } from "primereact/toast";
-import { useData } from "@/lib/providers/data-provider";
+import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { Card } from 'primereact/card';
+import { Button } from 'primereact/button';
+import { InputNumber } from 'primereact/inputnumber';
+import { ProgressBar } from 'primereact/progressbar';
+import { Dialog } from 'primereact/dialog';
+import { Toast } from 'primereact/toast';
+import { useData } from '@/lib/providers/data-provider';
 
 interface TimerCardProps {
   className?: string;
 }
 
 export const TimerCard: React.FC<TimerCardProps> = ({ className }) => {
-  const { startFocusSession, endFocusSession, getFocusSessionsForDate } =
-    useData();
+  const { startFocusSession, endFocusSession, getFocusSessionsForDate } = useData();
   const [isRunning, setIsRunning] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
   const [timeLeft, setTimeLeft] = useState(25 * 60); // 25 minutes in seconds
-  const [sessionType, setSessionType] = useState<"work" | "break">("work");
+  const [sessionType, setSessionType] = useState<'work' | 'break'>('work');
   const [currentSessionId, setCurrentSessionId] = useState<string | null>(null);
   const [showSettings, setShowSettings] = useState(false);
   const [workDuration, setWorkDuration] = useState(25);
@@ -30,9 +29,7 @@ export const TimerCard: React.FC<TimerCardProps> = ({ className }) => {
 
   const today = new Date();
   const todaySessions = getFocusSessionsForDate(today);
-  const completedWorkSessions = todaySessions.filter(
-    (s) => s.type === "work" && s.completed
-  ).length;
+  const completedWorkSessions = todaySessions.filter(s => s.type === 'work' && s.completed).length;
 
   const handleSessionComplete = useCallback(() => {
     setIsRunning(false);
@@ -43,45 +40,39 @@ export const TimerCard: React.FC<TimerCardProps> = ({ className }) => {
       setCurrentSessionId(null);
     }
 
-    if (sessionType === "work") {
-      setCompletedSessions((prev) => prev + 1);
+    if (sessionType === 'work') {
+      setCompletedSessions(prev => prev + 1);
       if (toast.current) {
         toast.current.show({
-          severity: "success",
-          summary: "🎉 Work Session Complete!",
-          detail: "Great focus! Time for a break.",
+          severity: 'success',
+          summary: '🎉 Work Session Complete!',
+          detail: 'Great focus! Time for a break.',
           life: 5000,
         });
       }
       // Switch to break
-      setSessionType("break");
+      setSessionType('break');
       setTimeLeft(breakDuration * 60);
     } else {
       if (toast.current) {
         toast.current.show({
-          severity: "info",
-          summary: "☕ Break Complete!",
-          detail: "Ready for another work session?",
+          severity: 'info',
+          summary: '☕ Break Complete!',
+          detail: 'Ready for another work session?',
           life: 3000,
         });
       }
       // Switch to work
-      setSessionType("work");
+      setSessionType('work');
       setTimeLeft(workDuration * 60);
     }
-  }, [
-    sessionType,
-    currentSessionId,
-    endFocusSession,
-    breakDuration,
-    workDuration,
-  ]);
+  }, [sessionType, currentSessionId, endFocusSession, breakDuration, workDuration]);
 
   // Timer logic
   useEffect(() => {
     if (isRunning && !isPaused) {
       intervalRef.current = setInterval(() => {
-        setTimeLeft((prev) => {
+        setTimeLeft(prev => {
           if (prev <= 1) {
             handleSessionComplete();
             return 0;
@@ -106,7 +97,7 @@ export const TimerCard: React.FC<TimerCardProps> = ({ className }) => {
     if (!isRunning) {
       const sessionId = startFocusSession(
         sessionType,
-        sessionType === "work" ? workDuration : breakDuration
+        sessionType === 'work' ? workDuration : breakDuration
       );
       setCurrentSessionId(sessionId);
     }
@@ -130,7 +121,7 @@ export const TimerCard: React.FC<TimerCardProps> = ({ className }) => {
       setCurrentSessionId(null);
     }
     // Reset to work session
-    setSessionType("work");
+    setSessionType('work');
     setTimeLeft(workDuration * 60);
   };
 
@@ -142,24 +133,21 @@ export const TimerCard: React.FC<TimerCardProps> = ({ className }) => {
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60);
     const secs = seconds % 60;
-    return `${mins.toString().padStart(2, "0")}:${secs
-      .toString()
-      .padStart(2, "0")}`;
+    return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
   };
 
   const getProgress = () => {
-    const totalTime =
-      sessionType === "work" ? workDuration * 60 : breakDuration * 60;
+    const totalTime = sessionType === 'work' ? workDuration * 60 : breakDuration * 60;
     return ((totalTime - timeLeft) / totalTime) * 100;
   };
 
   const getSessionColor = () => {
-    return sessionType === "work" ? "#ef4444" : "#10b981"; // red for work, green for break
+    return sessionType === 'work' ? '#ef4444' : '#10b981'; // red for work, green for break
   };
 
   const header = (
     <div className="flex align-items-center justify-content-between">
-      <div className="flex align-items-center gap-2">
+      <div className="flex align-items-center gap-4">
         <i className="pi pi-clock text-2xl text-blue-500"></i>
         <h3 className="text-lg font-semibold m-0">Focus Timer</h3>
       </div>
@@ -171,9 +159,7 @@ export const TimerCard: React.FC<TimerCardProps> = ({ className }) => {
           text
           severity="secondary"
         />
-        <span className="text-sm font-medium">
-          {completedWorkSessions} sessions
-        </span>
+        <span className="text-sm font-medium">{completedWorkSessions} sessions</span>
       </div>
     </div>
   );
@@ -181,37 +167,26 @@ export const TimerCard: React.FC<TimerCardProps> = ({ className }) => {
   return (
     <>
       <Toast ref={toast} />
-      <Card
-        header={header}
-        className={`timer-card glass-card ${className || ""}`}
-      >
+      <Card header={header} className={`timer-card glass-card ${className || ''}`}>
         <div className="flex flex-column gap-4 align-items-center">
           {/* Session Type Indicator */}
           <div className="flex align-items-center gap-2">
             <i
-              className={`pi ${
-                sessionType === "work" ? "pi-briefcase" : "pi-coffee"
-              } text-lg`}
+              className={`pi ${sessionType === 'work' ? 'pi-briefcase' : 'pi-coffee'} text-lg`}
             ></i>
-            <span
-              className="text-sm font-medium capitalize"
-              style={{ color: getSessionColor() }}
-            >
+            <span className="text-sm font-medium capitalize" style={{ color: getSessionColor() }}>
               {sessionType} Session
             </span>
           </div>
 
           {/* Timer Display */}
           <div className="flex flex-column align-items-center gap-2">
-            <div
-              className="text-6xl font-bold font-mono"
-              style={{ color: getSessionColor() }}
-            >
+            <div className="text-6xl font-bold font-mono" style={{ color: getSessionColor() }}>
               {formatTime(timeLeft)}
             </div>
             <ProgressBar
               value={getProgress()}
-              style={{ width: "200px", height: "8px" }}
+              style={{ width: '200px', height: '8px' }}
               color={getSessionColor()}
               showValue={false}
             />
@@ -270,7 +245,7 @@ export const TimerCard: React.FC<TimerCardProps> = ({ className }) => {
             <div className="flex flex-column align-items-center">
               <span className="text-gray-500">Next</span>
               <span className="font-bold capitalize">
-                {sessionType === "work" ? "Break" : "Work"}
+                {sessionType === 'work' ? 'Break' : 'Work'}
               </span>
             </div>
           </div>
@@ -295,30 +270,26 @@ export const TimerCard: React.FC<TimerCardProps> = ({ className }) => {
         header="Timer Settings"
         visible={showSettings}
         onHide={() => setShowSettings(false)}
-        style={{ width: "90vw", maxWidth: "400px" }}
+        style={{ width: '90vw', maxWidth: '400px' }}
         modal
         className="timer-settings-dialog"
       >
         <div className="flex flex-column gap-4">
           <div className="flex flex-column gap-2">
-            <label className="text-sm font-medium">
-              Work Duration (minutes)
-            </label>
+            <label className="text-sm font-medium">Work Duration (minutes)</label>
             <InputNumber
               value={workDuration}
-              onValueChange={(e) => setWorkDuration(e.value || 25)}
+              onValueChange={e => setWorkDuration(e.value || 25)}
               min={1}
               max={60}
               className="w-full"
             />
           </div>
           <div className="flex flex-column gap-2">
-            <label className="text-sm font-medium">
-              Break Duration (minutes)
-            </label>
+            <label className="text-sm font-medium">Break Duration (minutes)</label>
             <InputNumber
               value={breakDuration}
-              onValueChange={(e) => setBreakDuration(e.value || 5)}
+              onValueChange={e => setBreakDuration(e.value || 5)}
               min={1}
               max={30}
               className="w-full"

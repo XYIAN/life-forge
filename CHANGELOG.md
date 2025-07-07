@@ -7,9 +7,60 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.0] - 2024-12-19
+
 ### Added
 
-- Initial project setup with Next.js 15.3.3+
+- **Landing Page**: New marketing-focused home page with dark glossy theme
+- **Global Navigation**: Unified header and footer components across all pages
+- **Dashboard Page**: Dedicated `/dashboard` route for application functionality
+- **Earthy Theme**: Brown, gold, and purple color scheme matching icon aesthetic
+
+### Changed
+
+- **Project Structure**: Separated marketing (home) from application (dashboard) experiences
+- **Parallax Overlay**: Updated from white to black with 95% transparency for dramatic effect
+- **Card Headers**: Improved spacing between icons and titles for better visual hierarchy
+- **Color Palette**: Migrated from blue/purple to earthy brown/gold/purple theme
+- **Branding**: Updated gradients and accents throughout application
+
+### Enhanced
+
+- **Landing Experience**: Hero section, features showcase, statistics, and technology highlights
+- **Visual Design**: Professional glassmorphism effects with warm earthy tones
+- **Navigation Flow**: Clear separation between marketing and application interfaces
+- **User Journey**: Compelling call-to-action buttons driving users to dashboard
+- **Responsive Design**: Optimized layouts for all device sizes
+
+### Technical
+
+- Global component architecture for consistent branding
+- Updated CSS variables for new color scheme
+- Enhanced parallax background effects
+- Improved component spacing and typography
+- Performance optimizations for new page structure
+
+## [0.1.1] - 2024-12-19
+
+### Fixed
+
+- **Hydration Mismatch Error**: Fixed QuoteOrb component causing server/client render differences
+- **Missing Theme CSS**: Added proper PrimeReact theme CSS imports to fix 404 errors
+- **Component Loading States**: Added proper loading states for quote initialization
+- **TypeScript Types**: Fixed TypeScript errors with proper Quote interface usage
+- **Theme Provider**: Disabled dynamic theme loading temporarily to prevent errors
+
+### Technical
+
+- Improved component initialization to prevent hydration mismatches
+- Enhanced error handling for component states
+- Better TypeScript type safety across components
+
+## [0.1.0] - 2024-12-19
+
+### Added
+
+- Initial project setup with Next.js 15.3.5+
 - TypeScript configuration for type safety
 - Tailwind CSS integration for styling
 - PrimeReact UI components with theme support

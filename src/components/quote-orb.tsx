@@ -128,7 +128,7 @@ export const QuoteOrb: React.FC<QuoteOrbProps> = ({ className }) => {
 
   const header = (
     <div className="flex align-items-center justify-content-between">
-      <div className="flex align-items-center gap-2">
+      <div className="flex align-items-center gap-4">
         <i className="pi pi-star text-2xl text-yellow-500"></i>
         <h3 className="text-lg font-semibold m-0">Wisdom Orb</h3>
       </div>

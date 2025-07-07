@@ -1,25 +1,24 @@
-"use client";
+'use client';
 
-import React, { useState } from "react";
-import { Card } from "primereact/card";
-import { Button } from "primereact/button";
-import { InputText } from "primereact/inputtext";
-import { Checkbox } from "primereact/checkbox";
-import { ProgressBar } from "primereact/progressbar";
-import { Dialog } from "primereact/dialog";
-import { Toast } from "primereact/toast";
-import { useData } from "@/lib/providers/data-provider";
-import { useRef } from "react";
+import React, { useState } from 'react';
+import { Card } from 'primereact/card';
+import { Button } from 'primereact/button';
+import { InputText } from 'primereact/inputtext';
+import { Checkbox } from 'primereact/checkbox';
+import { ProgressBar } from 'primereact/progressbar';
+import { Dialog } from 'primereact/dialog';
+import { Toast } from 'primereact/toast';
+import { useData } from '@/lib/providers/data-provider';
+import { useRef } from 'react';
 
 interface GoalListProps {
   className?: string;
 }
 
 export const GoalList: React.FC<GoalListProps> = ({ className }) => {
-  const { addGoal, toggleGoal, getGoalsForDate, getCompletedGoalsForDate } =
-    useData();
+  const { addGoal, toggleGoal, getGoalsForDate, getCompletedGoalsForDate } = useData();
   const [showAddDialog, setShowAddDialog] = useState(false);
-  const [newGoalTitle, setNewGoalTitle] = useState("");
+  const [newGoalTitle, setNewGoalTitle] = useState('');
   const [isAnimating, setIsAnimating] = useState(false);
   const toast = useRef<Toast>(null);
 
@@ -27,19 +26,17 @@ export const GoalList: React.FC<GoalListProps> = ({ className }) => {
   const todaysGoals = getGoalsForDate(today);
   const completedGoals = getCompletedGoalsForDate(today);
   const completionRate =
-    todaysGoals.length > 0
-      ? (completedGoals.length / todaysGoals.length) * 100
-      : 0;
+    todaysGoals.length > 0 ? (completedGoals.length / todaysGoals.length) * 100 : 0;
 
   const handleAddGoal = () => {
     if (newGoalTitle.trim()) {
       addGoal(newGoalTitle.trim());
-      setNewGoalTitle("");
+      setNewGoalTitle('');
       setShowAddDialog(false);
       if (toast.current) {
         toast.current.show({
-          severity: "success",
-          summary: "🎯 Goal Added!",
+          severity: 'success',
+          summary: '🎯 Goal Added!',
           detail: "Your new goal has been added to today's list.",
           life: 3000,
         });
@@ -48,7 +45,7 @@ export const GoalList: React.FC<GoalListProps> = ({ className }) => {
   };
 
   const handleToggleGoal = (goalId: string) => {
-    const goal = todaysGoals.find((g) => g.id === goalId);
+    const goal = todaysGoals.find(g => g.id === goalId);
     if (goal && !goal.completed) {
       // Animate completion
       setIsAnimating(true);
@@ -57,8 +54,8 @@ export const GoalList: React.FC<GoalListProps> = ({ className }) => {
       // Show celebration for completion
       if (toast.current) {
         toast.current.show({
-          severity: "success",
-          summary: "🎉 Goal Completed!",
+          severity: 'success',
+          summary: '🎉 Goal Completed!',
           detail: "Great job! You're making progress.",
           life: 3000,
         });
@@ -68,15 +65,15 @@ export const GoalList: React.FC<GoalListProps> = ({ className }) => {
   };
 
   const getProgressColor = (progress: number) => {
-    if (progress >= 100) return "#10b981"; // green
-    if (progress >= 70) return "#3b82f6"; // blue
-    if (progress >= 40) return "#f59e0b"; // amber
-    return "#ef4444"; // red
+    if (progress >= 100) return '#10b981'; // green
+    if (progress >= 70) return '#3b82f6'; // blue
+    if (progress >= 40) return '#f59e0b'; // amber
+    return '#ef4444'; // red
   };
 
   const header = (
     <div className="flex align-items-center justify-content-between">
-      <div className="flex align-items-center gap-2">
+      <div className="flex align-items-center gap-4">
         <i className="pi pi-check-circle text-2xl text-green-500"></i>
         <h3 className="text-lg font-semibold m-0">Daily Goals</h3>
       </div>
@@ -87,7 +84,7 @@ export const GoalList: React.FC<GoalListProps> = ({ className }) => {
         <div className="w-3rem">
           <ProgressBar
             value={completionRate}
-            style={{ height: "4px" }}
+            style={{ height: '4px' }}
             color={getProgressColor(completionRate)}
             showValue={false}
           />
@@ -101,9 +98,7 @@ export const GoalList: React.FC<GoalListProps> = ({ className }) => {
       <Toast ref={toast} />
       <Card
         header={header}
-        className={`goal-list glass-card ${className || ""} ${
-          isAnimating ? "animate-pulse" : ""
-        }`}
+        className={`goal-list glass-card ${className || ''} ${isAnimating ? 'animate-pulse' : ''}`}
       >
         <div className="flex flex-column gap-4">
           {/* Progress Summary */}
@@ -133,13 +128,13 @@ export const GoalList: React.FC<GoalListProps> = ({ className }) => {
                 <p className="text-xs">Add your first goal to get started!</p>
               </div>
             ) : (
-              todaysGoals.map((goal) => (
+              todaysGoals.map(goal => (
                 <div
                   key={goal.id}
                   className={`flex align-items-center gap-3 p-2 border-round transition-all duration-300 ${
                     goal.completed
-                      ? "bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-800"
-                      : "bg-white dark:bg-gray-700 border-gray-200 dark:border-gray-600"
+                      ? 'bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-800'
+                      : 'bg-white dark:bg-gray-700 border-gray-200 dark:border-gray-600'
                   } border-1`}
                 >
                   <Checkbox
@@ -150,8 +145,8 @@ export const GoalList: React.FC<GoalListProps> = ({ className }) => {
                   <span
                     className={`flex-1 ${
                       goal.completed
-                        ? "line-through text-gray-500 dark:text-gray-400"
-                        : "text-gray-900 dark:text-gray-100"
+                        ? 'line-through text-gray-500 dark:text-gray-400'
+                        : 'text-gray-900 dark:text-gray-100'
                     }`}
                   >
                     {goal.title}
@@ -191,7 +186,7 @@ export const GoalList: React.FC<GoalListProps> = ({ className }) => {
         header="Add New Goal"
         visible={showAddDialog}
         onHide={() => setShowAddDialog(false)}
-        style={{ width: "90vw", maxWidth: "400px" }}
+        style={{ width: '90vw', maxWidth: '400px' }}
         modal
         className="add-goal-dialog"
       >
@@ -200,11 +195,11 @@ export const GoalList: React.FC<GoalListProps> = ({ className }) => {
             <label className="text-sm font-medium">Goal Description</label>
             <InputText
               value={newGoalTitle}
-              onChange={(e) => setNewGoalTitle(e.target.value)}
+              onChange={e => setNewGoalTitle(e.target.value)}
               placeholder="e.g., Drink 8 glasses of water"
               className="w-full"
-              onKeyPress={(e) => {
-                if (e.key === "Enter") {
+              onKeyPress={e => {
+                if (e.key === 'Enter') {
                   handleAddGoal();
                 }
               }}
