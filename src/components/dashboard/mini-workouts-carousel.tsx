@@ -413,51 +413,41 @@ export default function MiniWorkoutsCarousel() {
   };
 
   const workoutTemplate = (workout: Workout) => (
-    <div className="workout-card p-4 border border-gray-200 dark:border-gray-700 rounded-lg hover:shadow-lg transition-all duration-300 cursor-pointer bg-white dark:bg-gray-800">
+    <div className="workout-card glass-card hover:scale-105 transition-all duration-300 cursor-pointer">
       <div className="text-center space-y-3">
         <div className="flex justify-center">
           <i
-            className={`${getCategoryIcon(workout.category)} text-3xl ${
-              workout.category === 'cardio'
-                ? 'text-red-500'
-                : workout.category === 'strength'
-                ? 'text-blue-500'
-                : workout.category === 'flexibility'
-                ? 'text-green-500'
-                : 'text-purple-500'
-            }`}
+            className={`${getCategoryIcon(workout.category)} text-3xl`}
+            style={{ color: 'var(--warm-gold)' }}
           ></i>
         </div>
-
-        <h3 className="font-semibold text-gray-900 dark:text-gray-100 text-lg">{workout.name}</h3>
-
-        <p className="text-sm text-gray-600 dark:text-gray-400 line-clamp-2">
+        <h3 className="font-semibold text-lg" style={{ color: 'var(--foreground)' }}>
+          {workout.name}
+        </h3>
+        <p className="text-sm line-clamp-2" style={{ color: 'var(--foreground)', opacity: 0.8 }}>
           {workout.description}
         </p>
-
         <div className="flex justify-center gap-2">
-          <span className="px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-xs rounded">
+          <span className="px-2 py-1 bg-blue-100/40 text-blue-800/90 text-xs rounded">
             {workout.duration} min
           </span>
-          <span className="px-2 py-1 bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 text-xs rounded">
+          <span className="px-2 py-1 bg-green-100/40 text-green-800/90 text-xs rounded">
             {workout.calories} cal
           </span>
         </div>
-
         <div className="flex justify-center">
           <span
             className={`px-2 py-1 text-xs rounded ${
               getDifficultyColor(workout.difficulty) === 'success'
-                ? 'bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200'
+                ? 'bg-green-100/40 text-green-800/90'
                 : getDifficultyColor(workout.difficulty) === 'warning'
-                ? 'bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200'
-                : 'bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-200'
+                ? 'bg-yellow-100/40 text-yellow-800/90'
+                : 'bg-red-100/40 text-red-800/90'
             }`}
           >
             {workout.difficulty}
           </span>
         </div>
-
         <Button
           label="Start Workout"
           icon="pi pi-play"

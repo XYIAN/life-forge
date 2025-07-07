@@ -85,12 +85,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-      <body className="relative min-h-screen bg-gradient-to-br from-gray-900 via-blue-950 to-purple-950 text-white">
+      <body className="relative min-h-screen bg-gradient-to-br from-black via-gray-900 to-gray-800 text-white">
         <SmoothCursor />
         <Particles />
-        {/* Parallax Background */}
-        <div className="parallax-background"></div>
-        <div className="parallax-overlay"></div>
         <ParallaxBackground />
 
         {/* Main Content */}

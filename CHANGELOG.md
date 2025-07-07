@@ -5,6 +5,111 @@ All notable changes to Life Forge will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.3] - 2024-12-19
+
+### 🔧 **Hydration Mismatch Fix**
+
+This update fixes a critical hydration error that was occurring on the dashboard page due to time-based content differences between server and client rendering.
+
+### Fixed
+
+- **Hydration Error**: Resolved "Hydration failed because the server rendered text didn't match the client" error
+  - **Root Cause**: Time display was updating every second, causing differences between server and client rendering
+  - **Solution**: Implemented client-side only rendering for time-dependent content
+  - **Approach**: Added `isClient` state to prevent server-side rendering of dynamic time content
+- **Time Display**: Fixed time and greeting display to prevent hydration mismatches
+  - Added fallback "Loading..." state for time display during initial render
+  - Added fallback "Welcome" state for greeting during initial render
+  - Ensured consistent rendering between server and client
+
+### Technical
+
+- **Client-Side Rendering**: Implemented proper client-side only rendering for dynamic content
+- **State Management**: Added `isClient` flag to control when dynamic content should render
+- **Error Prevention**: Eliminated hydration mismatches that could cause React tree regeneration
+- **Performance**: Maintained smooth time updates while preventing server/client differences
+
+### User Experience
+
+- **No More Errors**: Dashboard now loads without hydration errors
+- **Smooth Loading**: Time display shows "Loading..." briefly before showing actual time
+- **Consistent Experience**: No more client-side tree regeneration causing layout shifts
+
+## [1.0.2] - 2024-12-19
+
+### 🎨 **Major Dashboard Theming Overhaul**
+
+This update completely fixes all dashboard theming issues, ensuring proper dark mode support and consistent visual design throughout the application.
+
+### Fixed
+
+- **Dashboard Background**: Removed light gradient background that conflicted with dark themes
+- **Text Colors**: Replaced all hardcoded gray colors with proper theme variables
+  - Loading text now uses `var(--foreground)` instead of `text-gray-600`
+  - All panel text now uses `var(--foreground)` with proper opacity
+  - Icons now use `var(--warm-gold)` for consistent theming
+- **Panel Components**: Fixed hardcoded background colors in all dashboard panels
+  - **Goal List**: Replaced `bg-gray-50 dark:bg-gray-800` with glassmorphism styling
+  - **Water Panel**: Fixed achievement message background and text colors
+  - **Next Big Thing Panel**: Complete overhaul of text colors and backgrounds
+  - **All Panels**: Consistent use of `var(--glass-bg)` and `var(--glass-border)`
+- **Component Styling**: Eliminated all hardcoded color classes that don't work in dark mode
+- **Visual Consistency**: All components now properly adapt to theme changes
+
+### Enhanced
+
+- **Theme Integration**: All dashboard components now use CSS custom properties
+- **Text Readability**: Improved contrast and visibility in both light and dark modes
+- **Glassmorphism**: Consistent glassmorphism effects across all dashboard panels
+- **Icon Theming**: All icons now use theme-aware colors (`var(--warm-gold)`)
+- **Component Alignment**: Better spacing and alignment throughout dashboard
+
+### Technical
+
+- **CSS Variables**: Complete migration to CSS custom properties for theming
+- **Component Architecture**: Improved component styling with proper theme inheritance
+- **Code Quality**: Removed unused imports and functions to fix linter errors
+- **Performance**: Optimized styling for better theme switching performance
+
+## [1.0.1] - 2024-12-19
+
+### 🎨 **UI/UX Enhancements & Parallax Fixes**
+
+This update focuses on improving the visual experience and fixing background parallax issues while enhancing mobile navigation and theme integration.
+
+### Enhanced
+
+- **Parallax Background**: Fixed conflicting parallax elements and improved background positioning
+  - Removed duplicate parallax divs that were causing positioning issues
+  - Increased background height to 200vh for true parallax effect
+  - Reduced parallax speed to 0.1 for very subtle movement
+  - Changed background position to center-top for better visual flow
+  - Applied black hue filter with brightness and contrast adjustments
+  - Updated body background gradient to complement black theme
+- **Hamburger Menu**: Improved mobile navigation with better sizing and positioning
+  - Increased button size to 3rem x 3rem for better touch targets
+  - Reduced header padding from px-4 py-3 to px-2 py-2 for more space
+  - Enhanced button styling with dynamic theme-based colors
+- **Theme Switcher**: Enhanced color contrast and dynamic theming
+  - Improved button sizing to 2.5rem x 2.5rem for better visibility
+  - Added dynamic color adaptation based on dark/light mode
+  - Enhanced contrast with proper background and border colors
+  - Better glassmorphism effects with backdrop blur
+
+### Fixed
+
+- **Parallax Positioning**: Resolved issue where background image appeared to end prematurely
+- **Mobile Navigation**: Fixed hamburger menu positioning and improved touch targets
+- **Theme Integration**: Better color contrast and dynamic theming for all navigation elements
+- **Background Effects**: Improved coordination between particles and parallax background
+
+### Technical
+
+- **Parallax Optimization**: Streamlined parallax implementation with single component
+- **Mobile UX**: Enhanced touch targets and spacing for better mobile experience
+- **Theme System**: Improved dynamic color adaptation for navigation elements
+- **Performance**: Optimized background effects for smoother scrolling experience
+
 ## [1.0.0] - 2024-12-19
 
 ### 🎉 **First Stable Release**
@@ -259,3 +364,25 @@ Life Forge v1.0.0 represents the **first stable release** of our comprehensive w
 ---
 
 _Life Forge is continuously evolving. Stay tuned for magical updates! ✨_
+
+## [1.1.0] - 2024-06-09
+
+### Added
+
+- Modular dashboard with nested routes: Workouts, Nutrition, Sleep, Analytics
+- Advanced anime.js animations and custom animation hooks
+- Multiple chart types (bar, line, doughnut, radar) using Chart.js and PrimeReact
+- Glassmorphism and dynamic theming for all dashboard panels
+- Magic UI components (ShineBorder, Particles, etc.)
+- Mobile-first responsive design and improved accessibility
+
+### Fixed
+
+- Parallax background image centering and overlay transparency for better visibility
+- Improved overlay opacity for both light and dark modes
+- Fixed hydration and theming issues on dashboard
+
+### Changed
+
+- README and documentation to reflect new features
+- Upgraded package version to 1.1.0

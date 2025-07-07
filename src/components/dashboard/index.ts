@@ -19,3 +19,6 @@ export * from './mood-panel';
 export * from './goal-list';
 export * from './timer-card';
 export * from './quote-orb';
+
+// User interface components
+export { UserInfoDialog } from './user-info-dialog';

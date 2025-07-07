@@ -341,7 +341,7 @@ export default function SocialFunPanel() {
   return (
     <div className="social-fun-panel">
       <Card
-        className="social-fun-card shadow-lg border-0"
+        className="glass-card social-fun-card shadow-lg border-0"
         header={
           <div className="flex align-items-center gap-2">
             <i className="pi pi-users text-indigo-500 text-xl"></i>
@@ -386,11 +386,11 @@ export default function SocialFunPanel() {
           </div>
 
           {/* Activities Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 justify-items-center items-center justify-center">
             {filteredActivities.map(activity => (
               <div
                 key={activity.id}
-                className="p-4 border border-gray-200 dark:border-gray-700 rounded-lg hover:shadow-lg transition-all duration-300 cursor-pointer bg-white dark:bg-gray-800"
+                className="p-4 glass-card hover:scale-105 transition-all duration-300 cursor-pointer"
                 onClick={() => startActivity(activity)}
               >
                 <div className="flex items-start justify-between mb-3">
@@ -401,24 +401,27 @@ export default function SocialFunPanel() {
                       severity={getDifficultyColor(activity.difficulty)}
                       className="text-xs"
                     />
-                    <div className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                    <div className="text-xs" style={{ color: 'var(--foreground)', opacity: 0.7 }}>
                       +{activity.points} pts
                     </div>
                   </div>
                 </div>
-
-                <h3 className="font-semibold text-gray-900 dark:text-gray-100 mb-2">
+                <h3 className="font-semibold text-lg" style={{ color: 'var(--foreground)' }}>
                   {activity.title}
                 </h3>
-
-                <p className="text-sm text-gray-600 dark:text-gray-400 mb-3 line-clamp-2">
+                <p
+                  className="text-sm mb-3 line-clamp-2"
+                  style={{ color: 'var(--foreground)', opacity: 0.8 }}
+                >
                   {activity.description}
                 </p>
-
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-1">
                     <span className="text-sm">{getCategoryIcon(activity.category)}</span>
-                    <span className="text-xs text-gray-500 dark:text-gray-400 capitalize">
+                    <span
+                      className="text-xs capitalize"
+                      style={{ color: 'var(--foreground)', opacity: 0.7 }}
+                    >
                       {activity.category}
                     </span>
                   </div>
@@ -431,33 +434,36 @@ export default function SocialFunPanel() {
           {/* Recent Posts */}
           {posts.length > 0 && (
             <div className="space-y-3">
-              <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200">
+              <h3 className="text-lg font-semibold" style={{ color: 'var(--foreground)' }}>
                 Recent Posts
               </h3>
-              <div className="space-y-3">
+              <div className="space-y-3 flex flex-col items-center justify-center">
                 {posts
                   .slice(-3)
                   .reverse()
                   .map(post => (
-                    <div
-                      key={post.id}
-                      className="p-4 border border-gray-200 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800"
-                    >
+                    <div key={post.id} className="p-4 glass-card">
                       <div className="flex items-start gap-3 mb-3">
                         <div className="text-2xl">{getTypeIcon(post.type)}</div>
                         <div className="flex-1">
-                          <h4 className="font-semibold text-gray-900 dark:text-gray-100">
+                          <h4 className="font-semibold" style={{ color: 'var(--foreground)' }}>
                             {post.title}
                           </h4>
-                          <div className="text-xs text-gray-500 dark:text-gray-400">
+                          <div
+                            className="text-xs"
+                            style={{ color: 'var(--foreground)', opacity: 0.7 }}
+                          >
                             {post.createdAt.toLocaleDateString()}
                           </div>
                         </div>
                       </div>
-
-                      <p className="text-gray-700 dark:text-gray-300 mb-3">{post.content}</p>
-
-                      <div className="flex items-center gap-4 text-sm text-gray-500 dark:text-gray-400">
+                      <p className="mb-3" style={{ color: 'var(--foreground)', opacity: 0.8 }}>
+                        {post.content}
+                      </p>
+                      <div
+                        className="flex items-center gap-4 text-sm"
+                        style={{ color: 'var(--foreground)', opacity: 0.7 }}
+                      >
                         <button
                           className="flex items-center gap-1 hover:text-blue-500 transition-colors"
                           onClick={() => likePost(post.id)}

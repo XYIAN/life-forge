@@ -4,7 +4,16 @@ Transform your daily routine into an adventure with Life Forge - a beautifully c
 
 ## ✨ What is Life Forge?
 
-Life Forge is your digital companion for personal growth. It combines essential daily tracking tools with beautiful design, gamification elements, and a touch of magic to make self-improvement enjoyable and sustainable.
+Life Forge is a next-generation dashboard app built with Next.js, TypeScript, PrimeReact, and advanced animation libraries. It features:
+
+- Modular dashboard with nested routes for Workouts, Nutrition, Sleep, Analytics, and more
+- Advanced animations using anime.js and custom hooks
+- Multiple chart types (bar, line, doughnut, radar) using Chart.js and PrimeReact
+- Glassmorphism and dynamic theming
+- Mobile-first responsive design
+- Personalized user onboarding and info dialogs
+- Magic UI components (ShineBorder, Particles, etc.)
+- Persistent data with localStorage
 
 **🎯 Perfect for**: Students, professionals, wellness enthusiasts, and anyone looking to build better daily habits with style.
 
@@ -202,3 +211,35 @@ Love Life Forge? Connect with the creator:
 _Made with ❤️ and a touch of magic. Transform your daily routine into an adventure with Life Forge._
 
 **✨ Your journey to a better you starts with a single click. ✨**
+
+## Features
+
+- **Workouts:** Log, view, and analyze workouts with animated cards and charts
+- **Nutrition:** Track meals, macros, and calories with visual progress and ingredient selection
+- **Sleep:** Monitor sleep quality, stages, and trends
+- **Analytics:** Deep insights with multi-metric charts and performance overviews
+- **Dynamic Animations:** All sections feature smooth, modern transitions and effects
+
+## Tech Stack
+
+- Next.js 15.3+
+- TypeScript (strict mode)
+- PrimeReact, PrimeFlex, PrimeIcons
+- Chart.js, react-chartjs-2
+- anime.js for advanced UI animation
+- Tailwind CSS for utility-first styling
+
+## Development
+
+- Mobile-first, accessible, and highly interactive
+- All dashboard sections are modular and have their own nested routes
+- Animations and charts are reusable and extensible
+
+## Getting Started
+
+1. `npm install`
+2. `npm run dev`
+
+## License
+
+MIT

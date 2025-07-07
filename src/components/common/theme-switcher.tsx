@@ -45,6 +45,17 @@ export const ThemeSwitcher: React.FC<ThemeSwitcherProps> = ({ className }) => {
         className={`theme-switcher-button ${className || ''}`}
         rounded
         severity="info"
+        style={{
+          fontSize: '1.25rem',
+          width: '2.5rem',
+          height: '2.5rem',
+          color: isDarkMode ? '#ffffff' : '#1f2937',
+          background: isDarkMode ? 'rgba(255, 255, 255, 0.1)' : 'rgba(255, 255, 255, 0.9)',
+          border: isDarkMode
+            ? '1px solid rgba(255, 255, 255, 0.2)'
+            : '1px solid rgba(0, 0, 0, 0.1)',
+          backdropFilter: 'blur(25px) saturate(180%)',
+        }}
         aria-label="Open theme switcher"
       />
 
@@ -52,13 +63,13 @@ export const ThemeSwitcher: React.FC<ThemeSwitcherProps> = ({ className }) => {
       <Sidebar
         visible={sidebarVisible}
         onHide={() => setSidebarVisible(false)}
-        position="right"
+        position="left"
         style={{
           width: '90vw',
           maxWidth: '400px',
           background: 'var(--glass-bg)',
           backdropFilter: 'blur(25px) saturate(180%)',
-          borderLeft: '1px solid var(--glass-border)',
+          borderRight: '1px solid var(--glass-border)',
           color: 'var(--foreground)',
         }}
         header="🎨 Theme Switcher"

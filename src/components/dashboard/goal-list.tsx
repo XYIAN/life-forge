@@ -145,9 +145,17 @@ export const GoalList: React.FC<GoalListProps> = ({ className }) => {
         >
           <div className="flex flex-column gap-4">
             {/* Progress Summary */}
-            <div className="flex justify-content-between align-items-center p-2 bg-gray-50 dark:bg-gray-800 border-round">
+            <div
+              className="flex justify-content-between align-items-center p-2 border-round glass-card"
+              style={{
+                background: 'var(--glass-bg)',
+                border: '1px solid var(--glass-border)',
+              }}
+            >
               <div className="flex flex-column">
-                <span className="text-sm font-medium">Today&apos;s Progress</span>
+                <span className="text-sm font-medium" style={{ color: 'var(--foreground)' }}>
+                  Today&apos;s Progress
+                </span>
                 <span
                   className="text-lg font-bold"
                   style={{ color: getProgressColor(completionRate) }}
@@ -157,7 +165,7 @@ export const GoalList: React.FC<GoalListProps> = ({ className }) => {
               </div>
               <div className="flex align-items-center gap-2">
                 {completionRate === 100 && todaysGoals.length > 0 && (
-                  <i className="pi pi-star text-2xl text-yellow-500"></i>
+                  <i className="pi pi-star text-2xl" style={{ color: 'var(--warm-gold)' }}></i>
                 )}
               </div>
             </div>
@@ -165,20 +173,31 @@ export const GoalList: React.FC<GoalListProps> = ({ className }) => {
             {/* Goals List */}
             <div className="flex flex-column gap-2">
               {todaysGoals.length === 0 ? (
-                <div className="text-center py-4 text-gray-500">
-                  <i className="pi pi-target text-4xl mb-2"></i>
-                  <p className="text-sm">No goals set for today.</p>
-                  <p className="text-xs">Add your first goal to get started!</p>
+                <div
+                  className="text-center py-4"
+                  style={{ color: 'var(--foreground)', opacity: 0.7 }}
+                >
+                  <i
+                    className="pi pi-target text-4xl mb-2"
+                    style={{ color: 'var(--warm-gold)' }}
+                  ></i>
+                  <p className="text-sm" style={{ color: 'var(--foreground)' }}>
+                    No goals set for today.
+                  </p>
+                  <p className="text-xs" style={{ color: 'var(--foreground)', opacity: 0.8 }}>
+                    Add your first goal to get started!
+                  </p>
                 </div>
               ) : (
                 todaysGoals.map(goal => (
                   <div
                     key={goal.id}
-                    className={`flex align-items-center gap-3 p-2 border-round transition-all duration-300 ${
-                      goal.completed
-                        ? 'bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-800'
-                        : 'bg-white dark:bg-gray-700 border-gray-200 dark:border-gray-600'
-                    } border-1`}
+                    className={`flex align-items-center gap-3 p-2 border-round transition-all duration-300 border-1 glass-card`}
+                    style={{
+                      background: goal.completed ? 'rgba(16, 185, 129, 0.1)' : 'var(--glass-bg)',
+                      borderColor: goal.completed ? 'var(--warm-gold)' : 'var(--glass-border)',
+                      opacity: goal.completed ? 0.8 : 1,
+                    }}
                   >
                     <Checkbox
                       checked={goal.completed}
@@ -186,16 +205,20 @@ export const GoalList: React.FC<GoalListProps> = ({ className }) => {
                       className="flex-none"
                     />
                     <span
-                      className={`flex-1 ${
-                        goal.completed
-                          ? 'line-through text-gray-500 dark:text-gray-400'
-                          : 'text-gray-900 dark:text-gray-100'
-                      }`}
+                      className="flex-1"
+                      style={{
+                        color: 'var(--foreground)',
+                        textDecoration: goal.completed ? 'line-through' : 'none',
+                        opacity: goal.completed ? 0.7 : 1,
+                      }}
                     >
                       {goal.title}
                     </span>
                     {goal.completed && (
-                      <i className="pi pi-check-circle text-green-500 flex-none"></i>
+                      <i
+                        className="pi pi-check-circle flex-none"
+                        style={{ color: 'var(--warm-gold)' }}
+                      ></i>
                     )}
                   </div>
                 ))

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Card } from 'primereact/card';
 import { Button } from 'primereact/button';
 import { ShineBorder } from '@/components/magicui';
@@ -16,13 +16,42 @@ import {
   MysteryBox,
   SocialFunPanel,
   TrendsPage,
+  UserInfoDialog,
 } from '@dashboard';
+
+interface UserInfo {
+  name: string;
+  age?: number;
+  gender?: string;
+  timezone?: string;
+  goals?: string[];
+}
 
 export default function Dashboard() {
   const [activePanel, setActivePanel] = useState<string | null>(null);
+  const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
+  const [showUserDialog, setShowUserDialog] = useState(false);
 
-  // Mock user data for now
-  const userData = { name: 'User' };
+  // Check for user info on component mount
+  useEffect(() => {
+    const savedUserInfo = localStorage.getItem('userInfo');
+    if (savedUserInfo) {
+      try {
+        const parsed = JSON.parse(savedUserInfo);
+        setUserInfo(parsed);
+      } catch (error) {
+        console.error('Error parsing user info:', error);
+        setShowUserDialog(true);
+      }
+    } else {
+      setShowUserDialog(true);
+    }
+  }, []);
+
+  const handleUserInfoSave = (info: UserInfo) => {
+    setUserInfo(info);
+    setShowUserDialog(false);
+  };
 
   const panels = [
     {
@@ -108,19 +137,29 @@ export default function Dashboard() {
     setActivePanel(activePanel === panelId ? null : panelId);
   };
 
-  if (!userData) {
+  const getGreeting = () => {
+    const hour = new Date().getHours();
+    if (hour < 12) return 'Good morning';
+    if (hour < 18) return 'Good afternoon';
+    return 'Good evening';
+  };
+
+  if (!userInfo) {
     return (
       <div className="flex justify-center items-center h-screen">
         <div className="text-center">
-          <i className="pi pi-spin pi-spinner text-4xl text-blue-500 mb-4"></i>
-          <p className="text-gray-600">Loading dashboard...</p>
+          <i
+            className="pi pi-spin pi-spinner text-4xl mb-4"
+            style={{ color: 'var(--warm-gold)' }}
+          ></i>
+          <p style={{ color: 'var(--foreground)' }}>Loading dashboard...</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="dashboard min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 p-4">
+    <div className="dashboard min-h-screen p-4">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="mb-8">
@@ -130,11 +169,19 @@ export default function Dashboard() {
             duration={8}
             borderWidth={2}
           >
-            <div className="text-center">
-              <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-2">
-                Welcome back, {userData.name}!
+            <div
+              className="text-center glass-card p-6"
+              style={{
+                background: 'var(--glass-bg)',
+                backdropFilter: 'blur(25px) saturate(180%)',
+                border: '1px solid var(--glass-border)',
+                color: 'var(--foreground)',
+              }}
+            >
+              <h1 className="text-3xl font-bold mb-2" style={{ color: 'var(--foreground)' }}>
+                {getGreeting()}, {userInfo.name}!
               </h1>
-              <p className="text-gray-600 dark:text-gray-400">
+              <p style={{ color: 'var(--foreground)', opacity: 0.9 }}>
                 Ready to make today amazing? Let&apos;s check in on your wellness journey.
               </p>
             </div>
@@ -142,7 +189,7 @@ export default function Dashboard() {
         </div>
 
         {/* Dashboard Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 justify-items-center items-center justify-center">
           {panels.map(panel => (
             <ShineBorder
               key={panel.id}
@@ -171,19 +218,27 @@ export default function Dashboard() {
               onShineComplete={() => console.log(`${panel.title} shine effect completed`)}
             >
               <Card
-                className={`panel-card shadow-lg border-0 hover:shadow-xl transition-all duration-300 ${
+                className={`panel-card shadow-lg border-0 hover:shadow-xl transition-all duration-300 glass-card ${
                   activePanel === panel.id ? 'ring-2 ring-blue-500' : ''
                 }`}
+                style={{
+                  background: 'var(--glass-bg)',
+                  backdropFilter: 'blur(25px) saturate(180%)',
+                  border: '1px solid var(--glass-border)',
+                  color: 'var(--foreground)',
+                }}
                 onClick={() => handlePanelClick(panel.id)}
               >
                 <div className="text-center p-4">
-                  <div className={`text-4xl mb-3 text-${panel.color}-500`}>
+                  <div className="text-4xl mb-3" style={{ color: 'var(--warm-gold)' }}>
                     <i className={panel.icon}></i>
                   </div>
-                  <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-2">
+                  <h3 className="text-lg font-semibold mb-2" style={{ color: 'var(--foreground)' }}>
                     {panel.title}
                   </h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">Click to explore</p>
+                  <p className="text-sm" style={{ color: 'var(--foreground)', opacity: 0.9 }}>
+                    Click to explore
+                  </p>
                 </div>
               </Card>
             </ShineBorder>
@@ -192,19 +247,28 @@ export default function Dashboard() {
 
         {/* Active Panel Content */}
         {activePanel && (
-          <div className="mt-8">
+          <div className="mt-8 flex justify-center items-center">
             <ShineBorder
               className="rounded-lg"
               shineColor={['#3b82f6', '#8b5cf6']}
               duration={10}
               borderWidth={2}
             >
-              <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl">
+              <div
+                className="rounded-lg shadow-xl glass-card"
+                style={{
+                  background: 'var(--glass-bg)',
+                  backdropFilter: 'blur(25px) saturate(180%)',
+                  border: '1px solid var(--glass-border)',
+                  color: 'var(--foreground)',
+                }}
+              >
                 <div className="p-6">
                   <Button
                     icon="pi pi-times"
                     className="p-button-text p-button-rounded absolute top-4 right-4"
                     onClick={() => setActivePanel(null)}
+                    style={{ color: 'var(--foreground)' }}
                   />
                   {(() => {
                     const panel = panels.find(p => p.id === activePanel);
@@ -220,6 +284,13 @@ export default function Dashboard() {
           </div>
         )}
       </div>
+
+      {/* User Info Dialog */}
+      <UserInfoDialog
+        visible={showUserDialog}
+        onHide={() => setShowUserDialog(false)}
+        onSave={handleUserInfoSave}
+      />
     </div>
   );
 }

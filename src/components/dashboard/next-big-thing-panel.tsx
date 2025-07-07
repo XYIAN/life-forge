@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card } from 'primereact/card';
 import { ProgressBar } from 'primereact/progressbar';
 import { Button } from 'primereact/button';
@@ -8,7 +8,7 @@ import { InputText } from 'primereact/inputtext';
 import { InputTextarea } from 'primereact/inputtextarea';
 import { Calendar } from 'primereact/calendar';
 import { Dialog } from 'primereact/dialog';
-import { Tag } from 'primereact/tag';
+import { Badge } from 'primereact/badge';
 // import { useAnimation } from '@/hooks/useAnimation';
 // import { useTheme } from '@/hooks/useTheme';
 
@@ -109,19 +109,6 @@ export default function NextBigThingPanel() {
     }
   };
 
-  const getStatusColor = (status: string): 'success' | 'warning' | 'info' => {
-    switch (status) {
-      case 'completed':
-        return 'success';
-      case 'in-progress':
-        return 'warning';
-      case 'planning':
-        return 'info';
-      default:
-        return 'info';
-    }
-  };
-
   const getDaysUntilDeadline = (deadline: Date) => {
     const today = new Date();
     const diffTime = deadline.getTime() - today.getTime();
@@ -134,12 +121,16 @@ export default function NextBigThingPanel() {
 
   const title = (
     <div className="flex align-items-center gap-2">
-      <i className="pi pi-star-fill text-yellow-500 text-xl"></i>
-      <span className="text-xl font-bold">Next Big Thing</span>
+      <i className="pi pi-star-fill text-xl" style={{ color: 'var(--warm-gold)' }}></i>
+      <span className="text-xl font-bold" style={{ color: 'var(--foreground)' }}>
+        Next Big Thing
+      </span>
     </div>
   );
   const subtitle = (
-    <span className="text-gray-600 dark:text-gray-300">Track your major life goals and dreams</span>
+    <span style={{ color: 'var(--foreground)', opacity: 0.8 }}>
+      Track your major life goals and dreams
+    </span>
   );
 
   return (
@@ -159,48 +150,57 @@ export default function NextBigThingPanel() {
           {/* Active Goals */}
           {activeGoals.length > 0 && (
             <div className="space-y-3">
-              <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200">
+              <h3 className="text-lg font-semibold" style={{ color: 'var(--foreground)' }}>
                 Active Goals ({activeGoals.length})
               </h3>
               {activeGoals.map(goal => (
                 <div
                   key={goal.id}
-                  className="p-4 border border-gray-200 dark:border-gray-700 rounded-lg hover:shadow-md transition-shadow"
+                  className="p-4 border border-gray-200 dark:border-gray-700 rounded-lg glass-card"
+                  style={{
+                    background: 'var(--glass-bg)',
+                    border: '1px solid var(--glass-border)',
+                  }}
                 >
                   <div className="flex justify-between items-start mb-3">
                     <div className="flex-1">
-                      <h4 className="font-semibold text-gray-900 dark:text-gray-100 mb-1">
+                      <h4
+                        className="font-semibold mb-1 flex items-center gap-2"
+                        style={{ color: 'var(--foreground)' }}
+                      >
+                        <Badge
+                          value={goal.priority.toUpperCase()}
+                          severity={getPriorityColor(goal.priority)}
+                        />
                         {goal.title}
                       </h4>
                       {goal.description && (
-                        <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
+                        <p
+                          className="text-sm mb-2"
+                          style={{ color: 'var(--foreground)', opacity: 0.8 }}
+                        >
                           {goal.description}
                         </p>
                       )}
-                      <div className="flex gap-2 mb-2">
-                        <Tag
-                          value={goal.priority}
-                          severity={getPriorityColor(goal.priority)}
-                          className="text-xs"
-                        />
-                        <Tag
-                          value={goal.status}
-                          severity={getStatusColor(goal.status)}
-                          className="text-xs"
-                        />
+                      <div className="text-sm" style={{ color: 'var(--foreground)', opacity: 0.7 }}>
+                        Created: {goal.createdAt.toLocaleDateString()}
                       </div>
                     </div>
-                    <Button
-                      icon="pi pi-trash"
-                      className="p-button-text p-button-danger p-button-sm"
-                      onClick={() => deleteGoal(goal.id)}
-                    />
+                    <div className="flex gap-1">
+                      <Button
+                        icon="pi pi-trash"
+                        className="p-button-text p-button-danger p-button-sm"
+                        onClick={() => deleteGoal(goal.id)}
+                      />
+                    </div>
                   </div>
 
                   <div className="space-y-2">
                     <div className="flex justify-between text-sm">
-                      <span className="text-gray-600 dark:text-gray-400">Progress</span>
-                      <span className="font-medium">{goal.progress}%</span>
+                      <span style={{ color: 'var(--foreground)', opacity: 0.8 }}>Progress</span>
+                      <span className="font-medium" style={{ color: 'var(--foreground)' }}>
+                        {goal.progress}%
+                      </span>
                     </div>
                     <ProgressBar
                       value={goal.progress}
@@ -209,14 +209,17 @@ export default function NextBigThingPanel() {
                     />
 
                     <div className="flex justify-between items-center">
-                      <div className="text-sm text-gray-600 dark:text-gray-400">
+                      <div className="text-sm" style={{ color: 'var(--foreground)', opacity: 0.8 }}>
                         Deadline: {goal.deadline.toLocaleDateString()}
                         <span
-                          className={`ml-2 ${
-                            getDaysUntilDeadline(goal.deadline) < 7
-                              ? 'text-red-500'
-                              : 'text-gray-500'
-                          }`}
+                          className="ml-2"
+                          style={{
+                            color:
+                              getDaysUntilDeadline(goal.deadline) < 7
+                                ? '#ef4444'
+                                : 'var(--foreground)',
+                            opacity: 0.8,
+                          }}
                         >
                           ({getDaysUntilDeadline(goal.deadline)} days)
                         </span>
@@ -245,26 +248,36 @@ export default function NextBigThingPanel() {
           {/* Completed Goals */}
           {completedGoals.length > 0 && (
             <div className="space-y-3">
-              <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200">
+              <h3 className="text-lg font-semibold" style={{ color: 'var(--foreground)' }}>
                 Completed Goals ({completedGoals.length})
               </h3>
               {completedGoals.map(goal => (
                 <div
                   key={goal.id}
-                  className="p-4 border border-green-200 dark:border-green-800 rounded-lg bg-green-50 dark:bg-green-900/20"
+                  className="p-4 border rounded-lg glass-card"
+                  style={{
+                    background: 'rgba(16, 185, 129, 0.1)',
+                    border: '1px solid var(--warm-gold)',
+                  }}
                 >
                   <div className="flex justify-between items-start">
                     <div className="flex-1">
-                      <h4 className="font-semibold text-gray-900 dark:text-gray-100 mb-1 flex items-center gap-2">
-                        <i className="pi pi-check-circle text-green-500"></i>
+                      <h4
+                        className="font-semibold mb-1 flex items-center gap-2"
+                        style={{ color: 'var(--foreground)' }}
+                      >
+                        <i className="pi pi-check-circle" style={{ color: 'var(--warm-gold)' }}></i>
                         {goal.title}
                       </h4>
                       {goal.description && (
-                        <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
+                        <p
+                          className="text-sm mb-2"
+                          style={{ color: 'var(--foreground)', opacity: 0.8 }}
+                        >
                           {goal.description}
                         </p>
                       )}
-                      <div className="text-sm text-gray-500 dark:text-gray-400">
+                      <div className="text-sm" style={{ color: 'var(--foreground)', opacity: 0.7 }}>
                         Completed on {goal.createdAt.toLocaleDateString()}
                       </div>
                     </div>
@@ -281,19 +294,14 @@ export default function NextBigThingPanel() {
 
           {/* Empty State */}
           {goals.length === 0 && (
-            <div className="text-center py-8">
-              <i className="pi pi-star text-4xl text-gray-400 mb-4"></i>
-              <h3 className="text-lg font-semibold text-gray-700 dark:text-gray-300 mb-2">
-                No goals yet
-              </h3>
-              <p className="text-gray-500 dark:text-gray-400 mb-4">
-                Start by adding your next big life goal
+            <div className="text-center py-8" style={{ color: 'var(--foreground)', opacity: 0.7 }}>
+              <i className="pi pi-star text-4xl mb-3" style={{ color: 'var(--warm-gold)' }}></i>
+              <p className="text-lg" style={{ color: 'var(--foreground)' }}>
+                No big goals set yet.
               </p>
-              <Button
-                label="Add Your First Goal"
-                icon="pi pi-plus"
-                onClick={() => setShowAddDialog(true)}
-              />
+              <p className="text-sm" style={{ color: 'var(--foreground)', opacity: 0.8 }}>
+                Add your first major life goal to start tracking your dreams!
+              </p>
             </div>
           )}
         </div>

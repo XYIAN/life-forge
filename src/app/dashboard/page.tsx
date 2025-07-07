@@ -22,24 +22,35 @@ import SocialFunPanel from '@/components/dashboard/social-fun-panel';
 import TrendsPage from '@/components/dashboard/trends-page';
 
 export default function DashboardPage() {
-  const [currentTime, setCurrentTime] = useState(new Date());
+  const [currentTime, setCurrentTime] = useState<Date | null>(null);
   const [greeting, setGreeting] = useState('');
   const [activeSection, setActiveSection] = useState('main');
+  const [isClient, setIsClient] = useState(false);
   // const router = useRouter();
   // const { isDark } = useTheme();
   // const { animateIn } = useAnimation();
   // const { SmoothCursor } = useSmoothCursor();
   // const { Particles } = useParticles();
 
+  // Set client flag on mount to prevent hydration mismatch
   useEffect(() => {
+    setIsClient(true);
+    setCurrentTime(new Date());
+  }, []);
+
+  useEffect(() => {
+    if (!isClient) return;
+
     const timer = setInterval(() => {
       setCurrentTime(new Date());
     }, 1000);
 
     return () => clearInterval(timer);
-  }, []);
+  }, [isClient]);
 
   useEffect(() => {
+    if (!currentTime) return;
+
     const hour = currentTime.getHours();
     if (hour < 12) {
       setGreeting('Good Morning');
@@ -61,20 +72,28 @@ export default function DashboardPage() {
       <div className="flex align-items-center justify-between">
         <div className="flex align-items-center gap-3">
           <i className="pi pi-home text-blue-500 text-xl"></i>
-          <span className="text-xl font-bold">{greeting}, User!</span>
+          <span className="text-xl font-bold">
+            {!isClient || !greeting ? 'Welcome' : `${greeting}, User!`}
+          </span>
         </div>
         {/* <ThemeSwitcher /> */}
       </div>
     );
     const cardSubtitle = (
       <span className="text-gray-600 dark:text-gray-300">
-        {currentTime.toLocaleDateString('en-US', {
-          weekday: 'long',
-          year: 'numeric',
-          month: 'long',
-          day: 'numeric',
-        })}{' '}
-        • {currentTime.toLocaleTimeString()}
+        {!isClient || !currentTime ? (
+          'Loading...'
+        ) : (
+          <>
+            {currentTime.toLocaleDateString('en-US', {
+              weekday: 'long',
+              year: 'numeric',
+              month: 'long',
+              day: 'numeric',
+            })}{' '}
+            • {currentTime.toLocaleTimeString()}
+          </>
+        )}
       </span>
     );
     return (
