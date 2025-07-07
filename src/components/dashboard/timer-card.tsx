@@ -148,7 +148,15 @@ export const TimerCard: React.FC<TimerCardProps> = ({ className }) => {
   const header = (
     <div className="flex align-items-center justify-content-between">
       <div className="flex align-items-center gap-4">
-        <i className="pi pi-clock text-2xl" style={{ color: 'var(--deep-purple)' }}></i>
+        <i
+          className="pi pi-clock text-2xl"
+          style={{
+            background: 'linear-gradient(135deg, #8b5cf6, #7c3aed)',
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
+            backgroundClip: 'text',
+          }}
+        ></i>
         <h3 className="text-lg font-semibold m-0" style={{ color: 'var(--foreground)' }}>
           Focus Timer
         </h3>

@@ -5,10 +5,8 @@ import 'primereact/resources/themes/saga-blue/theme.css';
 import 'primereact/resources/primereact.min.css';
 import 'primeicons/primeicons.css';
 import { Providers } from '@/lib/providers/providers';
-import { ParallaxBackground } from '@/components/parallax-background';
-import { GlobalHeader } from '@/components/global-header';
-import { GlobalFooter } from '@/components/global-footer';
-import { ThemeLoadingWrapper } from '@/components/theme-loading-wrapper';
+import { ParallaxBackground, GlobalHeader, GlobalFooter } from '@layout';
+import { ThemeLoadingWrapper } from '@common';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -21,6 +19,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://life-forge.netlify.app'),
   title: 'Life Forge - Your Personal Daily Dashboard',
   description:
     'Transform your daily routine into an adventure with Life Forge. Track water intake, mood, goals, and more with a beautifully crafted dashboard.',

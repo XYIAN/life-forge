@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Image from 'next/image';
 import { Button } from 'primereact/button';
 import Link from 'next/link';
 
@@ -13,10 +14,12 @@ export const GlobalFooter: React.FC = () => {
           <div className="flex flex-column align-items-center lg:align-items-start gap-3">
             <div className="flex align-items-center gap-2">
               <div className="w-2rem h-2rem bg-gradient-to-br from-amber-600 to-purple-600 border-round-lg flex align-items-center justify-content-center p-1">
-                <img
+                <Image
                   src="/icon-2.png"
                   alt="Life Forge Logo"
-                  className="w-full h-full object-contain border-round"
+                  width={32}
+                  height={32}
+                  className="object-contain border-round"
                 />
               </div>
               <span className="text-lg font-bold bg-gradient-to-r from-amber-600 to-purple-600 bg-clip-text text-transparent">

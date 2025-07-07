@@ -4,11 +4,7 @@ import React from 'react';
 import { Button } from 'primereact/button';
 import { Card } from 'primereact/card';
 import { useDashboard } from '@/lib/providers/dashboard-provider';
-import { WaterPanel } from '@/components/water-panel';
-import { MoodPanel } from '@/components/mood-panel';
-import { QuoteOrb } from '@/components/quote-orb';
-import { GoalList } from '@/components/goal-list';
-import { TimerCard } from '@/components/timer-card';
+import { WaterPanel, MoodPanel, QuoteOrb, GoalList, TimerCard } from '@dashboard';
 
 export default function Dashboard() {
   const { enabledPanels } = useDashboard();

@@ -74,7 +74,15 @@ export const GoalList: React.FC<GoalListProps> = ({ className }) => {
   const header = (
     <div className="flex align-items-center justify-content-between">
       <div className="flex align-items-center gap-4">
-        <i className="pi pi-check-circle text-2xl" style={{ color: 'var(--warm-gold)' }}></i>
+        <i
+          className="pi pi-check-circle text-2xl"
+          style={{
+            background: 'linear-gradient(135deg, #10b981, #059669)',
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
+            backgroundClip: 'text',
+          }}
+        ></i>
         <h3 className="text-lg font-semibold m-0" style={{ color: 'var(--foreground)' }}>
           Daily Goals
         </h3>

@@ -12,17 +12,17 @@ interface MoodPanelProps {
   className?: string;
 }
 
-const MOOD_EMOJIS = [
-  { value: 1, emoji: '😢', label: 'Terrible' },
-  { value: 2, emoji: '😔', label: 'Bad' },
-  { value: 3, emoji: '😕', label: 'Poor' },
-  { value: 4, emoji: '😐', label: 'Okay' },
-  { value: 5, emoji: '🙂', label: 'Fair' },
-  { value: 6, emoji: '😊', label: 'Good' },
-  { value: 7, emoji: '😄', label: 'Great' },
-  { value: 8, emoji: '😁', label: 'Excellent' },
-  { value: 9, emoji: '🤩', label: 'Amazing' },
-  { value: 10, emoji: '🥳', label: 'Fantastic' },
+const MOOD_ICONS = [
+  { value: 1, icon: 'pi pi-times-circle', label: 'Terrible', description: 'Feeling awful today' },
+  { value: 2, icon: 'pi pi-exclamation-triangle', label: 'Bad', description: 'Not a good day' },
+  { value: 3, icon: 'pi pi-frown', label: 'Poor', description: 'Could be better' },
+  { value: 4, icon: 'pi pi-minus-circle', label: 'Okay', description: 'Just getting by' },
+  { value: 5, icon: 'pi pi-circle', label: 'Fair', description: 'Neutral mood' },
+  { value: 6, icon: 'pi pi-smile', label: 'Good', description: 'Feeling positive' },
+  { value: 7, icon: 'pi pi-thumbs-up', label: 'Great', description: 'Having a good day' },
+  { value: 8, icon: 'pi pi-star', label: 'Excellent', description: 'Feeling fantastic' },
+  { value: 9, icon: 'pi pi-heart', label: 'Amazing', description: 'Absolutely wonderful' },
+  { value: 10, icon: 'pi pi-star-fill', label: 'Fantastic', description: 'Best day ever!' },
 ];
 
 export const MoodPanel: React.FC<MoodPanelProps> = ({ className }) => {
@@ -41,10 +41,10 @@ export const MoodPanel: React.FC<MoodPanelProps> = ({ className }) => {
       : 0;
 
   const handleSaveMood = () => {
-    const selectedEmoji = MOOD_EMOJIS.find(m => m.value === selectedMood);
-    if (selectedEmoji) {
+    const selectedMoodData = MOOD_ICONS.find(m => m.value === selectedMood);
+    if (selectedMoodData) {
       setIsAnimating(true);
-      addMoodEntry(selectedMood, selectedEmoji.emoji, notes);
+      addMoodEntry(selectedMood, selectedMoodData.icon, notes);
       setShowDialog(false);
       setNotes('');
       setTimeout(() => setIsAnimating(false), 600);
@@ -58,14 +58,22 @@ export const MoodPanel: React.FC<MoodPanelProps> = ({ className }) => {
     return 'text-red-600';
   };
 
-  const getCurrentMoodEmoji = () => {
-    return MOOD_EMOJIS.find(m => m.value === selectedMood)?.emoji || '😊';
+  const getCurrentMoodIcon = () => {
+    return MOOD_ICONS.find(m => m.value === selectedMood)?.icon || 'pi pi-smile';
   };
 
   const header = (
     <div className="flex align-items-center justify-content-between">
       <div className="flex align-items-center gap-4">
-        <i className="pi pi-heart text-2xl" style={{ color: 'var(--deep-purple)' }}></i>
+        <i
+          className="pi pi-heart text-2xl"
+          style={{
+            background: 'linear-gradient(135deg, #ec4899, #be185d)',
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
+            backgroundClip: 'text',
+          }}
+        ></i>
         <h3 className="text-lg font-semibold m-0" style={{ color: 'var(--foreground)' }}>
           Mood Tracker
         </h3>
@@ -128,18 +136,28 @@ export const MoodPanel: React.FC<MoodPanelProps> = ({ className }) => {
             <span className="text-sm font-medium" style={{ color: 'var(--foreground)' }}>
               How are you feeling?
             </span>
-            <div className="flex gap-1 flex-wrap justify-content-center">
-              {MOOD_EMOJIS.filter(mood => [3, 5, 7, 9].includes(mood.value)).map(mood => (
+            <div className="flex gap-2 flex-wrap justify-content-center">
+              {MOOD_ICONS.filter(mood => [3, 5, 7, 9].includes(mood.value)).map(mood => (
                 <Button
                   key={mood.value}
-                  className="p-1 w-3rem h-3rem"
+                  className="p-2 w-4rem h-4rem glass-card"
                   outlined
+                  style={{
+                    borderColor: 'var(--glass-border)',
+                    background: 'var(--glass-bg)',
+                    color: 'var(--warm-gold)',
+                  }}
                   onClick={() => {
                     setSelectedMood(mood.value);
                     setShowDialog(true);
                   }}
                 >
-                  <span className="text-xl">{mood.emoji}</span>
+                  <div className="flex flex-column align-items-center gap-1">
+                    <i className={`${mood.icon} text-xl`}></i>
+                    <span className="text-xs" style={{ color: 'var(--foreground)' }}>
+                      {mood.label}
+                    </span>
+                  </div>
                 </Button>
               ))}
             </div>
@@ -189,8 +207,13 @@ export const MoodPanel: React.FC<MoodPanelProps> = ({ className }) => {
           {/* Mood Slider */}
           <div className="flex flex-column gap-2">
             <div className="flex align-items-center justify-content-center gap-2">
-              <span className="text-4xl">{getCurrentMoodEmoji()}</span>
-              <span className="text-lg font-bold">{selectedMood}/10</span>
+              <i
+                className={`${getCurrentMoodIcon()} text-4xl`}
+                style={{ color: 'var(--warm-gold)' }}
+              ></i>
+              <span className="text-lg font-bold" style={{ color: 'var(--foreground)' }}>
+                {selectedMood}/10
+              </span>
             </div>
             <Slider
               value={selectedMood}

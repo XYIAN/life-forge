@@ -1,8 +1,9 @@
 'use client';
 
 import React from 'react';
+import Image from 'next/image';
 import { Button } from 'primereact/button';
-import { ThemeSwitcher } from './theme-switcher';
+import { ThemeSwitcher } from '@/components/common/theme-switcher';
 import Link from 'next/link';
 
 interface GlobalHeaderProps {
@@ -18,10 +19,12 @@ export const GlobalHeader: React.FC<GlobalHeaderProps> = ({ currentPage = 'home'
           <Link href="/" className="text-decoration-none">
             <div className="flex align-items-center gap-3">
               <div className="w-3rem h-3rem bg-gradient-to-br from-amber-600 to-purple-600 border-round-xl flex align-items-center justify-content-center p-1 shadow-lg">
-                <img
+                <Image
                   src="/icon-2.png"
                   alt="Life Forge Logo"
-                  className="w-full h-full object-contain border-round-lg"
+                  width={48}
+                  height={48}
+                  className="object-contain border-round-lg"
                 />
               </div>
               <div>
