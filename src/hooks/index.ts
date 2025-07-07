@@ -12,4 +12,10 @@ export * from './use-celebration-animation';
 // Re-export provider hooks for convenience
 export { useData } from '@/lib/providers/data-provider';
 export { useDashboard } from '@/lib/providers/dashboard-provider';
-export { useTheme } from '@/lib/providers/theme-provider';
+
+// Local hooks
+export { useTheme } from './useTheme';
+export { useAnimation } from './useAnimation';
+
+export { useSmoothCursor } from './useSmoothCursor';
+export { useParticles } from './useParticles';

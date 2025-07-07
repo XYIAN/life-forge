@@ -8,6 +8,8 @@ import '../styles/animations.css';
 import { Providers } from '@/lib/providers/providers';
 import { ParallaxBackground, GlobalHeader, GlobalFooter } from '@layout';
 import { ThemeLoadingWrapper } from '@common';
+import { SmoothCursor } from '@/components/ui/smooth-cursor';
+import { Particles } from '@/components/magicui/particles';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -82,8 +84,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+    <html lang="en" className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+      <body className="relative min-h-screen bg-gradient-to-br from-gray-900 via-blue-950 to-purple-950 text-white">
+        <SmoothCursor />
+        <Particles />
         {/* Parallax Background */}
         <div className="parallax-background"></div>
         <div className="parallax-overlay"></div>

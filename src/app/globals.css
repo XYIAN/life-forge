@@ -1,5 +1,5 @@
 @import 'tailwindcss';
-@import "tw-animate-css";
+@import 'tw-animate-css';
 
 @custom-variant dark (&:is(.dark *));
 
@@ -651,4 +651,49 @@ textarea:focus-visible {
   body {
     @apply bg-background text-foreground;
   }
+}
+
+@keyframes pulseGlow {
+  0%,
+  100% {
+    box-shadow: 0 0 16px 4px rgba(255, 215, 64, 0.4), 0 0 32px 8px rgba(186, 51, 255, 0.2);
+    opacity: 1;
+  }
+  50% {
+    box-shadow: 0 0 32px 12px rgba(255, 215, 64, 0.7), 0 0 48px 16px rgba(186, 51, 255, 0.4);
+    opacity: 0.85;
+  }
+}
+.animate-pulse-glow {
+  animation: pulseGlow 2.5s infinite alternate;
+}
+
+@keyframes glow {
+  0%,
+  100% {
+    opacity: 0.6;
+    filter: blur(8px);
+  }
+  50% {
+    opacity: 1;
+    filter: blur(16px);
+  }
+}
+.animate-glow {
+  animation: glow 2.5s infinite alternate;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+.animate-float {
+  animation: float 2.2s ease-in-out infinite;
 }
