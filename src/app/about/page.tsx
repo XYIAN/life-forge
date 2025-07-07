@@ -4,7 +4,6 @@ import React from 'react';
 import { Button } from 'primereact/button';
 import { Card } from 'primereact/card';
 import { Badge } from 'primereact/badge';
-import { ThemeSwitcher } from '@/components/theme-switcher';
 import Link from 'next/link';
 
 export default function About() {
@@ -52,42 +51,6 @@ export default function About() {
 
   return (
     <div className="min-h-screen">
-      {/* Header */}
-      <header className="sticky top-0 z-5 backdrop-blur-md bg-white/80 dark:bg-gray-900/80 border-b border-gray-200/50 dark:border-gray-700/50">
-        <div className="container mx-auto px-4 py-3">
-          <div className="flex align-items-center justify-content-between">
-            {/* Logo */}
-            <Link href="/" className="text-decoration-none">
-              <div className="flex align-items-center gap-3">
-                <div className="w-3rem h-3rem bg-gradient-to-br from-blue-500 to-purple-600 border-round-xl flex align-items-center justify-content-center p-1 shadow-lg">
-                  <img
-                    src="/icon-2.png"
-                    alt="Life Forge Logo"
-                    className="w-full h-full object-contain border-round-lg"
-                  />
-                </div>
-                <div>
-                  <h1 className="text-2xl font-bold m-0 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                    Life Forge
-                  </h1>
-                  <p className="text-sm text-gray-600 dark:text-gray-400 m-0">
-                    Your Personal Daily Dashboard
-                  </p>
-                </div>
-              </div>
-            </Link>
-
-            {/* Navigation */}
-            <div className="flex align-items-center gap-2">
-              <Link href="/">
-                <Button label="Dashboard" icon="pi pi-home" severity="secondary" text />
-              </Link>
-              <ThemeSwitcher />
-            </div>
-          </div>
-        </div>
-      </header>
-
       {/* Main Content */}
       <main className="container mx-auto px-4 py-8">
         {/* Hero Section */}
@@ -99,10 +62,8 @@ export default function About() {
               className="w-full h-full object-contain border-round-lg"
             />
           </div>
-          <h1 className="text-4xl font-bold text-gray-800 dark:text-gray-200 mb-4">
-            About Life Forge
-          </h1>
-          <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto leading-relaxed">
+          <h1 className="text-4xl font-bold text-white mb-4">About Life Forge</h1>
+          <p className="text-xl text-white/90 max-w-3xl mx-auto leading-relaxed">
             A beautifully crafted personal dashboard designed to transform your daily routine into
             an adventure. Built with cutting-edge technology and a touch of magic.
           </p>
@@ -110,7 +71,7 @@ export default function About() {
 
         {/* Features Grid */}
         <div className="mb-12">
-          <h2 className="text-2xl font-bold text-center mb-8 text-gray-800 dark:text-gray-200">
+          <h2 className="text-2xl font-bold text-center mb-8 text-white">
             ✨ Features & Capabilities
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -121,9 +82,7 @@ export default function About() {
                     <i className={`${feature.icon} text-2xl text-blue-600`}></i>
                   </div>
                   <h3 className="text-lg font-semibold m-0">{feature.title}</h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-400 m-0 line-height-3">
-                    {feature.description}
-                  </p>
+                  <p className="text-sm text-white/80 m-0 line-height-3">{feature.description}</p>
                 </div>
               </Card>
             ))}
@@ -133,7 +92,7 @@ export default function About() {
         {/* Tech Stack */}
         <div className="mb-12">
           <Card className="glass-card">
-            <h2 className="text-2xl font-bold text-center mb-6 text-gray-800 dark:text-gray-200">
+            <h2 className="text-2xl font-bold text-center mb-6 text-white">
               🛠️ Built With Modern Technology
             </h2>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
@@ -161,10 +120,8 @@ export default function About() {
                 </div>
               </div>
               <div className="flex-1 text-center lg:text-left">
-                <h2 className="text-2xl font-bold mb-4 text-gray-800 dark:text-gray-200">
-                  Meet the Creator
-                </h2>
-                <p className="text-gray-600 dark:text-gray-400 mb-6 line-height-3">
+                <h2 className="text-2xl font-bold mb-4 text-white">Meet the Creator</h2>
+                <p className="text-white/90 mb-6 line-height-3">
                   Hi! I&apos;m Kyle Dilbeck, a passionate developer who believes in creating
                   beautiful, functional applications that enhance daily life. Life Forge represents
                   my vision of combining modern web technologies with thoughtful design to create
@@ -222,28 +179,26 @@ export default function About() {
         {/* Philosophy Section */}
         <div className="mb-12">
           <Card className="glass-card text-center">
-            <h2 className="text-2xl font-bold mb-6 text-gray-800 dark:text-gray-200">
-              🌟 Development Philosophy
-            </h2>
+            <h2 className="text-2xl font-bold mb-6 text-white">🌟 Development Philosophy</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div className="flex flex-column align-items-center gap-3">
                 <Badge value="1" severity="info" className="w-2rem h-2rem text-lg font-bold" />
                 <h3 className="text-lg font-semibold m-0">Beautiful & Functional</h3>
-                <p className="text-sm text-gray-600 dark:text-gray-400 m-0">
+                <p className="text-sm text-white/80 m-0">
                   Every component is designed with both aesthetics and usability in mind.
                 </p>
               </div>
               <div className="flex flex-column align-items-center gap-3">
                 <Badge value="2" severity="success" className="w-2rem h-2rem text-lg font-bold" />
                 <h3 className="text-lg font-semibold m-0">Privacy First</h3>
-                <p className="text-sm text-gray-600 dark:text-gray-400 m-0">
+                <p className="text-sm text-white/80 m-0">
                   All your data stays local in your browser. No servers, no tracking.
                 </p>
               </div>
               <div className="flex flex-column align-items-center gap-3">
                 <Badge value="3" severity="warning" className="w-2rem h-2rem text-lg font-bold" />
                 <h3 className="text-lg font-semibold m-0">Continuous Magic</h3>
-                <p className="text-sm text-gray-600 dark:text-gray-400 m-0">
+                <p className="text-sm text-white/80 m-0">
                   Hidden easter eggs and delightful interactions make daily tracking fun.
                 </p>
               </div>
@@ -254,10 +209,10 @@ export default function About() {
         {/* CTA Section */}
         <div className="text-center">
           <Card className="glass-card max-w-2xl mx-auto">
-            <h2 className="text-2xl font-bold mb-4 text-gray-800 dark:text-gray-200">
+            <h2 className="text-2xl font-bold mb-4 text-white">
               Ready to Transform Your Daily Routine?
             </h2>
-            <p className="text-gray-600 dark:text-gray-400 mb-6">
+            <p className="text-white/90 mb-6">
               Start your journey with Life Forge today and discover the magic of mindful daily
               tracking.
             </p>
@@ -277,7 +232,7 @@ export default function About() {
       {/* Footer */}
       <footer className="mt-12 py-8 border-t border-gray-200/50 dark:border-gray-700/50">
         <div className="container mx-auto px-4 text-center">
-          <p className="text-sm text-gray-600 dark:text-gray-400 m-0">
+          <p className="text-sm text-white/70 m-0">
             Made with ❤️ and a touch of magic by Kyle Dilbeck
           </p>
         </div>

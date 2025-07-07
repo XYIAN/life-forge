@@ -157,14 +157,26 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
 
   // Apply theme to document
   useEffect(() => {
-    // For now, we'll use the basic theme CSS imported in layout
-    // TODO: Implement dynamic theme loading later
+    // Remove existing theme link
+    const existingLink = document.querySelector('link[data-theme]');
+    if (existingLink) {
+      existingLink.remove();
+    }
+
+    // Add new theme link
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = `https://unpkg.com/primereact@10.6.6/resources/themes/${currentTheme.cssFile}/theme.css`;
+    link.setAttribute('data-theme', currentTheme.name);
+    document.head.appendChild(link);
 
     // Apply dark mode class to body
     if (isDarkMode) {
       document.body.classList.add('dark-mode');
+      document.documentElement.classList.add('dark');
     } else {
       document.body.classList.remove('dark-mode');
+      document.documentElement.classList.remove('dark');
     }
 
     // Save to localStorage
