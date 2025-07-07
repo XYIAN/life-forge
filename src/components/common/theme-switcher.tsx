@@ -38,15 +38,14 @@ export const ThemeSwitcher: React.FC<ThemeSwitcherProps> = ({ className }) => {
 
   return (
     <>
-      {/* Theme Toggle Button */}
+      {/* Theme Palette Button - Only shows in header */}
       <Button
         icon="pi pi-palette"
         onClick={() => setSidebarVisible(true)}
-        className={`theme-switcher-button ${className || ''}`}
+        className={`theme-advanced-button ${className || ''}`}
         rounded
-        severity="info"
+        size="small"
         style={{
-          fontSize: '1.25rem',
           width: '2.5rem',
           height: '2.5rem',
           color: 'var(--foreground)',
@@ -202,30 +201,27 @@ export const ThemeSwitcher: React.FC<ThemeSwitcherProps> = ({ className }) => {
               <i className="pi pi-info-circle"></i>
               Theme Categories
             </h6>
-            <div className="text-sm" style={{ color: 'var(--foreground)', opacity: 0.9 }}>
-              <p className="m-0 mb-1">
-                • <strong>Saga:</strong> Clean, modern designs
-              </p>
-              <p className="m-0 mb-1">
-                • <strong>Arya:</strong> Dark themes with mystical vibes
-              </p>
-              <p className="m-0 mb-1">
-                • <strong>Viva:</strong> Vibrant, contemporary styles
-              </p>
-              <p className="m-0">
-                • <strong>Mira/Nano:</strong> Minimal, efficient layouts
-              </p>
+            <div className="flex flex-column gap-1">
+              <div className="flex align-items-center gap-2">
+                <div
+                  className="w-1rem h-1rem border-round"
+                  style={{ background: 'var(--warm-gold)' }}
+                ></div>
+                <span className="text-sm" style={{ color: 'var(--foreground)' }}>
+                  Light themes for bright environments
+                </span>
+              </div>
+              <div className="flex align-items-center gap-2">
+                <div
+                  className="w-1rem h-1rem border-round"
+                  style={{ background: 'var(--deep-purple)' }}
+                ></div>
+                <span className="text-sm" style={{ color: 'var(--foreground)' }}>
+                  Dark themes for low-light conditions
+                </span>
+              </div>
             </div>
           </div>
-
-          {/* Close Button */}
-          <Button
-            label="Close"
-            icon="pi pi-times"
-            onClick={() => setSidebarVisible(false)}
-            className="w-full"
-            severity="secondary"
-          />
         </div>
       </Sidebar>
     </>

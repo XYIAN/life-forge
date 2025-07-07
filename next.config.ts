@@ -28,17 +28,6 @@ const nextConfig: NextConfig = {
       },
     ];
   },
-
-  // Redirects for better UX
-  async redirects() {
-    return [
-      {
-        source: '/dashboard',
-        destination: '/dashboard/',
-        permanent: true,
-      },
-    ];
-  },
 };
 
 export default nextConfig;

@@ -5,6 +5,78 @@ All notable changes to Life Forge will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.2.3] - 2024-12-19
+
+### 🎨 **Dashboard Text Color Fix**
+
+This update fixes the text visibility issues in the dashboard by properly configuring CSS variables for theme-aware colors.
+
+### Fixed
+
+- **Text Visibility**: Resolved black text appearing in dark mode
+  - **Root Cause**: CSS variables using complex `oklch()` color values that didn't switch properly
+  - **Solution**: Replaced with proper hex color values that change with theme
+  - **Impact**: All dashboard text now properly visible in both light and dark modes
+- **Theme Variables**: Complete overhaul of CSS custom properties for theme-aware colors
+  - **Light Mode**: Proper dark text on light backgrounds
+  - **Dark Mode**: White text on dark backgrounds with proper contrast
+  - **Dynamic Switching**: Colors now properly change when switching themes
+- **Component Theming**: Ensured all dashboard components use theme-aware colors
+  - **Cards**: All glass cards now have proper text colors
+  - **Panels**: All dashboard panels maintain proper text visibility
+  - **PrimeReact Components**: All PrimeReact components properly themed
+  - **Icons**: Icons maintain proper contrast in all themes
+
+### Technical
+
+- **CSS Variables**: Replaced `oklch()` color values with hex colors
+- **Theme Detection**: Proper `@media (prefers-color-scheme: dark)` and `.dark-mode` class support
+- **Color Consistency**: Unified color system across all components
+- **Performance**: Simplified color calculations for better performance
+
+### User Experience
+
+- **Better Readability**: All text is now clearly visible in both themes
+- **Consistent Theming**: Smooth transitions between light and dark modes
+- **Professional Appearance**: Proper contrast ratios for accessibility
+- **No More Black Text**: Eliminated invisible text issues in dark mode
+
+## [1.2.2] - 2024-12-19
+
+### 🔧 **Critical Redirect Loop Fix**
+
+This update fixes a critical redirect loop issue that was preventing the dashboard from loading properly, causing "ERR_TOO_MANY_REDIRECTS" errors.
+
+### Fixed
+
+- **Redirect Loop**: Resolved infinite redirect loop caused by Next.js config
+  - **Root Cause**: `next.config.ts` had a redirect from `/dashboard` to `/dashboard/` that created a loop
+  - **Solution**: Removed the problematic redirect rule entirely
+  - **Impact**: Dashboard now loads properly without redirect errors
+- **Dashboard Functionality**: Restored full dashboard functionality with all panels
+  - **All Panels**: Daily Goals, Mood Tracker, Water Tracker, Focus Timer, Next Big Thing, Daily Reflections, Mini Workouts, Daily Tarot, Mystery Box, Social Fun, Trends & Analytics
+  - **User Dialog**: User onboarding dialog works properly
+  - **Panel Interactions**: Click to open/close panels with toast notifications
+  - **Theme Integration**: All panels maintain proper glassmorphism styling
+- **Debug Logging**: Added comprehensive debug logging to dashboard component
+  - **State Tracking**: Logs user info loading, state changes, and panel interactions
+  - **Error Prevention**: Better error handling and debugging capabilities
+  - **Development**: Easier troubleshooting for future issues
+
+### Technical
+
+- **Next.js Config**: Removed redirects section that was causing the loop
+- **Component Architecture**: Restored full dashboard component with all imports
+- **State Management**: Improved user info handling with proper client-side detection
+- **Error Handling**: Enhanced error handling for localStorage and user data parsing
+
+### User Experience
+
+- **No More Redirects**: Dashboard loads immediately without redirect loops
+- **Full Functionality**: All dashboard panels and features are now accessible
+- **Smooth Navigation**: Panel opening/closing works with proper animations
+- **User Onboarding**: New users see the onboarding dialog on first visit
+
 ## [1.2.1] - 2024-12-19
 
 ### 🎨 **About Page Theme Integration**
@@ -505,3 +577,22 @@ _Life Forge is continuously evolving. Stay tuned for magical updates! ✨_
 
 - README and documentation to reflect new features
 - Upgraded package version to 1.1.0
+
+## [Unreleased]
+
+### Added
+
+- **Theme Switcher Redesign**: Replaced complex sidebar theme switcher with simple ToggleButton for light/dark mode toggle
+- **Advanced Theme Options**: Added separate palette button for accessing advanced theme selection sidebar
+- **Improved UX**: Eliminated positioning issues with theme buttons and improved accessibility
+
+### Changed
+
+- **Theme Switcher Component**: Now uses PrimeReact ToggleButton for main light/dark toggle
+- **Button Layout**: Theme controls now display as a compact horizontal group
+- **CSS Organization**: Updated theme button styles to use consistent glassmorphism design
+
+### Fixed
+
+- **Theme Button Positioning**: Resolved issue where light mode button was cut off or pushed to the right
+- **Button Styling**: Ensured consistent theming across all theme-related buttons
