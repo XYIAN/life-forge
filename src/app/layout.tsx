@@ -87,7 +87,7 @@ export default function RootLayout({
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
       <body className="relative min-h-screen bg-gradient-to-br from-black via-gray-900 to-gray-800 text-white">
         <SmoothCursor />
-        <Particles />
+        <Particles quantity={150} vx={0.2} vy={0.1} ease={40} staticity={40} />
         <ParallaxBackground />
 
         {/* Main Content */}
