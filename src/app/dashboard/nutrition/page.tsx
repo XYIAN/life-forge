@@ -100,24 +100,32 @@ export default function NutritionPage() {
     }
 
     // Animate page entrance
-    if (containerRef.current) {
-      add({
-        targets: containerRef.current,
-        ...animePresets.fadeInUp,
-        duration: 1000,
-      });
-    }
-  }, []);
+    const animatePage = async () => {
+      if (containerRef.current) {
+        await add({
+          targets: containerRef.current,
+          ...animePresets.fadeInUp,
+          duration: 1000,
+        });
+      }
+    };
+
+    animatePage();
+  }, [add]);
 
   useEffect(() => {
     // Animate cards with stagger
-    if (cardsRef.current) {
-      const cards = Array.from(
-        cardsRef.current.querySelectorAll('.nutrition-card')
-      ) as HTMLElement[];
-      const staggerOptions = createStaggerAnimation(cards, animePresets.fadeInUp, 150);
-      add(staggerOptions);
-    }
+    const animateCards = async () => {
+      if (cardsRef.current) {
+        const cards = Array.from(
+          cardsRef.current.querySelectorAll('.nutrition-card')
+        ) as HTMLElement[];
+        const staggerOptions = createStaggerAnimation(cards, animePresets.fadeInUp, 150);
+        await add(staggerOptions);
+      }
+    };
+
+    animateCards();
   }, [nutritionEntries, add]);
 
   const saveNutritionEntries = (updatedEntries: NutritionEntry[]) => {

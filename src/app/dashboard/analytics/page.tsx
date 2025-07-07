@@ -50,28 +50,36 @@ export default function AnalyticsPage() {
   const { add } = useAnime({ targets: '', autoplay: false });
 
   useEffect(() => {
-    // Load analytics data from localStorage
+    // Load analytics data
     loadAnalyticsData();
 
     // Animate page entrance
-    if (containerRef.current) {
-      add({
-        targets: containerRef.current,
-        ...animePresets.fadeInUp,
-        duration: 1000,
-      });
-    }
-  }, []);
+    const animatePage = async () => {
+      if (containerRef.current) {
+        await add({
+          targets: containerRef.current,
+          ...animePresets.fadeInUp,
+          duration: 1000,
+        });
+      }
+    };
+
+    animatePage();
+  }, [add]);
 
   useEffect(() => {
-    // Animate charts with stagger
-    if (chartsRef.current) {
-      const charts = Array.from(
-        chartsRef.current.querySelectorAll('.analytics-card')
-      ) as HTMLElement[];
-      const staggerOptions = createStaggerAnimation(charts, animePresets.fadeInUp, 200);
-      add(staggerOptions);
-    }
+    // Animate cards with stagger
+    const animateCards = async () => {
+      if (chartsRef.current) {
+        const cards = Array.from(
+          chartsRef.current.querySelectorAll('.analytics-card')
+        ) as HTMLElement[];
+        const staggerOptions = createStaggerAnimation(cards, animePresets.fadeInUp, 150);
+        await add(staggerOptions);
+      }
+    };
+
+    animateCards();
   }, [analyticsData, add]);
 
   const loadAnalyticsData = () => {

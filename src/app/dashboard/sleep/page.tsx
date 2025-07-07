@@ -71,33 +71,38 @@ export default function SleepPage() {
     const savedEntries = localStorage.getItem('sleepEntries');
     if (savedEntries) {
       setSleepEntries(
-        JSON.parse(savedEntries).map((e: SleepEntry) => ({
+        JSON.parse(savedEntries).map((e: Record<string, unknown>) => ({
           ...e,
-          date: new Date(e.date),
-          bedtime: new Date(e.bedtime),
-          wakeTime: new Date(e.wakeTime),
+          date: new Date(e.date as string),
         }))
       );
     }
 
     // Animate page entrance
-    if (containerRef.current) {
-      add({
-        targets: containerRef.current,
-        ...animePresets.fadeInUp,
-        duration: 1000,
-      });
-    }
-  }, []);
+    const animatePage = async () => {
+      if (containerRef.current) {
+        await add({
+          targets: containerRef.current,
+          ...animePresets.fadeInUp,
+          duration: 1000,
+        });
+      }
+    };
+
+    animatePage();
+  }, [add]);
 
   useEffect(() => {
     // Animate cards with stagger
-    if (cardsRef.current) {
-      const nodeList = cardsRef.current.querySelectorAll('.sleep-card');
-      const cards = Array.from(nodeList) as HTMLElement[];
-      add(createStaggerAnimation(cards, animePresets.fadeInUp, 150));
-    }
-  }, [sleepEntries]);
+    const animateCards = async () => {
+      if (cardsRef.current) {
+        const cards = Array.from(cardsRef.current.querySelectorAll('.sleep-card')) as HTMLElement[];
+        await add(createStaggerAnimation(cards, animePresets.fadeInUp, 150));
+      }
+    };
+
+    animateCards();
+  }, [sleepEntries, add]);
 
   const saveSleepEntries = (updatedEntries: SleepEntry[]) => {
     setSleepEntries(updatedEntries);

@@ -582,17 +582,20 @@ _Life Forge is continuously evolving. Stay tuned for magical updates! ✨_
 
 ### Added
 
-- **Theme Switcher Redesign**: Replaced complex sidebar theme switcher with simple ToggleButton for light/dark mode toggle
-- **Advanced Theme Options**: Added separate palette button for accessing advanced theme selection sidebar
-- **Improved UX**: Eliminated positioning issues with theme buttons and improved accessibility
+- **Theme Switcher Redesign**: Improved theme switcher with better organization and PrimeReact ToggleButton integration
+- **Advanced Theme Options**: Enhanced theme selection sidebar with improved UX
 
 ### Changed
 
-- **Theme Switcher Component**: Now uses PrimeReact ToggleButton for main light/dark toggle
-- **Button Layout**: Theme controls now display as a compact horizontal group
+- **Theme Switcher Component**: Now uses PrimeReact ToggleButton for light/dark toggle within the sidebar only
+- **Header Layout**: Theme palette button remains in header for accessing advanced theme options
 - **CSS Organization**: Updated theme button styles to use consistent glassmorphism design
 
 ### Fixed
 
-- **Theme Button Positioning**: Resolved issue where light mode button was cut off or pushed to the right
+- **Theme Button Positioning**: Resolved positioning issues with theme controls
+- **Navigation Menu**: Ensured hamburger menu and navigation remain fully functional
 - **Button Styling**: Ensured consistent theming across all theme-related buttons
+- **ShineBorder Component**: Fixed z-index and positioning issues where animated border was overlapping content
+- **Anime.js Integration**: Fixed async/await issues in animation calls across all dashboard pages
+- **Console Errors**: Resolved "animeInstance is not a function" errors in nutrition and other pages

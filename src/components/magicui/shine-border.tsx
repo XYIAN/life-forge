@@ -56,7 +56,8 @@ export function ShineBorder({
 				background: linear-gradient(90deg, ${gradientColors});
 				animation: shine ${duration}s linear infinite;
 				pointer-events: none;
-				z-index: 1;
+				z-index: -1;
+				border-radius: inherit;
 			`;
 
       // Add keyframes if they don't exist
@@ -104,7 +105,7 @@ export function ShineBorder({
         ...style,
       }}
     >
-      {children}
+      <div className="relative z-10">{children}</div>
     </div>
   );
 }
