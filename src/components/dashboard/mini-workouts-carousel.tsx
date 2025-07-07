@@ -473,7 +473,7 @@ export default function MiniWorkoutsCarousel() {
   return (
     <div className="mini-workouts-carousel">
       <Card className="workouts-card shadow-lg border-0" header={title} subTitle={subtitle}>
-        <div className="space-y-4">
+        <div className="space-y-4 flex flex-col items-center justify-center">
           <Carousel
             value={WORKOUTS}
             numVisible={3}
