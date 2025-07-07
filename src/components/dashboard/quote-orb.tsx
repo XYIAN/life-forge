@@ -5,7 +5,8 @@ import { Card } from 'primereact/card';
 import { Button } from 'primereact/button';
 import { Badge } from 'primereact/badge';
 import { Toast } from 'primereact/toast';
-import { getRandomQuote, type Quote } from '@/constants/QUOTES';
+import { getRandomQuote, type Quote } from '@constants';
+import { useFloatAnimation, useCelebrationAnimation } from '@hooks';
 
 interface QuoteOrbProps {
   className?: string;

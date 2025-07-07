@@ -5,6 +5,9 @@ export * from './use-focus-analytics';
 export * from './use-mood-analytics';
 export * from './use-water-history';
 export * from './use-dashboard-config';
+export * from './use-float-animation';
+export * from './use-scroll-stagger';
+export * from './use-celebration-animation';
 
 // Re-export provider hooks for convenience
 export { useData } from '@/lib/providers/data-provider';

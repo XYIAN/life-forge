@@ -4,10 +4,8 @@ import React from 'react';
 import Link from 'next/link';
 import { Button } from 'primereact/button';
 import { Card } from 'primereact/card';
-import { AboutHeroSection } from '@/components/home/about-hero-section';
-import { CreatorSection } from '@/components/home/creator-section';
-import { PhilosophySection } from '@/components/home/philosophy-section';
-import { aboutFeatures, aboutTechStack } from '@/data/about-data';
+import { AboutHeroSection, CreatorSection, PhilosophySection } from '@home';
+import { aboutFeatures, aboutTechStack } from '@data';
 
 export default function About() {
   return (
