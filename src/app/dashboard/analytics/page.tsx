@@ -7,7 +7,6 @@ import { Chart } from 'primereact/chart';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { ProgressBar } from 'primereact/progressbar';
-import { ShineBorder } from '@/components/magicui';
 import { useAnime, animePresets, createStaggerAnimation } from '@/hooks/use-anime';
 
 interface AnalyticsData {
@@ -255,43 +254,54 @@ export default function AnalyticsPage() {
       <div className="grid">
         {/* Header */}
         <div className="col-12 mb-4">
-          <ShineBorder
-            className="rounded-lg p-4"
-            shineColor={['#3b82f6', '#8b5cf6', '#ec4899']}
-            duration={8}
-            borderWidth={2}
+          <Card
+            className="glass-card"
+            style={{
+              background: 'var(--glass-bg)',
+              backdropFilter: 'blur(25px) saturate(180%)',
+              border: '1px solid var(--glass-border)',
+              color: 'var(--foreground)',
+            }}
           >
-            <Card className="glass-card">
-              <div className="flex flex-column md:flex-row justify-content-between align-items-center">
-                <div>
-                  <h1 className="text-3xl font-bold m-0" style={{ color: 'var(--foreground)' }}>
-                    <i className="pi pi-chart-line mr-3" style={{ color: 'var(--warm-gold)' }}></i>
-                    Analytics
-                  </h1>
-                  <p
-                    className="text-lg m-0 mt-2"
-                    style={{ color: 'var(--foreground)', opacity: 0.7 }}
-                  >
-                    Deep insights into your life patterns and trends
-                  </p>
-                </div>
-                <div className="flex gap-3 mt-3 md:mt-0">
-                  <Dropdown
-                    value={selectedRange}
-                    options={timeRanges}
-                    onChange={e => setSelectedRange(e.value)}
-                    className="w-10rem"
-                  />
-                  <Dropdown
-                    value={selectedMetric}
-                    options={metrics}
-                    onChange={e => setSelectedMetric(e.value)}
-                    className="w-10rem"
-                  />
-                </div>
+            <div className="flex flex-column md:flex-row justify-content-between align-items-center">
+              <div>
+                <h1 className="text-3xl font-bold m-0" style={{ color: 'var(--foreground)' }}>
+                  <i className="pi pi-chart-line mr-3" style={{ color: 'var(--warm-gold)' }}></i>
+                  Analytics
+                </h1>
+                <p
+                  className="text-lg m-0 mt-2"
+                  style={{ color: 'var(--foreground)', opacity: 0.7 }}
+                >
+                  Deep insights into your life patterns and trends
+                </p>
               </div>
-            </Card>
-          </ShineBorder>
+              <div className="flex gap-3 mt-3 md:mt-0">
+                <Dropdown
+                  value={selectedRange}
+                  options={timeRanges}
+                  onChange={e => setSelectedRange(e.value)}
+                  className="w-10rem"
+                  style={{
+                    background: 'var(--glass-bg)',
+                    border: '1px solid var(--glass-border)',
+                    color: 'var(--foreground)',
+                  }}
+                />
+                <Dropdown
+                  value={selectedMetric}
+                  options={metrics}
+                  onChange={e => setSelectedMetric(e.value)}
+                  className="w-10rem"
+                  style={{
+                    background: 'var(--glass-bg)',
+                    border: '1px solid var(--glass-border)',
+                    color: 'var(--foreground)',
+                  }}
+                />
+              </div>
+            </div>
+          </Card>
         </div>
 
         {/* Key Metrics */}
@@ -299,7 +309,15 @@ export default function AnalyticsPage() {
           <div className="grid">
             {metrics.map(metric => (
               <div key={metric.value} className="col-12 sm:col-6 lg:col-3 mb-3">
-                <Card className="glass-card analytics-card">
+                <Card
+                  className="glass-card analytics-card"
+                  style={{
+                    background: 'var(--glass-bg)',
+                    backdropFilter: 'blur(25px) saturate(180%)',
+                    border: '1px solid var(--glass-border)',
+                    color: 'var(--foreground)',
+                  }}
+                >
                   <div className="text-center">
                     <div className="text-3xl mb-2" style={{ color: metric.color }}>
                       <i className={metric.icon}></i>
@@ -327,7 +345,15 @@ export default function AnalyticsPage() {
 
         {/* Main Charts */}
         <div className="col-12 lg:col-8 mb-4">
-          <Card className="glass-card analytics-card">
+          <Card
+            className="glass-card analytics-card"
+            style={{
+              background: 'var(--glass-bg)',
+              backdropFilter: 'blur(25px) saturate(180%)',
+              border: '1px solid var(--glass-border)',
+              color: 'var(--foreground)',
+            }}
+          >
             <h3 className="text-xl font-semibold mb-4" style={{ color: 'var(--foreground)' }}>
               {getMetricLabel(selectedMetric)} Trend
             </h3>
@@ -338,7 +364,15 @@ export default function AnalyticsPage() {
         </div>
 
         <div className="col-12 lg:col-4 mb-4">
-          <Card className="glass-card analytics-card">
+          <Card
+            className="glass-card analytics-card"
+            style={{
+              background: 'var(--glass-bg)',
+              backdropFilter: 'blur(25px) saturate(180%)',
+              border: '1px solid var(--glass-border)',
+              color: 'var(--foreground)',
+            }}
+          >
             <h3 className="text-xl font-semibold mb-4" style={{ color: 'var(--foreground)' }}>
               Life Balance Radar
             </h3>
@@ -350,7 +384,15 @@ export default function AnalyticsPage() {
 
         {/* Performance Comparison */}
         <div className="col-12 mb-4">
-          <Card className="glass-card analytics-card">
+          <Card
+            className="glass-card analytics-card"
+            style={{
+              background: 'var(--glass-bg)',
+              backdropFilter: 'blur(25px) saturate(180%)',
+              border: '1px solid var(--glass-border)',
+              color: 'var(--foreground)',
+            }}
+          >
             <h3 className="text-xl font-semibold mb-4" style={{ color: 'var(--foreground)' }}>
               Performance Overview
             </h3>
@@ -362,7 +404,15 @@ export default function AnalyticsPage() {
 
         {/* Detailed Data Table */}
         <div className="col-12">
-          <Card className="glass-card analytics-card">
+          <Card
+            className="glass-card analytics-card"
+            style={{
+              background: 'var(--glass-bg)',
+              backdropFilter: 'blur(25px) saturate(180%)',
+              border: '1px solid var(--glass-border)',
+              color: 'var(--foreground)',
+            }}
+          >
             <h3 className="text-xl font-semibold mb-4" style={{ color: 'var(--foreground)' }}>
               Daily Data
             </h3>
@@ -373,6 +423,10 @@ export default function AnalyticsPage() {
               rowsPerPageOptions={[5, 10, 20]}
               className="glass-table"
               loading={isLoading}
+              style={{
+                background: 'var(--glass-bg)',
+                color: 'var(--foreground)',
+              }}
             >
               <Column
                 field="date"

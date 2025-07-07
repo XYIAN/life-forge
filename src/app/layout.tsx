@@ -9,8 +9,8 @@ import '../styles/magicui/index.css';
 import { Providers } from '@/lib/providers/providers';
 import { ParallaxBackground, GlobalHeader, GlobalFooter } from '@layout';
 import { ThemeLoadingWrapper } from '@common';
-import { SmoothCursor } from '@/components/ui/smooth-cursor';
 import { Particles } from '@/components/magicui/particles';
+import { environment } from '@/lib/config/environment';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -23,7 +23,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://life-forge.netlify.app'),
+  metadataBase: new URL(environment.baseUrl),
   title: 'Life Forge - Your Personal Daily Dashboard',
   description:
     'Transform your daily routine into an adventure with Life Forge. Track water intake, mood, goals, and more with a beautifully crafted dashboard.',
@@ -49,13 +49,13 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Life Forge - Your Personal Daily Dashboard',
     description: 'Transform your daily routine into an adventure with Life Forge',
-    url: 'https://life-forge.netlify.app',
+    url: environment.baseUrl,
     siteName: 'Life Forge',
     locale: 'en_US',
     type: 'website',
     images: [
       {
-        url: '/icon-1.png',
+        url: `${environment.baseUrl}/icon-1.png`,
         width: 1200,
         height: 630,
         alt: 'Life Forge - Personal Daily Dashboard',
@@ -67,7 +67,7 @@ export const metadata: Metadata = {
     title: 'Life Forge - Your Personal Daily Dashboard',
     description: 'Transform your daily routine into an adventure with Life Forge',
     creator: '@kxdilbeck',
-    images: ['/icon-1.png'],
+    images: [`${environment.baseUrl}/icon-1.png`],
   },
   robots: {
     index: true,
@@ -87,7 +87,6 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
       <body className="relative min-h-screen bg-gradient-to-br from-black via-gray-900 to-gray-800 text-white">
-        <SmoothCursor />
         <Particles quantity={150} vx={0.2} vy={0.1} ease={40} staticity={40} />
         <ParallaxBackground />
 

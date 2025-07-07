@@ -16,18 +16,50 @@ export default function About() {
 
         {/* Features Grid */}
         <div className="mb-12">
-          <h2 className="text-2xl font-bold text-center mb-8 text-white">
+          <h2
+            className="text-2xl font-bold text-center mb-8"
+            style={{ color: 'var(--foreground)' }}
+          >
             ✨ Features & Capabilities
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {aboutFeatures.map((feature, index) => (
-              <Card key={index} className="glass-card h-full">
-                <div className="flex flex-column align-items-center text-center gap-3">
-                  <div className="w-4rem h-4rem bg-gradient-to-br from-blue-100 to-purple-100 dark:from-blue-900/50 dark:to-purple-900/50 border-round-xl flex align-items-center justify-content-center">
-                    <i className={`${feature.icon} text-2xl text-blue-600`}></i>
+              <Card
+                key={index}
+                className="glass-card"
+                style={{
+                  background: 'var(--glass-bg)',
+                  backdropFilter: 'blur(25px) saturate(180%)',
+                  border: '1px solid var(--glass-border)',
+                  color: 'var(--foreground)',
+                  height: '280px',
+                  minHeight: '280px',
+                  maxHeight: '280px',
+                }}
+              >
+                <div className="flex flex-column align-items-center text-center gap-3 h-full">
+                  <div
+                    className="w-4rem h-4rem border-round-xl flex align-items-center justify-content-center glass-card flex-shrink-0"
+                    style={{
+                      background: 'var(--glass-bg)',
+                      backdropFilter: 'blur(25px) saturate(180%)',
+                      border: '1px solid var(--glass-border)',
+                    }}
+                  >
+                    <i
+                      className={`${feature.icon} text-2xl`}
+                      style={{ color: 'var(--warm-gold)' }}
+                    ></i>
                   </div>
-                  <h3 className="text-lg font-semibold m-0">{feature.title}</h3>
-                  <p className="text-sm text-white/80 m-0 line-height-3">{feature.description}</p>
+                  <h3 className="text-lg font-semibold m-0" style={{ color: 'var(--foreground)' }}>
+                    {feature.title}
+                  </h3>
+                  <p
+                    className="text-sm m-0 line-height-3 flex-1"
+                    style={{ color: 'var(--foreground)', opacity: 0.8 }}
+                  >
+                    {feature.description}
+                  </p>
                 </div>
               </Card>
             ))}
@@ -36,18 +68,41 @@ export default function About() {
 
         {/* Tech Stack */}
         <div className="mb-12">
-          <Card className="glass-card">
-            <h2 className="text-2xl font-bold text-center mb-6 text-white">
+          <Card
+            className="glass-card"
+            style={{
+              background: 'var(--glass-bg)',
+              backdropFilter: 'blur(25px) saturate(180%)',
+              border: '1px solid var(--glass-border)',
+              color: 'var(--foreground)',
+            }}
+          >
+            <h2
+              className="text-2xl font-bold text-center mb-6"
+              style={{ color: 'var(--foreground)' }}
+            >
               🛠️ Built With Modern Technology
             </h2>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
               {aboutTechStack.map((tech, index) => (
                 <div key={index} className="text-center">
                   <div className="flex flex-column align-items-center gap-2">
-                    <div className="w-3rem h-3rem bg-white dark:bg-gray-800 border-round-xl flex align-items-center justify-content-center shadow-sm">
-                      <i className={`${tech.icon} text-lg ${tech.color}`}></i>
+                    <div
+                      className="w-3rem h-3rem border-round-xl flex align-items-center justify-content-center glass-card"
+                      style={{
+                        background: 'var(--glass-bg)',
+                        backdropFilter: 'blur(25px) saturate(180%)',
+                        border: '1px solid var(--glass-border)',
+                      }}
+                    >
+                      <i
+                        className={`${tech.icon} text-lg`}
+                        style={{ color: 'var(--warm-gold)' }}
+                      ></i>
                     </div>
-                    <span className="text-sm font-medium">{tech.name}</span>
+                    <span className="text-sm font-medium" style={{ color: 'var(--foreground)' }}>
+                      {tech.name}
+                    </span>
                   </div>
                 </div>
               ))}
@@ -60,11 +115,19 @@ export default function About() {
 
         {/* CTA Section */}
         <div className="text-center">
-          <Card className="glass-card max-w-2xl mx-auto">
-            <h2 className="text-2xl font-bold mb-4 text-white">
+          <Card
+            className="glass-card max-w-2xl mx-auto"
+            style={{
+              background: 'var(--glass-bg)',
+              backdropFilter: 'blur(25px) saturate(180%)',
+              border: '1px solid var(--glass-border)',
+              color: 'var(--foreground)',
+            }}
+          >
+            <h2 className="text-2xl font-bold mb-4" style={{ color: 'var(--foreground)' }}>
               Ready to Transform Your Daily Routine?
             </h2>
-            <p className="text-white/90 mb-6">
+            <p className="mb-6" style={{ color: 'var(--foreground)', opacity: 0.9 }}>
               Start your journey with Life Forge today and discover the magic of mindful daily
               tracking.
             </p>
@@ -75,6 +138,11 @@ export default function About() {
                 size="large"
                 severity="info"
                 className="font-semibold"
+                style={{
+                  background: 'var(--warm-gold)',
+                  borderColor: 'var(--warm-gold)',
+                  color: 'var(--background)',
+                }}
               />
             </Link>
           </Card>
@@ -82,9 +150,9 @@ export default function About() {
       </main>
 
       {/* Footer */}
-      <footer className="mt-12 py-8 border-t border-gray-200/50 dark:border-gray-700/50">
+      <footer className="mt-12 py-8 border-t" style={{ borderColor: 'var(--glass-border)' }}>
         <div className="container mx-auto px-4 text-center">
-          <p className="text-sm text-white/70 m-0">
+          <p className="text-sm m-0" style={{ color: 'var(--foreground)', opacity: 0.7 }}>
             Made with ❤️ and a touch of magic by Kyle Dilbeck
           </p>
         </div>

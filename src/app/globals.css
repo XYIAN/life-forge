@@ -553,19 +553,19 @@ textarea:focus-visible {
 
 .dark {
   --background: oklch(0.129 0.042 264.695);
-  --foreground: oklch(0.984 0.003 247.858);
+  --foreground: #ffffff;
   --card: oklch(0.208 0.042 265.755);
-  --card-foreground: oklch(0.984 0.003 247.858);
+  --card-foreground: #ffffff;
   --popover: oklch(0.208 0.042 265.755);
-  --popover-foreground: oklch(0.984 0.003 247.858);
+  --popover-foreground: #ffffff;
   --primary: oklch(0.929 0.013 255.508);
   --primary-foreground: oklch(0.208 0.042 265.755);
   --secondary: oklch(0.279 0.041 260.031);
-  --secondary-foreground: oklch(0.984 0.003 247.858);
+  --secondary-foreground: #ffffff;
   --muted: oklch(0.279 0.041 260.031);
-  --muted-foreground: oklch(0.704 0.04 256.788);
+  --muted-foreground: #b3b3b3;
   --accent: oklch(0.279 0.041 260.031);
-  --accent-foreground: oklch(0.984 0.003 247.858);
+  --accent-foreground: #ffffff;
   --destructive: oklch(0.704 0.191 22.216);
   --border: oklch(1 0 0 / 10%);
   --input: oklch(1 0 0 / 15%);
@@ -576,11 +576,11 @@ textarea:focus-visible {
   --chart-4: oklch(0.627 0.265 303.9);
   --chart-5: oklch(0.645 0.246 16.439);
   --sidebar: oklch(0.208 0.042 265.755);
-  --sidebar-foreground: oklch(0.984 0.003 247.858);
+  --sidebar-foreground: #ffffff;
   --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.984 0.003 247.858);
+  --sidebar-primary-foreground: #ffffff;
   --sidebar-accent: oklch(0.279 0.041 260.031);
-  --sidebar-accent-foreground: oklch(0.984 0.003 247.858);
+  --sidebar-accent-foreground: #ffffff;
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.551 0.027 264.364);
 }
@@ -591,6 +591,36 @@ textarea:focus-visible {
   }
   body {
     @apply bg-background text-foreground;
+  }
+
+  /* Force white text in dark mode for entire app */
+  .dark *,
+  .dark-mode * {
+    color: #ffffff !important;
+  }
+
+  /* Allow specific elements to override */
+  .dark .text-warm-gold,
+  .dark .text-blue-500,
+  .dark .text-green-500,
+  .dark .text-red-500,
+  .dark .text-yellow-500,
+  .dark .text-purple-500,
+  .dark .text-pink-500,
+  .dark .text-orange-500,
+  .dark .text-cyan-500,
+  .dark .text-indigo-500,
+  .dark-mode .text-warm-gold,
+  .dark-mode .text-blue-500,
+  .dark-mode .text-green-500,
+  .dark-mode .text-red-500,
+  .dark-mode .text-yellow-500,
+  .dark-mode .text-purple-500,
+  .dark-mode .text-pink-500,
+  .dark-mode .text-orange-500,
+  .dark-mode .text-cyan-500,
+  .dark-mode .text-indigo-500 {
+    color: inherit !important;
   }
 }
 
@@ -830,4 +860,163 @@ textarea:focus-visible {
 .dark-mode .theme-switcher-button:hover {
   background: rgba(255, 255, 255, 0.1) !important;
   border-color: var(--warm-gold) !important;
+}
+
+/* Dashboard Text Visibility - Ensure white text in dark mode */
+.dark .dashboard,
+.dark .dashboard *,
+.dark-mode .dashboard,
+.dark-mode .dashboard * {
+  color: #ffffff !important;
+}
+
+.dark .dashboard h1,
+.dark .dashboard h2,
+.dark .dashboard h3,
+.dark .dashboard h4,
+.dark .dashboard h5,
+.dark .dashboard h6,
+.dark-mode .dashboard h1,
+.dark-mode .dashboard h2,
+.dark-mode .dashboard h3,
+.dark-mode .dashboard h4,
+.dark-mode .dashboard h5,
+.dark-mode .dashboard h6 {
+  color: #ffffff !important;
+}
+
+.dark .dashboard p,
+.dark .dashboard span,
+.dark .dashboard div,
+.dark-mode .dashboard p,
+.dark-mode .dashboard span,
+.dark-mode .dashboard div {
+  color: #ffffff !important;
+}
+
+.dark .dashboard .glass-card,
+.dark .dashboard .glass-card *,
+.dark-mode .dashboard .glass-card,
+.dark-mode .dashboard .glass-card * {
+  color: #ffffff !important;
+}
+
+.dark .dashboard .panel-card,
+.dark .dashboard .panel-card *,
+.dark-mode .dashboard .panel-card,
+.dark-mode .dashboard .panel-card * {
+  color: #ffffff !important;
+}
+
+/* Ensure PrimeReact components have white text */
+.dark .dashboard .p-card,
+.dark .dashboard .p-card *,
+.dark-mode .dashboard .p-card,
+.dark-mode .dashboard .p-card * {
+  color: #ffffff !important;
+}
+
+.dark .dashboard .p-dialog,
+.dark .dashboard .p-dialog *,
+.dark-mode .dashboard .p-dialog,
+.dark-mode .dashboard .p-dialog * {
+  color: #ffffff !important;
+}
+
+.dark .dashboard .p-button,
+.dark-mode .dashboard .p-button {
+  color: #ffffff !important;
+}
+
+.dark .dashboard .p-inputtext,
+.dark-mode .dashboard .p-inputtext {
+  color: #ffffff !important;
+  background: rgba(255, 255, 255, 0.1) !important;
+}
+
+.dark .dashboard .p-dropdown,
+.dark-mode .dashboard .p-dropdown {
+  color: #ffffff !important;
+}
+
+.dark .dashboard .p-dropdown-label,
+.dark-mode .dashboard .p-dropdown-label {
+  color: #ffffff !important;
+}
+
+.dark .dashboard .p-calendar input,
+.dark-mode .dashboard .p-calendar input {
+  color: #ffffff !important;
+}
+
+.dark .dashboard .p-progressbar,
+.dark-mode .dashboard .p-progressbar {
+  color: #ffffff !important;
+}
+
+.dark .dashboard .p-datatable,
+.dark-mode .dashboard .p-datatable {
+  color: #ffffff !important;
+}
+
+.dark .dashboard .p-datatable th,
+.dark .dashboard .p-datatable td,
+.dark-mode .dashboard .p-datatable th,
+.dark-mode .dashboard .p-datatable td {
+  color: #ffffff !important;
+}
+
+.dark .dashboard .p-tag,
+.dark-mode .dashboard .p-tag {
+  color: #ffffff !important;
+}
+
+.dark .dashboard .p-badge,
+.dark-mode .dashboard .p-badge {
+  color: #ffffff !important;
+}
+
+/* Override any opacity issues */
+.dark .dashboard [style*='opacity'],
+.dark-mode .dashboard [style*='opacity'] {
+  color: #ffffff !important;
+}
+
+.dark .dashboard [style*='var(--foreground)'],
+.dark-mode .dashboard [style*='var(--foreground)'] {
+  color: #ffffff !important;
+}
+
+/* Force white text for all text elements in dashboard */
+.dark .dashboard .text-gray-900,
+.dark .dashboard .text-gray-800,
+.dark .dashboard .text-gray-700,
+.dark .dashboard .text-gray-600,
+.dark .dashboard .text-gray-500,
+.dark .dashboard .text-gray-400,
+.dark .dashboard .text-gray-300,
+.dark .dashboard .text-gray-200,
+.dark .dashboard .text-gray-100,
+.dark-mode .dashboard .text-gray-900,
+.dark-mode .dashboard .text-gray-800,
+.dark-mode .dashboard .text-gray-700,
+.dark-mode .dashboard .text-gray-600,
+.dark-mode .dashboard .text-gray-500,
+.dark-mode .dashboard .text-gray-400,
+.dark-mode .dashboard .text-gray-300,
+.dark-mode .dashboard .text-gray-200,
+.dark-mode .dashboard .text-gray-100 {
+  color: #ffffff !important;
+}
+
+/* Override any inline styles that might be setting black text */
+.dark .dashboard [style*='color: black'],
+.dark .dashboard [style*='color: #000'],
+.dark .dashboard [style*='color: rgb(0, 0, 0)'],
+.dark .dashboard [style*='color: rgba(0, 0, 0'],
+.dark-mode .dashboard [style*='color: black'],
+.dark-mode .dashboard [style*='color: #000'],
+.dark-mode .dashboard [style*='color: rgb(0, 0, 0)'],
+.dark-mode .dashboard [style*='color: rgba(0, 0, 0'] {
+  color: #ffffff !important;
 }

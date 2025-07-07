@@ -39,8 +39,18 @@ export const PhilosophySection: React.FC<PhilosophySectionProps> = ({
 }) => {
   return (
     <div className="mb-12">
-      <Card className="glass-card text-center">
-        <h2 className="text-2xl font-bold mb-6 text-white">🌟 Development Philosophy</h2>
+      <Card
+        className="glass-card text-center"
+        style={{
+          background: 'var(--glass-bg)',
+          backdropFilter: 'blur(25px) saturate(180%)',
+          border: '1px solid var(--glass-border)',
+          color: 'var(--foreground)',
+        }}
+      >
+        <h2 className="text-2xl font-bold mb-6" style={{ color: 'var(--foreground)' }}>
+          🌟 Development Philosophy
+        </h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {items.map((item, index) => (
             <div key={index} className="flex flex-column align-items-center gap-3">
@@ -48,9 +58,17 @@ export const PhilosophySection: React.FC<PhilosophySectionProps> = ({
                 value={item.number.toString()}
                 severity={item.severity}
                 className="w-2rem h-2rem text-lg font-bold"
+                style={{
+                  background: 'var(--warm-gold)',
+                  color: 'var(--background)',
+                }}
               />
-              <h3 className="text-lg font-semibold m-0">{item.title}</h3>
-              <p className="text-sm text-white/80 m-0">{item.description}</p>
+              <h3 className="text-lg font-semibold m-0" style={{ color: 'var(--foreground)' }}>
+                {item.title}
+              </h3>
+              <p className="text-sm m-0" style={{ color: 'var(--foreground)', opacity: 0.8 }}>
+                {item.description}
+              </p>
             </div>
           ))}
         </div>

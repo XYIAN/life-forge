@@ -5,6 +5,56 @@ All notable changes to Life Forge will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.2.1] - 2024-12-19
+
+### 🎨 **About Page Theme Integration**
+
+This update completely overhauls the about page theming to align with the application's dynamic theme system, ensuring all icons and components properly change with theme switches.
+
+### Enhanced
+
+- **About Page Theming**: Complete theme integration for all about page components
+  - **Feature Icons**: All feature icons now use `var(--warm-gold)` for consistent theming
+  - **Tech Stack Icons**: Technology icons updated to use theme-aware colors
+  - **Card Backgrounds**: All cards now use glassmorphism styling with `var(--glass-bg)`
+  - **Text Colors**: All text now uses `var(--foreground)` for proper theme adaptation
+  - **Button Styling**: CTA buttons use `var(--warm-gold)` background with proper contrast
+- **AboutHeroSection**: Updated hero section with theme-aware styling
+  - **Icon Container**: Replaced gradient background with glassmorphism styling
+  - **Text Colors**: Title and description now use theme variables
+  - **Visual Consistency**: Maintains glassmorphism design language
+- **CreatorSection**: Enhanced creator section theming
+  - **Profile Icon**: User icon now uses `var(--warm-gold)` color
+  - **Social Buttons**: All social media buttons use consistent warm gold styling
+  - **Card Background**: Applied glassmorphism styling with proper borders
+- **PhilosophySection**: Updated philosophy badges and text theming
+  - **Number Badges**: Badges now use `var(--warm-gold)` background
+  - **Text Colors**: All philosophy text uses theme-aware colors
+  - **Visual Hierarchy**: Maintained proper contrast and readability
+
+### Fixed
+
+- **Hardcoded Colors**: Removed all hardcoded color classes that don't adapt to themes
+  - **Blue/Purple Gradients**: Replaced with glassmorphism backgrounds
+  - **White Text**: Updated to use `var(--foreground)` for proper theme switching
+  - **Icon Colors**: Eliminated hardcoded blue, purple, and other static colors
+- **Theme Consistency**: All about page elements now properly change with theme
+- **Visual Cohesion**: About page now matches dashboard and main app theming
+
+### Technical
+
+- **CSS Variables**: Complete migration to CSS custom properties for about page
+- **Component Architecture**: Improved about page component styling structure
+- **Theme Integration**: Seamless integration with existing theme system
+- **Code Quality**: Maintained TypeScript safety and component organization
+
+### User Experience
+
+- **Consistent Theming**: About page now properly adapts to light/dark mode changes
+- **Visual Harmony**: All icons and elements maintain consistent styling across themes
+- **Professional Appearance**: Glassmorphism design language applied throughout
+- **Better Accessibility**: Improved contrast and readability in all theme modes
+
 ## [1.2.0] - 2024-12-19
 
 ### 🎨 **Button Theming & Background Improvements**
